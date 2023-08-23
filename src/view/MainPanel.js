@@ -1,24 +1,25 @@
-import { useEffect } from "react";
-import secureLocalStorage from "react-secure-storage";
+import "../styles.css";
+import { Routes, Route } from "react-router-dom";
+import { useContext } from "react";
+import Sidebar from "./sidebar/Sidebar";
+import Home from "../pages/Home";
+import AdminPanel from "../pages/AdminPanel";
+import SorguPanel from "../pages/sorgu/SorguPanel";
+import { SideBarContext } from "../util/context/Context.js";
 
 const MainPanel = () => {
-  useEffect(() => {
-    secureLocalStorage.setItem("object", {
-      message: "This is testing of local storage"
-    });
-    secureLocalStorage.setItem("number", 12);
-    secureLocalStorage.setItem("string", "12");
-    secureLocalStorage.setItem("boolean", true);
-    let value = secureLocalStorage.getItem("boolean");
-  }, []);
-
-  function handleClick() {
-    alert("this is:" + secureLocalStorage.getItem("number"));
-  }
+  const { visible } = useContext(SideBarContext);
 
   return (
-    <div>
-      <button onClick={handleClick}>Show Secure Storage</button>
+    <div className="App">
+      {visible ? <Sidebar /> : null}
+      <main>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/admin" element={<AdminPanel />} />
+          <Route path="/Sorgu" element={<SorguPanel />} />
+        </Routes>
+      </main>
     </div>
   );
 };

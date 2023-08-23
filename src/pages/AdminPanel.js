@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import secureLocalStorage from "react-secure-storage";
 import { useContext } from "react";
-import { SideBarContext } from "../context/Context.js";
+import { SideBarContext } from "../util/context/Context.js";
 
 const AdminPanel = () => {
   const { open } = useContext(SideBarContext);

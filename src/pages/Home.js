@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import secureLocalStorage from "react-secure-storage";
 import { useContext } from "react";
-import { SideBarContext } from "../context/Context.js";
+import { SideBarContext } from "../util/context/Context.js";
 
 const Home = () => {
   const { open } = useContext(SideBarContext);
@@ -9,7 +9,7 @@ const Home = () => {
 
   useEffect(() => {
     secureLocalStorage.setItem("object", {
-      message: "This is testing of local storage"
+      message: "This is testing of local storage",
     });
     secureLocalStorage.setItem("number", 12);
     secureLocalStorage.setItem("string", "12");

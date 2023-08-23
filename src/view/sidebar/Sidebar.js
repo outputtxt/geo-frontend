@@ -1,13 +1,12 @@
-// In Sidenav.js
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import { useContext } from "react";
 import { NavLink } from "react-router-dom";
-import { navData } from "../lib/navData";
-import styles from "./sidenav.module.css";
-import { SideBarContext } from "../context/Context.js";
+import { sidebarData } from "./sidebarData";
+import styles from "./sidebar.module.css";
+import { SideBarContext } from "../../util/context/Context.js";
 
-const Sidenav = () => {
+const Sidebar = () => {
   const { open, setOpen } = useContext(SideBarContext);
 
   const toggleOpen = () => {
@@ -23,7 +22,7 @@ const Sidenav = () => {
           <KeyboardDoubleArrowRightIcon />
         )}
       </button>
-      {navData.map((item) => {
+      {sidebarData.map((item) => {
         return (
           <NavLink key={item.id} className={styles.sideitem} to={item.link}>
             {item.icon}
@@ -37,4 +36,4 @@ const Sidenav = () => {
   );
 };
 
-export default Sidenav;
+export default Sidebar;

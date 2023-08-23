@@ -5,6 +5,7 @@ import "./App.css";
 import Sidenav from "./components/Sidenav";
 import Explore from "./pages/Explore";
 import Home from "./pages/Home";
+import AdminPanel from "./pages/AdminPanel";
 import { SideBarContext } from "./context/Context.js";
 
 export default function App() {
@@ -15,6 +16,7 @@ export default function App() {
       {visible ? <Sidenav /> : null}
       <main>
         <Routes>
+          <Route path="/admin" element={<AdminPanel />} />
           <Route path="/" element={<Home />} />
           <Route path="/explore" element={<Explore />} />
         </Routes>

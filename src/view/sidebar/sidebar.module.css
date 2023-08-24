@@ -2,7 +2,7 @@
   width: 150px;
   transition: width 0.3s ease-in-out;
   height: 100vh;
-  background-color: rgb(26, 84, 146);
+  background-color: var(--background-color-1);
   padding-top: 28px;
 }
 
@@ -31,7 +31,7 @@
 }
 
 .sideitem:hover {
-  background-color: #244f7d1c;
+  background-color: var(--background-color-3);
 }
 
 .menuBtn {

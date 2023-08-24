@@ -1,7 +1,34 @@
+import SorguMenu from "./menu/SorguMenu";
+import "./sorguPanel.css";
+
 export default function SorguPanel() {
   return (
-    <div>
-      <h2>Sorgu Panel 2</h2>
+    <div
+      id="container"
+      style={{
+        display: "flex",
+        margin: 0,
+        padding: 0,
+      }}
+    >
+      <div
+        id="left"
+        style={{
+          display: "flex",
+        }}
+      >
+        <SorguMenu />
+      </div>
+      <div id="right">
+        <div id="top">
+          <h2>Sorgu Panel BAR</h2>
+        </div>
+        <div id="bottom">
+          <br />
+          <br />
+          <br /> content
+        </div>
+      </div>
     </div>
   );
 }

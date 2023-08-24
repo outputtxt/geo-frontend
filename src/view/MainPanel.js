@@ -1,4 +1,4 @@
-import "../styles.css";
+import "../App.css";
 import { Routes, Route } from "react-router-dom";
 import { useContext } from "react";
 import Sidebar from "./sidebar/Sidebar";

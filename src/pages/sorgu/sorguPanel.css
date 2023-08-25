@@ -22,12 +22,35 @@
 #top {
   width: 100%!;
   height: 40px;
-  background-color: #db11a9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--background-color-1);
+  color: white;
+  font-weight: lighter;
 }
 
 #bottom {
   width: 100%!;
   height: 100%!;
   min-height: 100vh;
-  background-color: #1114db;
+  background-color: var(--background-color-1);
+}
+
+.menuBtn {
+  align-self: right;
+  align-self: flex-start;
+  justify-self: flex-end;
+  color: #b2bac2;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  margin-right: 4px;
+}
+
+.baslik {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }

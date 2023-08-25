@@ -2,6 +2,7 @@ import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrow
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import { useState } from "react";
 import SorguMenu from "./menu/SorguMenu";
+import HaritaPanel from "./harita/HaritaPanel";
 import "./sorguPanel.css";
 
 const SorguPanel = () => {
@@ -16,34 +17,49 @@ const SorguPanel = () => {
   return (
     <div
       id="container"
-      style={{ borderLeft: "1px solid white", borderright: "1px solid white" }}
+      style={{
+        display: "flex",
+        margin: 0,
+        padding: 0,
+      }}
     >
-      <div id="top" style={{ width: open ? openWidth : closedWidth }}>
-        <table width={"100%"}>
-          <thead>
-            <tr>
-              {open && (
-                <th width="90%" style={{ width: "90%", paddingLeft: "60px" }}>
-                  Sorgu Panel
+      <div
+        id="container"
+        style={{
+          borderLeft: "1px solid white",
+          borderRight: "1px solid white",
+        }}
+      >
+        <div id="top" style={{ width: open ? openWidth : closedWidth }}>
+          <table width={"100%"}>
+            <thead>
+              <tr>
+                {open && (
+                  <th width="90%" style={{ width: "90%", paddingLeft: "60px" }}>
+                    Sorgu Panel
+                  </th>
+                )}
+
+                <th width="10%">
+                  {" "}
+                  <button onClick={toggleOpen} className="menuBtn">
+                    {open ? (
+                      <KeyboardDoubleArrowLeftIcon />
+                    ) : (
+                      <KeyboardDoubleArrowRightIcon />
+                    )}
+                  </button>
                 </th>
-              )}
+              </tr>
+            </thead>
+          </table>
+        </div>
 
-              <th width="10%">
-                {" "}
-                <button onClick={toggleOpen} className="menuBtn">
-                  {open ? (
-                    <KeyboardDoubleArrowLeftIcon />
-                  ) : (
-                    <KeyboardDoubleArrowRightIcon />
-                  )}
-                </button>
-              </th>
-            </tr>
-          </thead>
-        </table>
+        <div>{open ? <SorguMenu /> : <div id="bottom" />}</div>
       </div>
-
-      <div>{open ? <SorguMenu /> : <div id="bottom" />}</div>
+      <div id="right">
+        <HaritaPanel fullScreen={open} selectedSorgu={5} />
+      </div>
     </div>
   );
 };

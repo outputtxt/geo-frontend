@@ -1,0 +1,35 @@
+.container {
+  display: flex;
+  height: 100vh;
+  min-width: 100vh;
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-self: stretch;
+  background-color: #f5fcff;
+  border: 10px solid red;
+}
+
+.header {
+  height: 40px;
+  width: 100%;
+  min-width: 100vh;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  border: 10px solid yellow;
+}
+
+.map {
+  flex: 1;
+  width: 100%;
+  border: 10px solid orange;
+  overflow: hidden;
+}
+
+.content {
+}
+
+.content-hidden {
+}

@@ -1,5 +1,6 @@
 .sidenav {
   width: 150px;
+  min-width: 150px;
   transition: width 0.3s ease-in-out;
   height: 100vh;
   background-color: var(--background-color-1);
@@ -10,6 +11,7 @@
   composes: sidenav;
   transition: width 0.3s ease-in-out;
   width: 40px;
+  min-width: 40px;
 }
 
 .sideitem {

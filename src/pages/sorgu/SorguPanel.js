@@ -57,9 +57,7 @@ const SorguPanel = () => {
 
         <div>{open ? <SorguMenu /> : <div id="bottom" />}</div>
       </div>
-      <div id="right">
-        <HaritaPanel fullScreen={open} selectedSorgu={5} />
-      </div>
+      <HaritaPanel selectedSorgu={5} />
     </div>
   );
 };

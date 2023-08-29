@@ -30,7 +30,7 @@ const AdminPanel = () => {
         annoying consequences
       </div>
       <div className="header">
-        <div className="left">Başlık 2</div>
+        <div className="header-left">Başlık 2</div>
         <div className="header-right">
           <button className="button-36" onClick={toggleOpen}>
             {open ? (

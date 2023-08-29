@@ -8,6 +8,7 @@ html {
   font-family: sans-serif;
   text-align: center;
   display: flex;
+  flex: 1;
 }
 
 main {
@@ -15,4 +16,11 @@ main {
 
 * {
   box-sizing: border-box;
+}
+
+.full-page {
+  width: 100%;
+  min-width: 100vh;
+  height: 100%;
+  min-height: 100vh;
 }

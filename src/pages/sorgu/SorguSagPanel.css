@@ -108,14 +108,16 @@
 }
 
 .select-button-on {
-  margin-left: 15px;
-
+  margin-left: 10px;
+  /* background-color: transparent;
+  border: none; */
   color: green;
 }
 .select-button-off {
-  margin-left: 15px;
-
-  color: var(--background-color-3);
+  margin-left: 10px;
+  /*background-color: transparent;
+  border: none;*/
+  color: var(--background-color-5);
 }
 
 .select-button-off:hover {

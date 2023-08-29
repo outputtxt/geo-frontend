@@ -23,12 +23,7 @@ const Leaflet = ({ width, height, draggable }) => {
   }, [map]);
 
   useEffect(() => {
-    console.log(draggable);
-
     if (map != null) {
-      console.log(map);
-      console.log(map.dragging);
-
       if (draggable) {
         map.dragging.enable();
       } else {

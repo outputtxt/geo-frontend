@@ -3,8 +3,12 @@ import KeyboardDoubleArrowUpIcon from "@mui/icons-material/KeyboardDoubleArrowUp
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
 import MenuIcon from "@mui/icons-material/Menu";
 import PanToolIcon from "@mui/icons-material/PanTool";
+import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import Leaflet from "./leaflet/Leaflet";
 import ContainerDimensions from "react-container-dimensions";
+import html2canvas from "html2canvas";
+import domtoimage from "dom-to-image";
+import { jsPDF } from "jspdf";
 import "./SorguSagPanel.css";
 
 const SorguSagPanel = ({ sorguMenuOpen, setSorguMenuOpen }) => {
@@ -23,6 +27,26 @@ const SorguSagPanel = ({ sorguMenuOpen, setSorguMenuOpen }) => {
     setDraggable(!draggable);
   };
 
+  const exportPDF = () => {
+    console.log("EXPORT PDF CLİCKED");
+    const input = document.getElementById("harita").children[0];
+
+    //  html2canvas(document.getElementById("harita")).then((canvas) => {
+    //   const imgData = canvas.toDataURL("image/png");
+    //   const pdf = new jsPDF({ orientation: "landscape" });
+    //   pdf.addImage(imgData, "JPEG", 0, 0);
+    //pdf.output("dataurlnewwindow");
+    //    pdf.save("download.pdf");
+    //  });
+    domtoimage.toPng(input).then((dataUrl) => {
+      //Initialize JSPDF
+      const doc = new jsPDF("p", "mm", "a4");
+      //Add image Url to PDF
+      doc.addImage(dataUrl, "PNG", 0, 0, 210, 340);
+      doc.save("pdfDocument.pdf");
+    });
+  };
+
   return (
     <div className="sorgu-sag-container">
       <div className="sorgu-sag-header">
@@ -39,8 +63,15 @@ const SorguSagPanel = ({ sorguMenuOpen, setSorguMenuOpen }) => {
         >
           <PanToolIcon />
         </button>
+        <button
+          onClick={exportPDF}
+          title={"PDF Oluştur"}
+          style={{ marginLeft: "10px" }}
+        >
+          <PictureAsPdfIcon style={{ color: "red" }} />
+        </button>
       </div>
-      <div className="sorgu-sag-map">
+      <div className="sorgu-sag-map" id="harita">
         <ContainerDimensions>
           {({ height, width }) => (
             <Leaflet height={height} width={width} draggable={draggable} />

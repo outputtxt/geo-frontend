@@ -22,6 +22,21 @@ const Leaflet = ({ width, height, draggable }) => {
     }
   }, [map]);
 
+  useEffect(() => {
+    console.log(draggable);
+
+    if (map != null) {
+      console.log(map);
+      console.log(map.dragging);
+
+      if (draggable) {
+        map.dragging.enable();
+      } else {
+        map.dragging.disable();
+      }
+    }
+  }, [draggable]);
+
   return (
     <div className="leaflet-container">
       <MapContainer
@@ -31,7 +46,6 @@ const Leaflet = ({ width, height, draggable }) => {
         scrollWheelZoom={true}
         attributionControl={false}
         zoomControl={false}
-        dragging={draggable}
       >
         {layer ? (
           <WMSTileLayer

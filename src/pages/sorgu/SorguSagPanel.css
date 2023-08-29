@@ -109,23 +109,15 @@
 
 .select-button-on {
   margin-left: 15px;
-  background-color: GREEN;
-  border-bottom: #666666 1px solid;
-  border-left: #666666 1px solid;
-  border-right: #666666 1px solid;
-  border-top: #666666 1px solid;
-  color: #ffffff;
-  font: 11px Verdana, Arial, Helvetica, sans-serif;
-  font-weight: bold;
+
+  color: green;
 }
 .select-button-off {
   margin-left: 15px;
-  background-color: #ffffff;
-  border-bottom: #666666 1px solid;
-  border-left: #666666 1px solid;
-  border-right: #666666 1px solid;
-  border-top: #666666 1px solid;
-  color: grey;
-  font: 11px Verdana, Arial, Helvetica, sans-serif;
-  font-weight: bold;
+
+  color: var(--background-color-3);
+}
+
+.select-button-off:hover {
+  color: green;
 }

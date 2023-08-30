@@ -1,14 +1,14 @@
 import { useEffect } from "react";
 import Collapsible from "../../../components/Collapsible";
 import Leaflet from "./leaflet/Leaflet";
-import ContainerDimensions from "react-container-dimensions";
 
 const HaritaPanel = ({ selectedSorgu }) => {
   return (
     <div style={{ border: "100px", borderColor: "red" }}>
-      <ContainerDimensions>
+     {/* <ContainerDimensions>
         {({ height, width }) => <Leaflet height={height} width={width} />}
-      </ContainerDimensions>
+      </ContainerDimensions>*/}
+      <Leaflet />
 
       <Collapsible label="Introduction">
         <h1>Goals</h1>

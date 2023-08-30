@@ -5,7 +5,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import PanToolIcon from "@mui/icons-material/PanTool";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import Leaflet from "./leaflet/Leaflet";
-import ContainerDimensions from "react-container-dimensions";
+import ReactResizeDetector from 'react-resize-detector';
 import html2canvas from "html2canvas";
 import domtoimage from "dom-to-image";
 import { jsPDF } from "jspdf";
@@ -71,13 +71,13 @@ const SorguSagPanel = ({ sorguMenuOpen, setSorguMenuOpen }) => {
           <PictureAsPdfIcon style={{ color: "red" }} />
         </button>
       </div>
-      <div className="sorgu-sag-map" id="harita">
-        <ContainerDimensions>
-          {({ height, width }) => (
-            <Leaflet height={height} width={width} draggable={draggable} />
-          )}
-        </ContainerDimensions>
-      </div>
+      <ReactResizeDetector handleWidth handleHeight>
+        {({ height, width, targetRef }) => (
+        <div className="sorgu-sag-map" id="harita" ref={targetRef}>
+            <Leaflet height={height} width={width} draggable={draggable} /> 
+        </div>
+        )}
+      </ReactResizeDetector>
       <div className="sorgu-sag-header" style={{ height: "30px" }}>
         <div className="sorgu-sag-header-left">Başlık 2</div>
         <div className="sorgu-sag-header-right">

@@ -1,5 +1,6 @@
-import { useState, useEffect, useRef } from "react";
-import { MapContainer, TileLayer, useMap, Marker, Popup } from "react-leaflet";
+import { useState, useEffect } from "react";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import MapController from "./MapController";
 import "leaflet/dist/leaflet.css";
 import "./Leaflet.css";
 
@@ -9,28 +10,11 @@ const Leaflet = ({ width, height, draggable }) => {
   const [map, setMap] = useState(null);
 
   useEffect(() => {
-    //console.log("Height: " + props.height + ", Width: " + props.width);
     if (map != null) {
-      map.invalidateSize();
-    }
-  }, [height, width]);
-
-  useEffect(() => {
-    if (map != null) {
-      console.log(map);
+      //console.log(map);
       //map.setZoom(map.getZoom() + 1);
     }
   }, [map]);
-
-  useEffect(() => {
-    if (map != null) {
-      if (draggable) {
-        map.dragging.enable();
-      } else {
-        map.dragging.disable();
-      }
-    }
-  }, [draggable]);
 
   return (
     <div className="leaflet-container">
@@ -41,6 +25,7 @@ const Leaflet = ({ width, height, draggable }) => {
         scrollWheelZoom={true}
         attributionControl={false}
         zoomControl={false}
+        preferCanvas={true}
       >
         {layer ? (
           <WMSTileLayer
@@ -59,6 +44,8 @@ const Leaflet = ({ width, height, draggable }) => {
           </Popup>
         </Marker>
         */}
+
+        <MapController width={width} height={height} draggable={draggable}/>
       </MapContainer>
     </div>
   );

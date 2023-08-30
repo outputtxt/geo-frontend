@@ -6,10 +6,14 @@ import PanToolIcon from "@mui/icons-material/PanTool";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import Leaflet from "./leaflet/Leaflet";
 import ReactResizeDetector from 'react-resize-detector';
-import html2canvas from "html2canvas";
 import domtoimage from "dom-to-image";
 import { jsPDF } from "jspdf";
+
+import MapController from "./leaflet/MapController";
+
+import { useMap } from 'react-leaflet';
 import "./SorguSagPanel.css";
+import html2canvas from "html2canvas";
 
 const SorguSagPanel = ({ sorguMenuOpen, setSorguMenuOpen }) => {
   const [open, setOpen] = useState(true);
@@ -31,6 +35,51 @@ const SorguSagPanel = ({ sorguMenuOpen, setSorguMenuOpen }) => {
     console.log("EXPORT PDF CLİCKED");
     const input = document.getElementById("harita").children[0];
 
+    html2canvas(input, {
+      allowTaint: true,
+      useCORS: true,
+      onrendered: function(canvas) {
+        document.body.appendChild(canvas);
+      }
+    }).then((canvas) => {
+      const data = canvas.toDataURL('image/jpg');
+      const link = document.createElement('a');
+  
+      if (typeof link.download === 'string') {
+        link.href = data;
+        link.download = 'image.jpg';
+  
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      } else {
+        window.open(data);
+      }
+    });
+
+    
+
+    //MapController().zoomIn(5);
+
+    // console.log(useMap())
+    // console.log(useMap().toPng());
+    
+    // domtoimage.toPng(useMap(), { width, height }).then((dataUrl) => {
+    //   domtoimage.toBlob(mapElement, { width, height }).then((blob) => {
+    //     saveAs(blob, 'map.png');
+    //   })
+    // });
+
+    // domtoimage.toPng(input)
+    // .then(function (dataUrl) {
+    //     var img = new Image();
+    //     img.src = dataUrl;
+    //     document.body.appendChild(img);
+    // })
+    // .catch(function (error) {
+    //     console.error('oops, something went wrong!', error);
+    // });
+
     //  html2canvas(document.getElementById("harita")).then((canvas) => {
     //   const imgData = canvas.toDataURL("image/png");
     //   const pdf = new jsPDF({ orientation: "landscape" });
@@ -38,13 +87,14 @@ const SorguSagPanel = ({ sorguMenuOpen, setSorguMenuOpen }) => {
     //pdf.output("dataurlnewwindow");
     //    pdf.save("download.pdf");
     //  });
-    domtoimage.toPng(input).then((dataUrl) => {
-      //Initialize JSPDF
-      const doc = new jsPDF("p", "mm", "a4");
-      //Add image Url to PDF
-      doc.addImage(dataUrl, "PNG", 0, 0, 210, 340);
-      doc.save("pdfDocument.pdf");
-    });
+
+    // domtoimage.toPng(input).then((dataUrl) => {
+    //   //Initialize JSPDF
+    //   const doc = new jsPDF("p", "mm", "a4");
+    //   //Add image Url to PDF
+    //   doc.addImage(dataUrl, "PNG", 0, 0, 210, 340);
+    //   doc.save("pdfDocument.pdf");
+    // });
   };
 
   return (

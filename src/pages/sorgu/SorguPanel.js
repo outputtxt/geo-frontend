@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./SorguPanel.css";
-import SorguSagPanel from "./SorguSagPanel";
+import SorguSagPanel from "./sag/SorguSagPanel";
 
 const sorguTipi = [
   {

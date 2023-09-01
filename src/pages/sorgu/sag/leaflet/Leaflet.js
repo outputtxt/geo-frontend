@@ -1,20 +1,23 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import MapController from "./MapController";
+import { MapContext } from "../../../../util/context/Context";
 import "leaflet/dist/leaflet.css";
 import "./Leaflet.css";
 
 const Leaflet = ({ width, height, draggable }) => {
   const [layer, setLayer] = useState(false);
   const position = [39.925018, 32.836956];
-  const [map, setMap] = useState(null);
+  // const [map, setMap] = useState(null);
 
-  useEffect(() => {
-    if (map != null) {
-      //console.log(map);
-      //map.setZoom(map.getZoom() + 1);
-    }
-  }, [map]);
+  // useEffect(() => {
+  //   if (map != null) {
+  //     //console.log(map);
+  //     //map.setZoom(map.getZoom() + 1);
+  //   }
+  // }, [map]);
+
+  const { setMap } = useContext(MapContext);
 
   return (
     <div className="leaflet-container">
@@ -45,7 +48,7 @@ const Leaflet = ({ width, height, draggable }) => {
         </Marker>
         */}
 
-        <MapController width={width} height={height} draggable={draggable}/>
+        <MapController width={width} height={height} draggable={draggable} />
       </MapContainer>
     </div>
   );

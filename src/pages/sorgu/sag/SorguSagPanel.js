@@ -1,19 +1,17 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import KeyboardDoubleArrowUpIcon from "@mui/icons-material/KeyboardDoubleArrowUp";
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
 import MenuIcon from "@mui/icons-material/Menu";
 import PanToolIcon from "@mui/icons-material/PanTool";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import Leaflet from "./leaflet/Leaflet";
-import ReactResizeDetector from 'react-resize-detector';
+import ReactResizeDetector from "react-resize-detector";
 import domtoimage from "dom-to-image";
 import { jsPDF } from "jspdf";
-
-import MapController from "./leaflet/MapController";
-
-import { useMap } from 'react-leaflet';
 import "./SorguSagPanel.css";
 import html2canvas from "html2canvas";
+import {changeDraggable} from "../../../service/MapService";
+//import {changeDraggable} from "./leaflet/MapController";
 
 const SorguSagPanel = ({ sorguMenuOpen, setSorguMenuOpen }) => {
   const [open, setOpen] = useState(true);
@@ -29,6 +27,7 @@ const SorguSagPanel = ({ sorguMenuOpen, setSorguMenuOpen }) => {
 
   const toggleDraggable = () => {
     setDraggable(!draggable);
+    changeDraggable(!draggable);
   };
 
   const exportPDF = () => {
@@ -38,17 +37,17 @@ const SorguSagPanel = ({ sorguMenuOpen, setSorguMenuOpen }) => {
     html2canvas(input, {
       allowTaint: true,
       useCORS: true,
-      onrendered: function(canvas) {
+      onrendered: function (canvas) {
         document.body.appendChild(canvas);
-      }
+      },
     }).then((canvas) => {
-      const data = canvas.toDataURL('image/jpg');
-      const link = document.createElement('a');
-  
-      if (typeof link.download === 'string') {
+      const data = canvas.toDataURL("image/jpg");
+      const link = document.createElement("a");
+
+      if (typeof link.download === "string") {
         link.href = data;
-        link.download = 'image.jpg';
-  
+        link.download = "image.jpg";
+
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -57,13 +56,11 @@ const SorguSagPanel = ({ sorguMenuOpen, setSorguMenuOpen }) => {
       }
     });
 
-    
-
     //MapController().zoomIn(5);
 
     // console.log(useMap())
     // console.log(useMap().toPng());
-    
+
     // domtoimage.toPng(useMap(), { width, height }).then((dataUrl) => {
     //   domtoimage.toBlob(mapElement, { width, height }).then((blob) => {
     //     saveAs(blob, 'map.png');
@@ -123,9 +120,9 @@ const SorguSagPanel = ({ sorguMenuOpen, setSorguMenuOpen }) => {
       </div>
       <ReactResizeDetector handleWidth handleHeight>
         {({ height, width, targetRef }) => (
-        <div className="sorgu-sag-map" id="harita" ref={targetRef}>
-            <Leaflet height={height} width={width} draggable={draggable} /> 
-        </div>
+          <div className="sorgu-sag-map" id="harita" ref={targetRef}>
+            <Leaflet height={height} width={width} draggable={draggable} />
+          </div>
         )}
       </ReactResizeDetector>
       <div className="sorgu-sag-header" style={{ height: "30px" }}>

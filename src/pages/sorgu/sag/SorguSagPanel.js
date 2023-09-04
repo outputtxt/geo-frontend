@@ -6,12 +6,11 @@ import PanToolIcon from "@mui/icons-material/PanTool";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import Leaflet from "./leaflet/Leaflet";
 import ReactResizeDetector from "react-resize-detector";
+import {changeDraggable} from "../../../service/MapService";
 import domtoimage from "dom-to-image";
 import { jsPDF } from "jspdf";
 import "./SorguSagPanel.css";
 import html2canvas from "html2canvas";
-import {changeDraggable} from "../../../service/MapService";
-//import {changeDraggable} from "./leaflet/MapController";
 
 const SorguSagPanel = ({ sorguMenuOpen, setSorguMenuOpen }) => {
   const [open, setOpen] = useState(true);

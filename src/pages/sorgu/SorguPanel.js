@@ -1,12 +1,22 @@
 import { useState } from "react";
 import "./SorguPanel.css";
 import SorguSagPanel from "./sag/SorguSagPanel";
+import SorguSolPanel from "./sol/SorguSolPanel";
 
-const sorguTipi = [
+export const SorguTipi = [
   {
     id: 1,
     name: "Konum",
-  },
+  }, {
+    id: 2,
+    name: "Bazlar",
+  }, {
+    id: 3,
+    name: "Koordinat",
+  }, {
+    id: 4,
+    name: "Kestirme",
+  }
 ];
 
 const SorguPanel = () => {
@@ -19,7 +29,7 @@ const SorguPanel = () => {
           sorguMenuOpen ? "sorgu-column-left" : "sorgu-column-left-hidden"
         }
       >
-        LEFT
+        <SorguSolPanel />
       </div>
       <div className="sorgu-column-right">
         <SorguSagPanel

@@ -17,7 +17,7 @@
 .sorgu-column-left {
   width: 350px;
   height: 100%;
-  border: 10px solid orange;
+  /*border: 10px solid orange;*/
 }
 
 .sorgu-column-left-hidden {

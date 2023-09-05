@@ -7,17 +7,24 @@
 }
 
 .sorgu-sol-tab {
+  height: 40px;
   font-size: 16px;
+  color: white;
   flex: 1;
   cursor: pointer;
-  opacity: 0.6;
-  background: white;
-  border: 1px solid orange;
+  opacity: 0.7;
+  background: var(--background-color-3);
+  border: 1px solid var(--background-color-1);
 }
 
-.sorgu-sol-tab:active {
-  border-bottom: 2px solid black;
+.sorgu-sol-tab-active {
+  border-bottom: 2px solid var(--aqua-1);
   opacity: 1;
+}
+
+.sorgu-sol-content {
+  padding-top: 10px;
+  border: 2px solid orange;
 }
 
 /* 

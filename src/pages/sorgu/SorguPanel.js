@@ -5,16 +5,16 @@ import SorguSolPanel from "./sol/SorguSolPanel";
 
 export const SorguTipi = [
   {
-    id: 1,
+    id: 0,
     name: "Konum",
   }, {
-    id: 2,
+    id: 1,
     name: "Bazlar",
   }, {
-    id: 3,
+    id: 2,
     name: "Koordinat",
   }, {
-    id: 4,
+    id: 3,
     name: "Kestirme",
   }
 ];

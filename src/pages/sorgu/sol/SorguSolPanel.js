@@ -11,6 +11,10 @@ const SorguSolPanel = () => {
     const [active, setActive] = useState(SorguTipi[0].name);
 
     const getSorguPanel = () => {
+      if(!active){
+        return (<p>Boş Sorgu Seçimi</p>);
+      }
+
       switch(active){
         case SorguTipi[0].name:
           return <KonumSorguPanel />;
@@ -38,7 +42,7 @@ const SorguSolPanel = () => {
           ))}
         </div>
         <div className="sorgu-sol-content">
-         { getSorguPanel() }
+          { getSorguPanel() }
         </div>
       </div>
       );

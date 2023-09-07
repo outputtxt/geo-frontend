@@ -8,7 +8,7 @@ import "./SorguSolPanel.css";
 
 
 const SorguSolPanel = () => {
-    const [active, setActive] = useState(SorguTipi[1].name);
+    const [active, setActive] = useState(SorguTipi[2].name);
 
     const getSorguPanel = () => {
       if(!active){

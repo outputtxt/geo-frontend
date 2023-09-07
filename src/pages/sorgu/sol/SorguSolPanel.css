@@ -13,11 +13,12 @@
   flex: 1;
   cursor: pointer;
   opacity: 0.7;
-  background: var(--background-color-3);
+  background: var(--background-color-4);
   border: 1px solid var(--background-color-1);
 }
 
 .sorgu-sol-tab-active {
+  background: var(--background-color-3);
   border-bottom: 2px solid var(--aqua-1);
   opacity: 1;
 }

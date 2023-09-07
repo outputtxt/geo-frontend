@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { SorguTipi } from "../SorguPanel";
+import { SorguTipi } from "../../../util/Constants";
 import KonumSorguPanel from "./konum/KonumSorguPanel";
 import BazSorguPanel from "./baz/BazSorguPanel";
 import KoordinatSorguPanel from "./koordinat/KoordinatSorguPanel";
@@ -8,7 +8,7 @@ import "./SorguSolPanel.css";
 
 
 const SorguSolPanel = () => {
-    const [active, setActive] = useState(SorguTipi[0].name);
+    const [active, setActive] = useState(SorguTipi[1].name);
 
     const getSorguPanel = () => {
       if(!active){

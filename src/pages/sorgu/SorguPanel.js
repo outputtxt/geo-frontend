@@ -3,21 +3,6 @@ import "./SorguPanel.css";
 import SorguSagPanel from "./sag/SorguSagPanel";
 import SorguSolPanel from "./sol/SorguSolPanel";
 
-export const SorguTipi = [
-  {
-    id: 0,
-    name: "Konum",
-  }, {
-    id: 1,
-    name: "Bazlar",
-  }, {
-    id: 2,
-    name: "Koordinat",
-  }, {
-    id: 3,
-    name: "Kestirme",
-  }
-];
 
 const SorguPanel = () => {
   const [sorguMenuOpen, setSorguMenuOpen] = useState(true);

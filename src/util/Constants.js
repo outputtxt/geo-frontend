@@ -22,3 +22,6 @@ export const Operator = [
 
 export const LATITUDE_REGEX = /^(\+|-)?(?:90(?:(?:\.0{1,6})?)|(?:[0-9]|[1-8][0-9])(?:(?:\.[0-9]{1,6})?))$/;
 export const LONGITUDE_REGEX = /^(\+|-)?(?:180(?:(?:\.0{1,6})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\.[0-9]{1,6})?))$/;
+
+// Leaflet Default Max Zoom Level = 18
+export const MAX_ZOOM = 18;

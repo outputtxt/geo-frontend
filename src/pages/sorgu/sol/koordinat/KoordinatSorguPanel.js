@@ -2,25 +2,21 @@ import { useState, useContext } from "react";
 import { useForm } from "react-hook-form";
 import Box from "@mui/material/Box";
 import { MapContext } from "../../../../util/context/Context";
-import { LATITUDE_REGEX, LONGITUDE_REGEX } from "../../../../util/Constants";
+import { LATITUDE_REGEX, LONGITUDE_REGEX, MAX_ZOOM } from "../../../../util/Constants";
 
 const KoordinatSorguPanel = () => {
+    // MAP from Context
+    const { map } = useContext(MapContext);
+
+    // This State
     const { register, handleSubmit, reset, formState: { errors } } = useForm({mode: "onChange"});
     const [x, setX] = useState(null);
     const [y, setY] = useState(null);
 
-    const { map } = useContext(MapContext);
-
     const handleKoordinatSubmit = () => {
-        map.setView([x, y], map.getZoom());
-    }
-
-    const onXChange = (event) => {
-        setX(event.target.value);
-    }
-
-    const onYChange = (event) => {
-        setY(event.target.value);
+        //map.setView([x, y], map.getZoom());
+        map.setView([x, y], MAX_ZOOM);
+        // map.flyTo([x, y], MAX_ZOOM);
     }
 
     return (
@@ -35,7 +31,7 @@ const KoordinatSorguPanel = () => {
                         type="text"
                         id="enlemX"
                         {...register("enlemX", {
-                            onChange: event => onXChange(event),
+                            onChange: event => setX(event.target.value),
                             required: true,
                             pattern: LATITUDE_REGEX
                         })}
@@ -50,7 +46,7 @@ const KoordinatSorguPanel = () => {
                         type="text"
                         id="boylamY"
                         {...register("boylamY", {
-                            onChange: event => onYChange(event),
+                            onChange: event => setY(event.target.value),
                             required: true,
                             pattern: LONGITUDE_REGEX
                         })}

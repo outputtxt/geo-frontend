@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useContext } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import MapController from "./MapController";
 import { MapContext } from "../../../../util/context/Context";
+import { MAX_ZOOM } from "../../../../util/Constants";
 import "leaflet/dist/leaflet.css";
 import "./Leaflet.css";
 
@@ -25,6 +26,7 @@ const Leaflet = ({ width, height, draggable }) => {
         ref={setMap}
         center={position}
         zoom={13}
+        maxZoom={MAX_ZOOM}
         scrollWheelZoom={true}
         attributionControl={false}
         zoomControl={false}

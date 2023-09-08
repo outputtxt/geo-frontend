@@ -26,15 +26,15 @@ const MapController = ({ width, height, draggable }) => {
     }
   }, [height, width]);
 
-  // useEffect(() => {
-  //   if (map != null) {
-  //     if (draggable) {
-  //       map.dragging.enable();
-  //     } else {
-  //       map.dragging.disable();
-  //     }
-  //   }
-  // }, [draggable]);
+  useEffect(() => {
+    if (map != null) {
+      if (draggable) {
+        map.dragging.enable();
+      } else {
+        map.dragging.disable();
+      }
+    }
+  }, [draggable]);
 
   return null;
 };

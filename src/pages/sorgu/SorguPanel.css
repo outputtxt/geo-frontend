@@ -17,7 +17,7 @@
 .sorgu-column-left {
   width: 320px;
   height: 100%;
-  
+
   /*border: 10px solid orange;*/
 }
 
@@ -42,10 +42,10 @@
   border: 1px solid var(--aqua-2);
   /* border-color: var(--aqua-1); */
   display: flex;
-  justify-content: 'flex-end';
+  justify-content: "flex-end";
   text-align: left;
   align-items: left;
-  border-radius: 10px;;
+  border-radius: 10px;
   margin-top: 5px;
   padding-top: 20px;
 }
@@ -54,7 +54,7 @@
   color: var(--background-color-6);
   background-color: var(--background-color-2);
   padding-left: 5px;
-  padding-right: 5px; 
+  padding-right: 5px;
 }
 
 .sorgu-label {
@@ -67,9 +67,18 @@
   margin-left: 10px;
   float: left;
 }
-.sorgu-label:after { 
+.sorgu-label:after {
   content: " :";
   margin-right: 10px;
+}
+
+.sorgu-inline-label {
+  color: var(--background-color-6);
+  font-size: 14px;
+  margin-left: 130px;
+  /* width: 120px; */
+  margin-top: 50px;
+  /* float: left; */
 }
 
 .sorgu-form-hata-label {
@@ -87,10 +96,10 @@
 
 .sorgu-form-data-normal {
   border: none;
-  width: 150px
+  width: 150px;
 }
 
 .sorgu-form-data-error {
   box-shadow: 0px 0px 0px 2px red;
-  width: 150px
+  width: 150px;
 }

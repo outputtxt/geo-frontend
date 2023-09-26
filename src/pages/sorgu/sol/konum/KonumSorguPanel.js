@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Box from "@mui/material/Box";
 
 export const KonumSorguTipi = [
   {
@@ -22,58 +21,69 @@ export const KonumSorguTipi = [
 
 const KonumSorguPanel = () => {
   const [active, setActive] = useState(KonumSorguTipi[0].id);
-  //   const [sonGun, setSonGun] =
-
-  const onActiveChange = (event) => {
-    // alert(event.target.value);
-    // console.log(active + " : " + event.target.value);
-    setActive(event.target.value);
-    // console.log(active + " : " + event.target.value);
-  };
+  const [sonKacGun, setSonKacGun] = useState(1);
 
   return (
-    <div>
-      {/* <div className="sorgu-fieldset"> */}
-      <Box
-        component="fieldset"
-        className="sorgu-fieldset"
-        style={{ display: "flex", flexDirection: "column" }}
-      >
-        <div onChange={(event) => onActiveChange(event)}>
-          {KonumSorguTipi.map((item) => (
-            <div>
-              <label className="sorgu-label" htmlFor={item.id}>
-                {item.name}
-              </label>
-              <input
-                type="radio"
-                value={item.id}
-                key={item.id}
-                id={item.id}
-                name="konumSorguTipi"
-              />
-              {active == 1 ? (
-                <select
-                  value="Avea"
-                  style={{
-                    marginRight: "100px",
-                    width: "150px",
-                    float: "right",
-                  }}
-                  id="operatorSelect"
-                  required
-                >
-                  <option value="Avea">Avea</option>
-                  <option value="Turkcell">Turkcell</option>
-                  <option value="Vodafone">Vodafone</option>
-                </select>
-              ) : (
-                <br />
-              )}
-            </div>
-          ))}
-        </div>
-      </Box>
+    <div style={{ display: "flex", flexDirection: "column" }}>
+      <div className="sorgu-sol-tab-group">
+        {KonumSorguTipi.map((item) => (
+          <button
+            className={
+              active === item.id
+                ? "sorgu-sol-tab sorgu-sol-tab-active"
+                : "sorgu-sol-tab"
+            }
+            key={item.id}
+            onClick={() => setActive(item.id)}
+          >
+            {item.name}
+          </button>
+        ))}
+      </div>
+
+      <div className="sorgu-sol-content">
+        {active == 1 && (
+          <div className="sorgu-fieldset-no-border">
+            <label className="sorgu-label" htmlFor="gecmis">
+              Geçmiş{" "}
+            </label>
+
+            {/* <input
+              style={{ width: "60px" }}
+              // className="sorgu-form-data-normal"
+              value={undefined}
+              type="text"
+              id="gecmis"
+              // {...register("gecmis", {
+              // onChange: event => setX(event.target.value),
+              // required: true,
+              // pattern: LATITUDE_REGEX
+              // })}
+            /> */}
+            {/* errors.email.type === "required"    -    errors.email.type === "pattern" */}
+            {/* {errors.enlemX && <p className="sorgu-form-hata-label">Hatalı Enlem!</p> } */}
+          </div>
+        )}
+
+        {active == 3 && (
+          <div className="sorgu-fieldset-no-border">
+            <label className="sorgu-label" htmlFor="sonGun">
+              Son Gün{" "}
+            </label>
+            <input
+              className="sorgu-form-data-normal"
+              value={sonKacGun}
+              type="number"
+              min="1"
+              id="sonGun"
+              onChange={(event) => setSonKacGun(event.target.value)}
+            />
+          </div>
+        )}
+
+        <br />
+        <p>Konum Sorgu Panel - {sonKacGun}</p>
+      </div>
     </div>
   );
 };

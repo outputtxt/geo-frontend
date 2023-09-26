@@ -49,6 +49,14 @@
   padding-top: 20px;
 }
 
+.sorgu-fieldset-no-border {
+  display: flex;
+  justify-content: "flex-end";
+  text-align: left;
+  align-items: left;
+  margin-top: 5px;
+}
+
 .sorgu-fieldset-legend {
   color: var(--background-color-6);
   background-color: var(--background-color-2);

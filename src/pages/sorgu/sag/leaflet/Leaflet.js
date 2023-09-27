@@ -2,15 +2,25 @@ import { useState, useEffect, useRef, useContext } from "react";
 import {
   MapContainer,
   TileLayer,
+  FeatureGroup,
   useMapEvents,
   Marker,
   Popup,
 } from "react-leaflet";
+import L from "leaflet";
 import MapController from "./MapController";
 import { MapContext } from "../../../../util/context/Context";
 import { MAX_ZOOM } from "../../../../util/Constants";
 import "leaflet/dist/leaflet.css";
 import "./Leaflet.css";
+
+delete L.Icon.Default.prototype._getIconUrl;
+
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
+  iconUrl: require("leaflet/dist/images/marker-icon.png"),
+  shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
+});
 
 const Leaflet = ({ width, height, draggable, setMousePoint }) => {
   const [layer, setLayer] = useState(false);
@@ -55,7 +65,6 @@ const Leaflet = ({ width, height, draggable, setMousePoint }) => {
           </Popup>
         </Marker>
         */}
-
         <MapController
           width={width}
           height={height}

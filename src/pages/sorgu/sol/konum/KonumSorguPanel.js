@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -33,6 +33,12 @@ const KonumSorguPanel = () => {
     console.log(startDate);
     console.log(endDate);
   };
+
+  useEffect(() => {
+    if (active == KonumSorguTipi[2].id) {
+      alert("son baz");
+    }
+  }, [active]);
 
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>

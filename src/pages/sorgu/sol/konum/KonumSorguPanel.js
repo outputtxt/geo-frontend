@@ -1,4 +1,6 @@
 import { useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export const KonumSorguTipi = [
   {
@@ -22,6 +24,15 @@ export const KonumSorguTipi = [
 const KonumSorguPanel = () => {
   const [active, setActive] = useState(KonumSorguTipi[0].id);
   const [sonKacGun, setSonKacGun] = useState(1);
+
+  const [dateRange, setDateRange] = useState([new Date(), new Date()]);
+  const [startDate, endDate] = dateRange;
+
+  const onButtonClick = () => {
+    console.log(dateRange);
+    console.log(startDate);
+    console.log(endDate);
+  };
 
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
@@ -48,20 +59,17 @@ const KonumSorguPanel = () => {
               Geçmiş{" "}
             </label>
 
-            {/* <input
-              style={{ width: "60px" }}
-              // className="sorgu-form-data-normal"
-              value={undefined}
-              type="text"
-              id="gecmis"
-              // {...register("gecmis", {
-              // onChange: event => setX(event.target.value),
-              // required: true,
-              // pattern: LATITUDE_REGEX
-              // })}
-            /> */}
-            {/* errors.email.type === "required"    -    errors.email.type === "pattern" */}
-            {/* {errors.enlemX && <p className="sorgu-form-hata-label">Hatalı Enlem!</p> } */}
+            <DatePicker
+              selectsRange={true}
+              startDate={startDate}
+              endDate={endDate}
+              onChange={(update) => {
+                setDateRange(update);
+              }}
+              isClearable={true}
+              dateFormat="dd/MM/yyyy"
+              withPortal
+            />
           </div>
         )}
 
@@ -72,6 +80,7 @@ const KonumSorguPanel = () => {
             </label>
             <input
               className="sorgu-form-data-normal"
+              style={{ width: "175px" }}
               value={sonKacGun}
               type="number"
               min="1"
@@ -82,7 +91,14 @@ const KonumSorguPanel = () => {
         )}
 
         <br />
-        <p>Konum Sorgu Panel - {sonKacGun}</p>
+        {(active == 3 || active == 1) && (
+          <button
+            onClick={() => onButtonClick()}
+            style={{ float: "right", marginRight: "10px" }}
+          >
+            Sorgula
+          </button>
+        )}
       </div>
     </div>
   );

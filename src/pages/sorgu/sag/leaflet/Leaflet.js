@@ -1,12 +1,18 @@
 import { useState, useEffect, useRef, useContext } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import {
+  MapContainer,
+  TileLayer,
+  useMapEvents,
+  Marker,
+  Popup,
+} from "react-leaflet";
 import MapController from "./MapController";
 import { MapContext } from "../../../../util/context/Context";
 import { MAX_ZOOM } from "../../../../util/Constants";
 import "leaflet/dist/leaflet.css";
 import "./Leaflet.css";
 
-const Leaflet = ({ width, height, draggable }) => {
+const Leaflet = ({ width, height, draggable, setMousePoint }) => {
   const [layer, setLayer] = useState(false);
   const position = [39.925018, 32.836956];
   // const [map, setMap] = useState(null);
@@ -50,7 +56,12 @@ const Leaflet = ({ width, height, draggable }) => {
         </Marker>
         */}
 
-        <MapController width={width} height={height} draggable={draggable} />
+        <MapController
+          width={width}
+          height={height}
+          draggable={draggable}
+          setMousePoint={setMousePoint}
+        />
       </MapContainer>
     </div>
   );

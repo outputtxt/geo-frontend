@@ -1,9 +1,11 @@
 import { useEffect, useContext } from "react";
 import { MapContext } from "../../../../util/context/Context";
+import { useMapEvents } from "react-leaflet";
 //import { useMap } from "react-leaflet";
 
-const MapController = ({ width, height, draggable }) => {
+const MapController = ({ width, height, draggable, setMousePoint }) => {
   const { map } = useContext(MapContext);
+
   const flyToDuration = 1.5;
 
   const zoomIn = (count) => {
@@ -19,6 +21,15 @@ const MapController = ({ width, height, draggable }) => {
   //     }
   //   }
   // };
+
+  useMapEvents({
+    mousemove(event) {
+      setMousePoint(event.latlng);
+    },
+    mouseout() {
+      setMousePoint(null);
+    },
+  });
 
   useEffect(() => {
     if (map != null) {

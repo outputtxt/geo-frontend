@@ -6,15 +6,19 @@ import PanToolIcon from "@mui/icons-material/PanTool";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import Leaflet from "./leaflet/Leaflet";
 import ReactResizeDetector from "react-resize-detector";
-import {changeDraggable} from "../../../service/MapService";
-import domtoimage from "dom-to-image";
-import { jsPDF } from "jspdf";
+import { changeDraggable } from "../../../service/MapService";
 import "./SorguSagPanel.css";
 import html2canvas from "html2canvas";
 
 const SorguSagPanel = ({ sorguMenuOpen, setSorguMenuOpen }) => {
   const [open, setOpen] = useState(true);
   const [draggable, setDraggable] = useState(true);
+  const [mousePoint, setMousePoint] = useState(null);
+
+  const formattedCoordinates =
+    mousePoint === null
+      ? ""
+      : `${formatLatitude(mousePoint.lat)}, ${formatLongitude(mousePoint.lng)}`;
 
   const toggleOpen = () => {
     setOpen(!open);
@@ -54,43 +58,6 @@ const SorguSagPanel = ({ sorguMenuOpen, setSorguMenuOpen }) => {
         window.open(data);
       }
     });
-
-    //MapController().zoomIn(5);
-
-    // console.log(useMap())
-    // console.log(useMap().toPng());
-
-    // domtoimage.toPng(useMap(), { width, height }).then((dataUrl) => {
-    //   domtoimage.toBlob(mapElement, { width, height }).then((blob) => {
-    //     saveAs(blob, 'map.png');
-    //   })
-    // });
-
-    // domtoimage.toPng(input)
-    // .then(function (dataUrl) {
-    //     var img = new Image();
-    //     img.src = dataUrl;
-    //     document.body.appendChild(img);
-    // })
-    // .catch(function (error) {
-    //     console.error('oops, something went wrong!', error);
-    // });
-
-    //  html2canvas(document.getElementById("harita")).then((canvas) => {
-    //   const imgData = canvas.toDataURL("image/png");
-    //   const pdf = new jsPDF({ orientation: "landscape" });
-    //   pdf.addImage(imgData, "JPEG", 0, 0);
-    //pdf.output("dataurlnewwindow");
-    //    pdf.save("download.pdf");
-    //  });
-
-    // domtoimage.toPng(input).then((dataUrl) => {
-    //   //Initialize JSPDF
-    //   const doc = new jsPDF("p", "mm", "a4");
-    //   //Add image Url to PDF
-    //   doc.addImage(dataUrl, "PNG", 0, 0, 210, 340);
-    //   doc.save("pdfDocument.pdf");
-    // });
   };
 
   return (
@@ -116,11 +83,18 @@ const SorguSagPanel = ({ sorguMenuOpen, setSorguMenuOpen }) => {
         >
           <PictureAsPdfIcon style={{ color: "red" }} />
         </button>
+
+        <label style={{ marginLeft: "auto" }}> {formattedCoordinates} </label>
       </div>
       <ReactResizeDetector handleWidth handleHeight>
         {({ height, width, targetRef }) => (
           <div className="sorgu-sag-map" id="harita" ref={targetRef}>
-            <Leaflet height={height} width={width} draggable={draggable} />
+            <Leaflet
+              height={height}
+              width={width}
+              draggable={draggable}
+              setMousePoint={setMousePoint}
+            />
           </div>
         )}
       </ReactResizeDetector>
@@ -155,5 +129,22 @@ const SorguSagPanel = ({ sorguMenuOpen, setSorguMenuOpen }) => {
     </div>
   );
 };
+
+function round(number, precision = 0) {
+  return (
+    Math.round(number * Math.pow(10, precision) + Number.EPSILON) /
+    Math.pow(10, precision)
+  );
+}
+
+function formatLatitude(latitude) {
+  const direction = latitude > 0 ? "K" : "G";
+  return `${round(Math.abs(latitude), 6)}° ${direction}`;
+}
+
+function formatLongitude(longitude) {
+  const direction = longitude > 0 ? "D" : "B";
+  return `${round(Math.abs(longitude), 6)}° ${direction}`;
+}
 
 export default SorguSagPanel;

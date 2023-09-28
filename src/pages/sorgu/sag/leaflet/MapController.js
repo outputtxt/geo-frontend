@@ -29,6 +29,7 @@ const MapController = ({ width, height, draggable, setMousePoint }) => {
   //   }
   // };
 
+  // ******** track mouse coordinates on map ********
   useMapEvents({
     mousemove(event) {
       setMousePoint(event.latlng);
@@ -38,12 +39,14 @@ const MapController = ({ width, height, draggable, setMousePoint }) => {
     },
   });
 
+  // ******** rerender the map for each size change ********
   useEffect(() => {
     if (map != null) {
       map.invalidateSize();
     }
   }, [height, width]);
 
+  // ******** enable/disable map draggable ********
   useEffect(() => {
     if (map != null) {
       if (draggable) {

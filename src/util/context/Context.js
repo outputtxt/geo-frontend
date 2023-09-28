@@ -14,7 +14,6 @@ import { useState, createContext, useMemo } from "react";
 //   );
 // };
 
-
 export const SideBarContext = createContext({
   visible: undefined,
   setVisible: undefined,
@@ -36,12 +35,19 @@ export const SideBarContextProvider = ({ children }) => {
 // ==========================  MAP CONTEXT  ==========================
 export const MapContext = createContext({
   map: undefined,
-  setMap: undefined
+  setMap: undefined,
+  featureGroupRef: undefined,
+  setFeatureGroupRef: undefined,
 });
 
 export const MapContextProvider = ({ children }) => {
   const [map, setMap] = useState(null);
-  const mapProvider = useMemo(() => ({ map, setMap }), [map, setMap]);
+  const [featureGroupRef, setFeatureGroupRef] = useState(null);
+
+  const mapProvider = useMemo(
+    () => ({ map, setMap, featureGroupRef, setFeatureGroupRef }),
+    [map, setMap, featureGroupRef, setFeatureGroupRef],
+  );
 
   return (
     <MapContext.Provider value={{ ...mapProvider }}>

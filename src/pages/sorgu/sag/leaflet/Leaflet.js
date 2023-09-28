@@ -23,9 +23,9 @@ L.Icon.Default.mergeOptions({
 });
 
 const Leaflet = ({ width, height, draggable, setMousePoint }) => {
+  const { setMap, setFeatureGroupRef } = useContext(MapContext);
   const [layer, setLayer] = useState(false);
   const position = [39.925018, 32.836956];
-  // const [map, setMap] = useState(null);
 
   // useEffect(() => {
   //   if (map != null) {
@@ -33,8 +33,6 @@ const Leaflet = ({ width, height, draggable, setMousePoint }) => {
   //     //map.setZoom(map.getZoom() + 1);
   //   }
   // }, [map]);
-
-  const { setMap } = useContext(MapContext);
 
   return (
     <div className="leaflet-container">
@@ -57,6 +55,8 @@ const Leaflet = ({ width, height, draggable, setMousePoint }) => {
           /*<TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" /> */
           <TileLayer url="https://www.google.cn/maps/vt?lyrs=m@189&gl=cn&x={x}&y={y}&z={z}" />
         )}
+
+        <FeatureGroup ref={setFeatureGroupRef} />
 
         {/*}
         <Marker position={position}>

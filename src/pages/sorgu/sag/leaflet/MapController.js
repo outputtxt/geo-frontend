@@ -3,13 +3,9 @@ import { MapContext } from "../../../../util/context/Context";
 import { useMapEvents } from "react-leaflet";
 // import L from "leaflet";
 import * as L from "leaflet";
-//import { useMap } from "react-leaflet";
 
 const MapController = ({ width, height, draggable, setMousePoint }) => {
-  const { map } = useContext(MapContext);
-
-  const circleGroup = L.layerGroup();
-
+  const { map, featureGroupRef } = useContext(MapContext);
   const flyToDuration = 1.5;
 
   const zoomIn = (count) => {
@@ -53,23 +49,10 @@ const MapController = ({ width, height, draggable, setMousePoint }) => {
       if (draggable) {
         map.dragging.enable();
 
-        circleGroup.clearLayers();
-        console.log(map);
-
-        map.removeLayer(circleGroup.getLayers);
-        map.removeLayer(circleGroup);
-
-        map.eachLayer(function (layer) {
-          console.log(layer);
-        });
+        featureGroupRef.clearLayers();
       } else {
         map.dragging.disable();
-        console.log(circleGroup);
-        console.log(circleGroup._layers);
-
-        map.addLayer(circleGroup);
-
-        circleGroup.addLayer(circle);
+        featureGroupRef.addLayer(circle);
       }
 
       // const sector = L.sector({

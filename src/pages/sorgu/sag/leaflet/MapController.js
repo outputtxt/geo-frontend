@@ -1,5 +1,6 @@
 import { useEffect, useContext } from "react";
 import { MapContext } from "../../../../util/context/Context";
+import { BazIcon } from "../../../../util/Constants";
 import { useMapEvents } from "react-leaflet";
 import "leaflet.sector";
 // import L from "leaflet";
@@ -28,6 +29,8 @@ const MapController = ({ width, height, draggable, setMousePoint }) => {
     endBearing: 270,
     color: "green",
   });
+
+  const bazMarker = L.marker([39.935671, 32.804489], { icon: BazIcon });
 
   // const changeDraggable = (draggable) => {
   //   if (map != null) {
@@ -67,6 +70,7 @@ const MapController = ({ width, height, draggable, setMousePoint }) => {
         map.dragging.disable();
         // featureGroupRef.addLayer(circle);
         featureGroupRef.addLayer(sector);
+        featureGroupRef.addLayer(bazMarker);
 
         map.fitBounds(featureGroupRef.getBounds().pad(0.5));
       }

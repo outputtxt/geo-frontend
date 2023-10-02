@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import { SorguTipi } from "../../../util/Constants";
+import { MapContext } from "../../../util/context/Context";
 import KonumSorguPanel from "./konum/KonumSorguPanel";
 import BazSorguPanel from "./baz/BazSorguPanel";
 import KoordinatSorguPanel from "./koordinat/KoordinatSorguPanel";
@@ -8,6 +9,14 @@ import "./SorguSolPanel.css";
 
 const SorguSolPanel = () => {
   const [active, setActive] = useState(SorguTipi[0].name);
+
+  const { map, featureGroupRef } = useContext(MapContext);
+
+  useEffect(() => {
+    if (map != null) {
+      featureGroupRef.clearLayers();
+    }
+  }, [active]);
 
   const getSorguPanel = () => {
     if (!active) {
@@ -24,7 +33,7 @@ const SorguSolPanel = () => {
       case SorguTipi[3].name:
         return <KestirmeSorguPanel />;
       default:
-        return <p> Your payment selection: {active} </p>;
+        return <p> Empty Panel: {active} </p>;
     }
   };
 
@@ -51,23 +60,3 @@ const SorguSolPanel = () => {
 };
 
 export default SorguSolPanel;
-
-//// SAMPLE STYLED button
-// import styled from "styled-components";
-//
-// const Tab = styled.button`
-//   font-size: 16px;
-//   flex: 1;
-// //   padding: 10px 60px;
-//   cursor: pointer;
-//   opacity: 0.6;
-//   background: white;
-//   border: 1px solid orange;
-// //   outline: 0;
-//   ${({ active }) =>
-//     active &&
-//     `
-//     border-bottom: 2px solid black;
-//     opacity: 1;
-//   `}
-// `;

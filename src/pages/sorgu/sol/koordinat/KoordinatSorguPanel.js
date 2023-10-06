@@ -11,7 +11,7 @@ import {
 
 const KoordinatSorguPanel = () => {
   // MAP from Context
-  const { map } = useContext(MapContext);
+  const { map, featureGroupRef } = useContext(MapContext);
 
   // This State
   const {
@@ -25,7 +25,7 @@ const KoordinatSorguPanel = () => {
 
   //*************  Koordinat Sorgu  *************/
   const handleKoordinatSubmit = () => {
-    L.marker([x, y]).addTo(map);
+    L.marker([x, y]).addTo(featureGroupRef);
     //map.setView([x, y], map.getZoom());
     map.setView([x, y], MAX_ZOOM - 2);
     // map.flyTo([x, y], MAX_ZOOM);

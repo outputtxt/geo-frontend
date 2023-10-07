@@ -15,7 +15,6 @@
     "leaflet": "^1.9.4",
     "leaflet.sector": "^1.0.0",
     "loader-utils": "3.2.1",
-    "msw": "^1.3.2",
     "react": "18.2.0",
     "react-bootstrap": "^2.8.0",
     "react-datepicker": "^4.18.0",
@@ -31,7 +30,7 @@
   },
   "devDependencies": {
     "@babel/runtime": "7.13.8",
-    "typescript": "4.1.3"
+    "msw": "^1.3.2"
   },
   "scripts": {
     "start": "react-scripts start",

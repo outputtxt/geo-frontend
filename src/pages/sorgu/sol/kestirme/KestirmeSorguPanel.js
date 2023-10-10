@@ -155,7 +155,7 @@ const KestirmeSorguPanel = () => {
         <div>
           <input
             type="checkbox"
-            style={{ float: "right", marginTop: "10px", marginLeft: "10px" }}
+            className="sorgu-right-button"
             id="sorguyuSilme"
             onClick={(event) => setSorguyuSilme(event.target.checked)}
           />
@@ -168,20 +168,20 @@ const KestirmeSorguPanel = () => {
         <input
           type="submit"
           value="Çiz"
-          style={{ float: "right", marginTop: "10px", marginLeft: "10px" }}
+          className="sorgu-right-button"
           id="ciz"
         />
         <input
           type="button"
           onClick={() => onSil()}
-          value="Sil"
-          style={{ float: "right", marginTop: "10px", marginLeft: "10px" }}
+          value="Harita Temizle"
+          className="sorgu-right-button"
           id="clear"
         />
         <input
           type="button"
           onClick={() => reset()}
-          value="Temizle"
+          value="Form Temizle"
           style={{ float: "right", marginTop: "10px" }}
           id="clear"
         />

@@ -10,7 +10,7 @@ import {
 import L from "leaflet";
 import MapController from "./MapController";
 import { MapContext } from "../../../../util/context/Context";
-import { MAX_ZOOM } from "../../../../util/Constants";
+import { MAX_ZOOM, MAP_START_X, MAP_START_Y } from "../../../../util/Constants";
 import "leaflet/dist/leaflet.css";
 import "./Leaflet.css";
 
@@ -25,7 +25,7 @@ L.Icon.Default.mergeOptions({
 const Leaflet = ({ width, height, draggable, setMousePoint }) => {
   const { setMap, setFeatureGroupRef } = useContext(MapContext);
   const [layer, setLayer] = useState(false);
-  const position = [39.925018, 32.836956];
+  const position = [MAP_START_X, MAP_START_Y];
 
   // useEffect(() => {
   //   if (map != null) {

@@ -30,6 +30,9 @@ export const LONGITUDE_REGEX =
 // Leaflet Default Max Zoom Level = 18
 export const MAX_ZOOM = 18;
 
+export const MAP_START_X = 39.925018;
+export const MAP_START_Y = 32.836956;
+
 //**********************  LEAFLET CONSTANTS  **********************/
 export const BazIcon = L.icon({
   iconUrl: bazIconPng,

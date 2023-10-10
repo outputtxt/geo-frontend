@@ -1,15 +1,21 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useForm } from "react-hook-form";
 import Box from "@mui/material/Box";
+import { MapContext } from "../../../../util/context/Context";
 import { LATITUDE_REGEX, LONGITUDE_REGEX } from "../../../../util/Constants";
+import * as L from "leaflet";
 
 const KestirmeSorguPanel = () => {
+  // MAP feature group from Context
+  const { map, kestirmeFeatureGroupRef } = useContext(MapContext);
+
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm({ mode: "onChange" });
+
   const [bazX, setBazX] = useState(null);
   const [bazY, setBazY] = useState(null);
   const [inRadius, setInRadius] = useState(null);
@@ -19,17 +25,25 @@ const KestirmeSorguPanel = () => {
   const [sorguyuSilme, setSorguyuSilme] = useState(false);
 
   const handleKestirmeSubmit = () => {
-    //map.setView([x, y], map.getZoom());
-    alert("KESTIRME CIZ " + sorguyuSilme);
-    // map.flyTo([x, y], MAX_ZOOM);
+    if (!sorguyuSilme) {
+      kestirmeFeatureGroupRef.clearLayers();
+    }
+
+    L.sector({
+      center: [bazX, bazY],
+      innerRadius: inRadius,
+      outerRadius: outRadius,
+      startBearing: startAngle,
+      endBearing: stopAngle,
+      color: "orange",
+    }).addTo(kestirmeFeatureGroupRef);
+
+    map.fitBounds(kestirmeFeatureGroupRef.getBounds().pad(0.5));
+    //map.setView([bazX, bazY], MAX_ZOOM - 2);
   };
 
   const onSil = () => {
-    alert("SIL");
-  };
-
-  const onSorguyuSilmeChange = (event) => {
-    event === "on" ? setSorguyuSilme(true) : setSorguyuSilme(false);
+    kestirmeFeatureGroupRef.clearLayers();
   };
 
   return (

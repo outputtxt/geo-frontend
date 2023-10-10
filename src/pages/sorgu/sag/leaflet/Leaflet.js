@@ -23,7 +23,8 @@ L.Icon.Default.mergeOptions({
 });
 
 const Leaflet = ({ width, height, draggable, setMousePoint }) => {
-  const { setMap, setFeatureGroupRef } = useContext(MapContext);
+  const { setMap, setFeatureGroupRef, setKestirmeFeatureGroupRef } =
+    useContext(MapContext);
   const [layer, setLayer] = useState(false);
   const position = [MAP_START_X, MAP_START_Y];
 
@@ -57,6 +58,8 @@ const Leaflet = ({ width, height, draggable, setMousePoint }) => {
         )}
 
         <FeatureGroup ref={setFeatureGroupRef} />
+
+        <FeatureGroup ref={setKestirmeFeatureGroupRef} />
 
         {/*}
         <Marker position={position}>

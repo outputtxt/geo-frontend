@@ -38,15 +38,32 @@ export const MapContext = createContext({
   setMap: undefined,
   featureGroupRef: undefined,
   setFeatureGroupRef: undefined,
+  kestirmeFeatureGroupRef: undefined,
+  setKestirmeFeatureGroupRef: undefined,
 });
 
 export const MapContextProvider = ({ children }) => {
   const [map, setMap] = useState(null);
   const [featureGroupRef, setFeatureGroupRef] = useState(null);
+  const [kestirmeFeatureGroupRef, setKestirmeFeatureGroupRef] = useState(null);
 
   const mapProvider = useMemo(
-    () => ({ map, setMap, featureGroupRef, setFeatureGroupRef }),
-    [map, setMap, featureGroupRef, setFeatureGroupRef],
+    () => ({
+      map,
+      setMap,
+      featureGroupRef,
+      setFeatureGroupRef,
+      kestirmeFeatureGroupRef,
+      setKestirmeFeatureGroupRef,
+    }),
+    [
+      map,
+      setMap,
+      featureGroupRef,
+      setFeatureGroupRef,
+      kestirmeFeatureGroupRef,
+      setKestirmeFeatureGroupRef,
+    ],
   );
 
   return (

@@ -1,0 +1,50 @@
+.target-table {
+  box-shadow: 0px 0px 0px 2px var(--aqua-2-rgb-opacity-03);
+  border: 1px solid var(--aqua-2);
+  /* border-color: var(--aqua-1); */
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  /* align-items: center; */
+  border-radius: 10px;
+  margin-top: 15px;
+  margin-right: 3px;
+  /* padding-top: 200px; */
+  max-height: "70%";
+  overflow-y: scroll;
+  background-color: var(--background-color-4);
+  /* background-color: orange; */
+}
+
+/* #targettable tr:nth-child(odd) {
+  background-color: --var(background-color-3);
+} */
+
+.targettable {
+  /* width: 100%!; */
+  min-width: 100%;
+  /* background-color: orange; */
+}
+
+.targettable tr {
+  width: 100%!;
+  min-width: 100%;
+}
+
+.targettable tbody tr:nth-child(odd) {
+  background-color: var(--background-color-4);
+}
+
+.targettable tbody tr:nth-child(even) {
+  background-color: var(--background-color-5);
+}
+
+.targettable tbody tr:hover {
+  /* background-color: lightyellow; */
+  background-color: var(--aqua-2-rgb-opacity-03);
+}
+
+.targettable tbody tr.selected {
+  /* background-color: lightyellow; */
+  background-color: var(--aqua-2);
+}

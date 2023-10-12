@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import HedefListesiTable from "../../../../components/HedefListesiTable";
+import mockHedefListesiData from "../../../../service/rest/mocks/data/mockHedefListesiData.json";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -96,15 +98,14 @@ const KonumSorguPanel = () => {
           </div>
         )}
 
-        <br />
-        {(active == 3 || active == 1) && (
-          <button
-            onClick={() => onButtonClick()}
-            style={{ float: "right", marginRight: "10px" }}
-          >
-            Sorgula
-          </button>
-        )}
+        <HedefListesiTable data={mockHedefListesiData} />
+
+        <button
+          onClick={() => onButtonClick()}
+          style={{ float: "right", marginRight: "10px", marginTop: "10px" }}
+        >
+          Sorgula
+        </button>
       </div>
     </div>
   );

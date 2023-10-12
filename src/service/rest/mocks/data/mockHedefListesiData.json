@@ -1,0 +1,138 @@
+[
+  {
+    "targetValue": "905558009901",
+    "targetType": "MSISDN"
+  },
+  {
+    "targetValue": "905558009902",
+    "targetType": "MSISDN"
+  },
+  {
+    "targetValue": "905558009903",
+    "targetType": "MSISDN"
+  },
+  {
+    "targetValue": "905558009904",
+    "targetType": "MSISDN"
+  },
+  {
+    "targetValue": "905558009905",
+    "targetType": "MSISDN"
+  },
+  {
+    "targetValue": "905558009906",
+    "targetType": "MSISDN"
+  },
+  {
+    "targetValue": "905558009907",
+    "targetType": "MSISDN"
+  },
+  {
+    "targetValue": "905558009908",
+    "targetType": "MSISDN"
+  },
+  {
+    "targetValue": "905558009909",
+    "targetType": "MSISDN"
+  },
+  {
+    "targetValue": "905558009910",
+    "targetType": "MSISDN"
+  },
+  {
+    "targetValue": "446838052623441",
+    "targetType": "IMEI"
+  },
+  {
+    "targetValue": "446838052623442",
+    "targetType": "IMEI"
+  },
+  {
+    "targetValue": "446838052623443",
+    "targetType": "IMEI"
+  },
+  {
+    "targetValue": "446838052623444",
+    "targetType": "IMEI"
+  },
+  {
+    "targetValue": "446838052623445",
+    "targetType": "IMEI"
+  },
+  {
+    "targetValue": "446838052623446",
+    "targetType": "IMEI"
+  },
+  {
+    "targetValue": "446838052623447",
+    "targetType": "IMEI"
+  },
+  {
+    "targetValue": "446838052623448",
+    "targetType": "IMEI"
+  },
+  {
+    "targetValue": "446838052623449",
+    "targetType": "IMEI"
+  },
+  {
+    "targetValue": "446838052623450",
+    "targetType": "IMEI"
+  },
+  {
+    "targetValue": "262013564857980",
+    "targetType": "IMSI"
+  },
+  {
+    "targetValue": "262013564857981",
+    "targetType": "IMSI"
+  },
+  {
+    "targetValue": "262013564857982",
+    "targetType": "IMSI"
+  },
+  {
+    "targetValue": "262013564857983",
+    "targetType": "IMSI"
+  },
+  {
+    "targetValue": "262013564857984",
+    "targetType": "IMSI"
+  },
+  {
+    "targetValue": "262013564857985",
+    "targetType": "IMSI"
+  },
+  {
+    "targetValue": "262013564857986",
+    "targetType": "IMSI"
+  },
+  {
+    "targetValue": "262013564857987",
+    "targetType": "IMSI"
+  },
+  {
+    "targetValue": "262013564857988",
+    "targetType": "IMSI"
+  },
+  {
+    "targetValue": "262013564857989",
+    "targetType": "IMSI"
+  },
+  {
+    "targetValue": "262013564857990",
+    "targetType": "IMSI"
+  },
+  {
+    "targetValue": "905558009997",
+    "targetType": "MSISDN"
+  },
+  {
+    "targetValue": "446838052623498",
+    "targetType": "IMEI"
+  },
+  {
+    "targetValue": "262013564857999",
+    "targetType": "IMSI"
+  }
+]

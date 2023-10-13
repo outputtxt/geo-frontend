@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import HedefListesiTable from "../../../../components/HedefListesiTable";
+import "../../../../components/HedefListesiTable.css";
 import mockHedefListesiData from "../../../../service/rest/mocks/data/mockHedefListesiData.json";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -29,6 +30,10 @@ const KonumSorguPanel = () => {
 
   const [dateRange, setDateRange] = useState([new Date(), new Date()]);
   const [startDate, endDate] = dateRange;
+
+  const refMSISDN = useRef();
+  const refIMEI = useRef();
+  const refIMSI = useRef();
 
   const onButtonClick = () => {
     console.log(dateRange);
@@ -98,8 +103,29 @@ const KonumSorguPanel = () => {
           </div>
         )}
 
-        <HedefListesiTable data={mockHedefListesiData} />
-
+        <div className="target-table">
+          <HedefListesiTable
+            data={Array.from(mockHedefListesiData).filter(
+              (hedef) => hedef.targetType === "MSISDN",
+            )}
+            header="MSISDN"
+            ref={refMSISDN}
+          />
+          <HedefListesiTable
+            data={Array.from(mockHedefListesiData).filter(
+              (hedef) => hedef.targetType === "IMEI",
+            )}
+            header="IMEI"
+            ref={refMSISDN}
+          />
+          <HedefListesiTable
+            data={Array.from(mockHedefListesiData).filter(
+              (hedef) => hedef.targetType === "IMSI",
+            )}
+            header="IMSI"
+            ref={refMSISDN}
+          />
+        </div>
         <button
           onClick={() => onButtonClick()}
           style={{ float: "right", marginRight: "10px", marginTop: "10px" }}

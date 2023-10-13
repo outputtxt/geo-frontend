@@ -1,18 +1,16 @@
-import { useState } from "react";
+import { useState, forwardRef, useImperativeHandle } from "react";
 import "./HedefListesiTable.css";
 
-const HedefListesiTable = (data, setSelectedHedef) => {
+const HedefListesiTable = forwardRef((props, ref) => {
   const [hedef, setHedef] = useState(null);
+  const [hide, setHide] = useState(false);
 
-  const MSISDNdata = Array.from(data.data).filter(
-    (hedef) => hedef.targetType === "MSISDN",
-  );
-  const IMEIdata = Array.from(data.data).filter(
-    (hedef) => hedef.targetType === "IMEI",
-  );
-  const IMSIdata = Array.from(data.data).filter(
-    (hedef) => hedef.targetType === "IMSI",
-  );
+  useImperativeHandle(ref, () => ({
+    unSelect() {
+      console.log("child function");
+      setHedef(null);
+    },
+  }));
 
   const onRowSelect = (e, hedef) => {
     setHedef(hedef);
@@ -24,42 +22,29 @@ const HedefListesiTable = (data, setSelectedHedef) => {
     e.target.parentElement.classList.add("selected");
   };
 
+  const onHeaderClick = () => {
+    setHedef(null);
+    setHide(!hide);
+  };
+
   return (
-    <div className="target-table">
-      <table class="targettable">
-        <thead>
-          <tr>
-            <th>Hedef</th>
+    <table class="targettable">
+      <thead>
+        <tr>
+          <th onClick={() => onHeaderClick()} title={hide ? "Göster" : "Gizle"}>
+            {props.header} [{props.data.length}]
+          </th>
+        </tr>
+      </thead>
+      <tbody style={{ display: hide ? "none" : "" }}>
+        {props.data.map((hedef) => (
+          <tr onClick={(e) => onRowSelect(e, hedef)}>
+            <td>{hedef.targetValue}</td>
           </tr>
-        </thead>
-        <tbody>
-          {MSISDNdata.map((hedef) => (
-            <tr onClick={(e) => onRowSelect(e, hedef)}>
-              <td>{hedef.targetValue}</td>
-            </tr>
-          ))}
-          <tr>
-            {" "}
-            <td> EMPTY </td>
-          </tr>
-          {IMEIdata.map((hedef) => (
-            <tr>
-              <td>{hedef.targetValue}</td>
-            </tr>
-          ))}
-          <tr>
-            {" "}
-            <td>EMPTY</td>{" "}
-          </tr>
-          {IMSIdata.map((hedef) => (
-            <tr>
-              <td>{hedef.targetValue}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+        ))}
+      </tbody>
+    </table>
   );
-};
+});
 
 export default HedefListesiTable;

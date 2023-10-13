@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import HedefListesiTable from "../../../../components/HedefListesiTable";
+import { getHedefListesi } from "../../../../service/rest/HedefListesiService";
 import "../../../../components/HedefListesiTable.css";
 import mockHedefListesiData from "../../../../service/rest/mocks/data/mockHedefListesiData.json";
 import DatePicker from "react-datepicker";
@@ -25,9 +26,14 @@ export const KonumSorguTipi = [
 ];
 
 const KonumSorguPanel = () => {
+  const [hedef, setHedef] = useState(null);
+  const [hedefListesi, setHedefListesi] = useState(null);
+  const [hedefListesiMSISDN, setHedefListesiMSISDN] = useState(null);
+  const [hedefListesiIMEI, setHedefListesiIMEI] = useState(null);
+  const [hedefListesiIMSI, setHedefListesiIMSI] = useState(null);
+
   const [active, setActive] = useState(KonumSorguTipi[0].id);
   const [sonKacGun, setSonKacGun] = useState(1);
-
   const [dateRange, setDateRange] = useState([new Date(), new Date()]);
   const [startDate, endDate] = dateRange;
 
@@ -42,8 +48,31 @@ const KonumSorguPanel = () => {
   };
 
   useEffect(() => {
+    console.log("\n\nKonum Sorgu Panel CHANGED\n\n");
+    // setHedefListesi(getHedefListesi());
+
+    // if (hedefListesi) {
+    setHedefListesiMSISDN(
+      Array.from(mockHedefListesiData)
+        .filter((hedef) => hedef.targetType === "MSISDN")
+        .sort((h1, h2) => h1.targetValue.localeCompare(h2.targetValue)),
+    );
+    setHedefListesiIMEI(
+      Array.from(mockHedefListesiData)
+        .filter((hedef) => hedef.targetType === "IMEI")
+        .sort((h1, h2) => h1.targetValue.localeCompare(h2.targetValue)),
+    );
+    setHedefListesiIMSI(
+      Array.from(mockHedefListesiData)
+        .filter((hedef) => hedef.targetType === "IMSI")
+        .sort((h1, h2) => h1.targetValue.localeCompare(h2.targetValue)),
+    );
+    // }
+  }, []);
+
+  useEffect(() => {
     if (active == KonumSorguTipi[2].id) {
-      alert("son baz");
+      // alert("son baz");
     }
   }, [active]);
 
@@ -105,25 +134,22 @@ const KonumSorguPanel = () => {
 
         <div className="target-table">
           <HedefListesiTable
-            data={Array.from(mockHedefListesiData).filter(
-              (hedef) => hedef.targetType === "MSISDN",
-            )}
+            data={hedefListesiMSISDN}
             header="MSISDN"
+            setHedef={setHedef}
             ref={refMSISDN}
           />
           <HedefListesiTable
-            data={Array.from(mockHedefListesiData).filter(
-              (hedef) => hedef.targetType === "IMEI",
-            )}
+            data={hedefListesiIMEI}
             header="IMEI"
-            ref={refMSISDN}
+            setHedef={setHedef}
+            ref={refIMEI}
           />
           <HedefListesiTable
-            data={Array.from(mockHedefListesiData).filter(
-              (hedef) => hedef.targetType === "IMSI",
-            )}
+            data={hedefListesiIMSI}
             header="IMSI"
-            ref={refMSISDN}
+            setHedef={setHedef}
+            ref={refIMSI}
           />
         </div>
         <button

@@ -11,11 +11,12 @@ export const getHedefListesi = () => {
       if (!response.ok) {
         // get error message from body or default to response statusText
         const error = (data && data.message) || response.statusText;
-        //return Promise.reject(error);
+        return Promise.reject(error);
       }
 
       //   this.setState({ totalReactPackages: data.total });
       console.log("successful call");
+      return data;
     })
     .catch((error) => {
       //   this.setState({ errorMessage: error.toString() });

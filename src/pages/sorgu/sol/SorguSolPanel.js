@@ -5,18 +5,12 @@ import KonumSorguPanel from "./konum/KonumSorguPanel";
 import BazSorguPanel from "./baz/BazSorguPanel";
 import KoordinatSorguPanel from "./koordinat/KoordinatSorguPanel";
 import KestirmeSorguPanel from "./kestirme/KestirmeSorguPanel";
-import { getHedefListesi } from "../../../service/rest/HedefListesiService";
 import "./SorguSolPanel.css";
 
 const SorguSolPanel = () => {
   const [active, setActive] = useState(SorguTipi[0].name);
 
   const { map, featureGroupRef } = useContext(MapContext);
-
-  useEffect(() => {
-    console.log("\n\nSORGU SOL PANEL CHANGED\n\n");
-    getHedefListesi();
-  }, []);
 
   useEffect(() => {
     if (map != null) {

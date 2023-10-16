@@ -7,8 +7,10 @@ const HedefListesiTable = forwardRef((props, ref) => {
 
   useImperativeHandle(ref, () => ({
     unSelect() {
-      alert("child function " + props.header);
-      props.setHedef(null);
+      if (lastSelectedRow) {
+        lastSelectedRow.classList.remove("selected");
+        setLastSelectedRow(null);
+      }
     },
   }));
 
@@ -53,7 +55,10 @@ const HedefListesiTable = forwardRef((props, ref) => {
           </thead>
           <tbody style={{ display: hide ? "none" : "" }}>
             {props.data.map((hedef) => (
-              <tr onClick={(e) => onRowSelect(e, hedef)}>
+              <tr
+                onClick={(e) => onRowSelect(e, hedef)}
+                key={hedef.targetType + "-" + hedef.targetValue}
+              >
                 <td>{hedef.targetValue}</td>
               </tr>
             ))}

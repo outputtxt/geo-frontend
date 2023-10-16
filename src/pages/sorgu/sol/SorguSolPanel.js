@@ -9,7 +9,6 @@ import "./SorguSolPanel.css";
 
 const SorguSolPanel = () => {
   const [active, setActive] = useState(SorguTipi[0].name);
-
   const { map, featureGroupRef } = useContext(MapContext);
 
   useEffect(() => {
@@ -18,30 +17,12 @@ const SorguSolPanel = () => {
     }
   }, [active]);
 
-  const getSorguPanel = () => {
-    if (!active) {
-      return <p>Boş Sorgu Seçimi</p>;
-    }
-
-    switch (active) {
-      case SorguTipi[0].name:
-        return <KonumSorguPanel />;
-      case SorguTipi[1].name:
-        return <BazSorguPanel />;
-      case SorguTipi[2].name:
-        return <KoordinatSorguPanel />;
-      case SorguTipi[3].name:
-        return <KestirmeSorguPanel />;
-      default:
-        return <p> Empty Panel: {active} </p>;
-    }
-  };
-
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <div className="sorgu-sol-tab-group">
         {SorguTipi.map((item) => (
           <button
+            type="button"
             className={
               active === item.name
                 ? "sorgu-sol-tab sorgu-sol-tab-active"
@@ -54,7 +35,20 @@ const SorguSolPanel = () => {
           </button>
         ))}
       </div>
-      <div className="sorgu-sol-content">{getSorguPanel()}</div>
+      <div className="sorgu-sol-content">
+        <div style={{ display: active === SorguTipi[0].name ? "" : "none" }}>
+          <KonumSorguPanel />
+        </div>
+        <div style={{ display: active === SorguTipi[1].name ? "" : "none" }}>
+          <BazSorguPanel />
+        </div>
+        <div style={{ display: active === SorguTipi[2].name ? "" : "none" }}>
+          <KoordinatSorguPanel />
+        </div>
+        <div style={{ display: active === SorguTipi[3].name ? "" : "none" }}>
+          <KestirmeSorguPanel />
+        </div>
+      </div>
     </div>
   );
 };

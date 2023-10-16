@@ -47,28 +47,46 @@ const KonumSorguPanel = () => {
     console.log(endDate);
   };
 
+  // clear previous selected hedef from different type lists
   useEffect(() => {
-    console.log("\n\nKonum Sorgu Panel CHANGED\n\n");
-    // setHedefListesi(getHedefListesi());
+    if (hedef && hedef.targetType !== "MSISDN") {
+      refMSISDN.current.unSelect();
+    }
+    if (hedef && hedef.targetType !== "IMEI") {
+      refIMEI.current.unSelect();
+    }
+    if (hedef && hedef.targetType !== "IMSI") {
+      refIMSI.current.unSelect();
+    }
+  }, [hedef]);
 
-    // if (hedefListesi) {
-    setHedefListesiMSISDN(
-      Array.from(mockHedefListesiData)
-        .filter((hedef) => hedef.targetType === "MSISDN")
-        .sort((h1, h2) => h1.targetValue.localeCompare(h2.targetValue)),
-    );
-    setHedefListesiIMEI(
-      Array.from(mockHedefListesiData)
-        .filter((hedef) => hedef.targetType === "IMEI")
-        .sort((h1, h2) => h1.targetValue.localeCompare(h2.targetValue)),
-    );
-    setHedefListesiIMSI(
-      Array.from(mockHedefListesiData)
-        .filter((hedef) => hedef.targetType === "IMSI")
-        .sort((h1, h2) => h1.targetValue.localeCompare(h2.targetValue)),
-    );
-    // }
+  // LOAD DATA
+  useEffect(() => {
+    //setHedefListesi(getHedefListesi(setHedefListesi));
+    setHedefListesi(mockHedefListesiData);
   }, []);
+
+  useEffect(() => {
+    // mockHedefListesiData
+
+    if (hedefListesi) {
+      setHedefListesiMSISDN(
+        Array.from(hedefListesi)
+          .filter((hedef) => hedef.targetType === "MSISDN")
+          .sort((h1, h2) => h1.targetValue.localeCompare(h2.targetValue)),
+      );
+      setHedefListesiIMEI(
+        Array.from(hedefListesi)
+          .filter((hedef) => hedef.targetType === "IMEI")
+          .sort((h1, h2) => h1.targetValue.localeCompare(h2.targetValue)),
+      );
+      setHedefListesiIMSI(
+        Array.from(hedefListesi)
+          .filter((hedef) => hedef.targetType === "IMSI")
+          .sort((h1, h2) => h1.targetValue.localeCompare(h2.targetValue)),
+      );
+    }
+  }, [hedefListesi]);
 
   useEffect(() => {
     if (active == KonumSorguTipi[2].id) {
@@ -98,7 +116,7 @@ const KonumSorguPanel = () => {
         {active == 1 && (
           <div className="sorgu-fieldset-no-border">
             <label className="sorgu-label" htmlFor="gecmis">
-              Geçmiş{" "}
+              Geçmiş
             </label>
 
             <DatePicker
@@ -118,7 +136,7 @@ const KonumSorguPanel = () => {
         {active == 3 && (
           <div className="sorgu-fieldset-no-border">
             <label className="sorgu-label" htmlFor="sonGun">
-              Son Gün{" "}
+              Son Gün
             </label>
             <input
               className="sorgu-form-data-normal"
@@ -132,7 +150,13 @@ const KonumSorguPanel = () => {
           </div>
         )}
 
-        <div className="target-table">
+        <div
+          className="target-table"
+          style={{
+            display:
+              hedefListesi != null && hedefListesi.length > 0 ? "" : "none",
+          }}
+        >
           <HedefListesiTable
             data={hedefListesiMSISDN}
             header="MSISDN"
@@ -153,6 +177,7 @@ const KonumSorguPanel = () => {
           />
         </div>
         <button
+          disabled={!hedef}
           onClick={() => onButtonClick()}
           style={{ float: "right", marginRight: "10px", marginTop: "10px" }}
         >

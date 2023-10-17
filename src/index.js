@@ -8,40 +8,28 @@ import {
 
 import App from "./App";
 
-//if (process.env.NODE_ENV === "development") {
-// const { worker } = require("./service/rest/mocks/browser");
-// await worker.start({
-//   serviceWorker: {
-//     url: "https://d9l4jv-3000.csb.app/mockServiceWorker.js",
-//   },
-// });
-// {
-// onUnhandledRequest: "bypass",
-// turn off MSW warnings for specific routes
-// onUnhandledRequest(req, print) {
-// specify routes to exclude
-//   const excludedRoutes = ["/favicon.ico", "/manifest.json", "google"];
-//   // check if the req.url.pathname contains excludedRoutes
-//   const isExcluded = excludedRoutes.some((route) =>
-//     req.url.pathname.includes(route),
-//   );
-//   if (isExcluded) {
-//     return;
-//   }
-//   print.warning();
-// },
-// useful in the scenario that your application runs behind a proxy, or has a dynamic hostname.
-// findWorker: (scriptURL, _mockServiceWorkerUrl) =>
-//   scriptURL.includes("mockServiceWorker"),
-// serviceWorker: {
-//   url: "${window.location.origin}/mockServiceWorker.js",
-// },
-// });
-//}
+// let appReady = Promise.resolve();
+
+// // Enable API mocking only in development
+// if (process.env.NODE_ENV === "development") {
+//   const { worker } = require("./service/rest/mocks/browser");
+//   appReady = worker.start({
+//     serviceWorker: {
+//       /**
+//        * Use a custom Service Worker script URL to resolve
+//        * the mock worker served by Codesandbox.
+//        * @note You DO NOT need this in your application.
+//        * @see https://mswjs.io/docs/api/setup-worker/start#serviceworker
+//        */
+//       url: "/mockServiceWorker.js",
+//     },
+//   });
+// }
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
 
+// appReady.then(() => {
 root.render(
   <SideBarContextProvider>
     <MapContextProvider>
@@ -53,3 +41,4 @@ root.render(
     </MapContextProvider>
   </SideBarContextProvider>,
 );
+// });

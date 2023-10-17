@@ -30,9 +30,8 @@ const HedefListesiTable = forwardRef((props, ref) => {
   };
 
   const onHeaderClick = () => {
-    props.setHedef(null);
-
     if (lastSelectedRow) {
+      props.setHedef(null);
       lastSelectedRow.classList.remove("selected");
     }
 

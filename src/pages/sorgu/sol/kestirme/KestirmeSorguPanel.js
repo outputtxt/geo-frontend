@@ -3,7 +3,9 @@ import { useForm } from "react-hook-form";
 import Box from "@mui/material/Box";
 import { MapContext } from "../../../../util/context/Context";
 import { LATITUDE_REGEX, LONGITUDE_REGEX } from "../../../../util/Constants";
+import { getLatLngs } from "./SectorHelper";
 import * as L from "leaflet";
+import("leaflet.sector/leaflet.sector.js");
 
 const KestirmeSorguPanel = () => {
   // MAP feature group from Context
@@ -16,10 +18,10 @@ const KestirmeSorguPanel = () => {
     formState: { errors },
   } = useForm({ mode: "onChange" });
 
-  const [bazX, setBazX] = useState(null);
-  const [bazY, setBazY] = useState(null);
-  const [inRadius, setInRadius] = useState(null);
-  const [outRadius, setOutRadius] = useState(null);
+  const [bazX, setBazX] = useState(39.943);
+  const [bazY, setBazY] = useState(32.783);
+  const [inRadius, setInRadius] = useState(500);
+  const [outRadius, setOutRadius] = useState(1000);
   const [startAngle, setStartAngle] = useState(null);
   const [stopAngle, setStopAngle] = useState(null);
   const [sorguyuSilme, setSorguyuSilme] = useState(false);
@@ -29,13 +31,35 @@ const KestirmeSorguPanel = () => {
       kestirmeFeatureGroupRef.clearLayers();
     }
 
+    // console.log("sektor ciz");
+
+    // let latlngs = getLatLngs(
+    //   [bazX, bazY],
+    //   parseFloat(inRadius),
+    //   parseFloat(outRadius),
+    //   parseFloat(startAngle),
+    //   parseFloat(stopAngle),
+    //   1000,
+    // );
+
+    // console.log(latlngs);
+
+    // // var polygon = L.polygon(latlngs, {color: 'red'}).addTo(map);
+    // L.polygon(latlngs, { color: "red" }).addTo(kestirmeFeatureGroupRef);
+
     L.sector({
       center: [bazX, bazY],
-      innerRadius: inRadius,
-      outerRadius: outRadius,
-      startBearing: startAngle,
-      endBearing: stopAngle,
-      color: "orange",
+      innerRadius: parseFloat(inRadius),
+      outerRadius: parseFloat(outRadius),
+      startBearing: parseFloat(startAngle),
+      endBearing: parseFloat(stopAngle),
+      // rhumb: true,
+      // numberOfPoints: 50000,
+      fill: true,
+      fillColor: "pink",
+      fillOpacity: 0.7,
+      color: "hotpink",
+      opacity: 1.0,
     }).addTo(kestirmeFeatureGroupRef);
 
     map.fitBounds(kestirmeFeatureGroupRef.getBounds().pad(0.5));
@@ -62,7 +86,7 @@ const KestirmeSorguPanel = () => {
             className={
               errors.bazX ? "sorgu-form-data-error" : "sorgu-form-data-normal"
             }
-            value={undefined}
+            value={bazX}
             type="text"
             id="bazX"
             {...register("bazX", {
@@ -81,7 +105,7 @@ const KestirmeSorguPanel = () => {
             className={
               errors.bazY ? "sorgu-form-data-error" : "sorgu-form-data-normal"
             }
-            value={undefined}
+            value={bazY}
             type="text"
             id="bazY"
             {...register("bazY", {
@@ -103,7 +127,7 @@ const KestirmeSorguPanel = () => {
                 ? "sorgu-form-data-error"
                 : "sorgu-form-data-normal"
             }
-            value={undefined}
+            value={inRadius}
             type="text"
             id="inRadius"
             {...register("inRadius", {
@@ -121,7 +145,7 @@ const KestirmeSorguPanel = () => {
                 ? "sorgu-form-data-error"
                 : "sorgu-form-data-normal"
             }
-            value={undefined}
+            value={outRadius}
             type="text"
             id="outRadius"
             {...register("outRadius", {

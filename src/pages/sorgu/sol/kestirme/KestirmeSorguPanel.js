@@ -3,9 +3,9 @@ import { useForm } from "react-hook-form";
 import Box from "@mui/material/Box";
 import { MapContext } from "../../../../util/context/Context";
 import { LATITUDE_REGEX, LONGITUDE_REGEX } from "../../../../util/Constants";
-import { getLatLngs } from "./SectorHelper";
+import { getLatLngs } from "../../../../util/SectorHelper";
 import * as L from "leaflet";
-import("leaflet.sector/leaflet.sector.js");
+// import("leaflet.sector/leaflet.sector.js");
 
 const KestirmeSorguPanel = () => {
   // MAP feature group from Context

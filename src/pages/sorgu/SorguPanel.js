@@ -3,7 +3,6 @@ import "./SorguPanel.css";
 import SorguSagPanel from "./sag/SorguSagPanel";
 import SorguSolPanel from "./sol/SorguSolPanel";
 
-
 const SorguPanel = () => {
   const [sorguMenuOpen, setSorguMenuOpen] = useState(true);
 

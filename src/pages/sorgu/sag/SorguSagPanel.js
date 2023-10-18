@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import KeyboardDoubleArrowUpIcon from "@mui/icons-material/KeyboardDoubleArrowUp";
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -7,6 +7,7 @@ import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import Leaflet from "./leaflet/Leaflet";
 import ReactResizeDetector from "react-resize-detector";
 import { changeDraggable } from "../../../service/MapService";
+import { formatLatitude, formatLongitude } from "../../../util/Helper";
 import "./SorguSagPanel.css";
 import html2canvas from "html2canvas";
 
@@ -129,22 +130,5 @@ const SorguSagPanel = ({ sorguMenuOpen, setSorguMenuOpen }) => {
     </div>
   );
 };
-
-function round(number, precision = 0) {
-  return (
-    Math.round(number * Math.pow(10, precision) + Number.EPSILON) /
-    Math.pow(10, precision)
-  );
-}
-
-function formatLatitude(latitude) {
-  const direction = latitude > 0 ? "K" : "G";
-  return `${round(Math.abs(latitude), 6)}° ${direction}`;
-}
-
-function formatLongitude(longitude) {
-  const direction = longitude > 0 ? "D" : "B";
-  return `${round(Math.abs(longitude), 6)}° ${direction}`;
-}
 
 export default SorguSagPanel;

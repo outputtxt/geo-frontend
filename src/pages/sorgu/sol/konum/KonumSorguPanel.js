@@ -1,29 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import HedefListesiTable from "../../../../components/HedefListesiTable";
 import { getHedefListesi } from "../../../../service/rest/HedefListesiService";
+import KonumSorguTipi from "../../../../model/enum/KonumSorguTipi";
 import "../../../../components/HedefListesiTable.css";
 import mockHedefListesiData from "../../../../service/rest/mocks/data/mockHedefListesiData.json";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
-export const KonumSorguTipi = [
-  {
-    id: 0,
-    name: "Son Konum",
-  },
-  {
-    id: 1,
-    name: "Geçmiş",
-  },
-  {
-    id: 2,
-    name: "Son Baz",
-  },
-  {
-    id: 3,
-    name: "Son 1-7 Gün",
-  },
-];
 
 const KonumSorguPanel = () => {
   const [hedef, setHedef] = useState(null);

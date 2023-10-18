@@ -1,5 +1,5 @@
 import { useState, Fragment } from "react";
-import { Operator } from "../../../../util/Constants";
+import OperatorTipi from "../../../../model/enum/OperatorTipi";
 import Box from "@mui/material/Box";
 
 const BazSorguPanel = () => {
@@ -85,7 +85,7 @@ const BazSorguPanel = () => {
       <Box component="fieldset" className="sorgu-fieldset">
         <legend className="sorgu-fieldset-legend">Baz İstasyonları</legend>
         <div>
-          {Operator.map((item) => (
+          {OperatorTipi.map((item) => (
             <Fragment key={item}>
               <label className="sorgu-label" htmlFor={item}>
                 {item}

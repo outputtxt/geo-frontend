@@ -1,13 +1,28 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
+import { MapContext } from "../../../../util/context/Context";
+import * as L from "leaflet";
+import "leaflet-ellipse";
+import { BazIcon } from "../../../../util/Constants";
 import HedefListesiTable from "../../../../components/HedefListesiTable";
 import { getHedefListesi } from "../../../../service/rest/HedefListesiService";
+import KonumSorguService from "../../../../service/rest/KonumSorguService";
+import SonKonumEllipseResponse from "../../../../model/response/SonKonumEllipseResponse";
+import SonKonumSectorResponse from "../../../../model/response/SonKonumSectorResponse";
+import SonKonumCircularResponse from "../../../../model/response/SonKonumCircularResponse";
 import KonumSorguTipi from "../../../../model/enum/KonumSorguTipi";
 import "../../../../components/HedefListesiTable.css";
 import mockHedefListesiData from "../../../../service/rest/mocks/data/mockHedefListesiData.json";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const KonumSorguPanel = () => {
+const KonumSorguPanel = ({
+  setContentData,
+  setContentHeader,
+  setContentOpen,
+}) => {
+  // MAP from Context
+  const { map, featureGroupRef } = useContext(MapContext);
+
   const [hedef, setHedef] = useState(null);
   const [hedefListesi, setHedefListesi] = useState(null);
   const [hedefListesiMSISDN, setHedefListesiMSISDN] = useState(null);
@@ -23,11 +38,78 @@ const KonumSorguPanel = () => {
   const refIMEI = useRef();
   const refIMSI = useRef();
 
-  const onButtonClick = () => {
-    console.log(dateRange);
-    console.log(startDate);
-    console.log(endDate);
+  const onSorgulaClick = () => {
+    switch (active) {
+      case KonumSorguTipi[0].id:
+        sonKonumSorgula();
+      case KonumSorguTipi[1].id:
+        gecmisSorgula();
+      case KonumSorguTipi[2].id:
+        sonBazSorgula();
+      case KonumSorguTipi[3].id:
+        sonGunSorgula();
+    }
   };
+
+  const sonKonumSorgula = () => {
+    const response = KonumSorguService.sonKonumSorgula(hedef);
+    console.log(response);
+
+    if (response instanceof SonKonumEllipseResponse) {
+      console.log("instanceof Ellipse Response");
+
+      featureGroupRef.clearLayers();
+
+      var elips = L.ellipse(
+        [response.ellipse.X, response.ellipse.Y],
+        [response.ellipse.maxRadius, response.ellipse.minRadius],
+        response.ellipse.angle,
+        {
+          color: "blue",
+          fillColor: "red",
+          fillOpacity: 0.5,
+        },
+      );
+
+      map.addLayer(elips);
+
+      // map.fitBounds(featureGroupRef.getBounds().pad(0.5));
+    } else if (response instanceof SonKonumSectorResponse) {
+      console.log("instanceof Sector Response");
+
+      featureGroupRef.clearLayers();
+
+      L.sector({
+        center: [response.sector.bazX, response.sector.bazY],
+        innerRadius: parseFloat(response.sector.inRadius),
+        outerRadius: parseFloat(response.sector.outRadius),
+        startBearing: parseFloat(response.sector.startAngle),
+        endBearing: parseFloat(response.sector.stopAngle),
+        // rhumb: true,
+        // numberOfPoints: 50000,
+        fill: true,
+        fillColor: "pink",
+        fillOpacity: 0.7,
+        color: "hotpink",
+        opacity: 1.0,
+      }).addTo(featureGroupRef);
+
+      // BAZ MARKER
+      L.marker([response.sector.bazX, response.sector.bazY], {
+        icon: BazIcon,
+      }).addTo(featureGroupRef);
+
+      map.fitBounds(featureGroupRef.getBounds().pad(0.5));
+    } else if (response instanceof SonKonumCircularResponse) {
+      console.log("instanceof Circle Response");
+    }
+  };
+
+  const gecmisSorgula = () => {};
+
+  const sonBazSorgula = () => {};
+
+  const sonGunSorgula = () => {};
 
   // clear previous selected hedef from different type lists
   useEffect(() => {
@@ -160,7 +242,7 @@ const KonumSorguPanel = () => {
         </div>
         <button
           disabled={!hedef}
-          onClick={() => onButtonClick()}
+          onClick={() => onSorgulaClick()}
           style={{ float: "right", marginRight: "10px", marginTop: "10px" }}
         >
           Sorgula

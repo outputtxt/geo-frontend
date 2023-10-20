@@ -7,7 +7,11 @@ import KoordinatSorguPanel from "./koordinat/KoordinatSorguPanel";
 import KestirmeSorguPanel from "./kestirme/KestirmeSorguPanel";
 import "./SorguSolPanel.css";
 
-const SorguSolPanel = () => {
+const SorguSolPanel = ({
+  setContentData,
+  setContentHeader,
+  setContentOpen,
+}) => {
   const [active, setActive] = useState(SorguTipi[0].name);
   const { map, featureGroupRef } = useContext(MapContext);
 
@@ -37,7 +41,11 @@ const SorguSolPanel = () => {
       </div>
       <div className="sorgu-sol-content">
         <div style={{ display: active === SorguTipi[0].name ? "" : "none" }}>
-          <KonumSorguPanel />
+          <KonumSorguPanel
+            setContentData={setContentData}
+            setContentHeader={setContentHeader}
+            setContentOpen={setContentOpen}
+          />
         </div>
         <div style={{ display: active === SorguTipi[1].name ? "" : "none" }}>
           <BazSorguPanel />

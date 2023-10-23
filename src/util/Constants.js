@@ -20,3 +20,9 @@ export const BazIcon = L.icon({
   iconAnchor: [20, 24], // point of the icon which will correspond to marker's location
   popupAnchor: [-3, -76], // point from which the popup should open relative to the iconAnchor
 });
+
+export const AREA_OPACITY = 0.3;
+export const AREA_COLOR = "orange";
+export const AVEA_BAZ_COLOR = "red";
+export const TURKCELL_BAZ_COLOR = "yellow";
+export const VODAFONE_BAZ_COLOR = "purple";

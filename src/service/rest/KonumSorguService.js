@@ -44,7 +44,7 @@ export default class KonumSorguService {
         32.7612,
         148,
         299,
-        45,
+        360 - 45,
         "Ankara, Çankaya, Merkez",
       );
     } else {

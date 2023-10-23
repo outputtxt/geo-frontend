@@ -3,13 +3,14 @@ import { MapContext } from "../../../../util/context/Context";
 import * as L from "leaflet";
 // import "leaflet-ellipse";
 import "./l.ellipse";
-import { BazIcon, AREA_COLOR, AREA_OPACITY } from "../../../../util/Constants";
+import { LeafletConstants } from "../../../../util/Constants";
 import HedefListesiTable from "../../../../components/HedefListesiTable";
 import { getHedefListesi } from "../../../../service/rest/HedefListesiService";
 import KonumSorguService from "../../../../service/rest/KonumSorguService";
 import SonKonumEllipseResponse from "../../../../model/response/SonKonumEllipseResponse";
 import SonKonumSectorResponse from "../../../../model/response/SonKonumSectorResponse";
 import SonKonumCircularResponse from "../../../../model/response/SonKonumCircularResponse";
+import SonBazResponse from "../../../../model/response/SonBazResponse";
 import KonumSorguTipi from "../../../../model/enum/KonumSorguTipi";
 import "../../../../components/HedefListesiTable.css";
 import mockHedefListesiData from "../../../../service/rest/mocks/data/mockHedefListesiData.json";
@@ -64,9 +65,9 @@ const KonumSorguPanel = ({
         [response.ellipse.maxRadius, response.ellipse.minRadius],
         response.ellipse.angle,
         {
-          color: AREA_COLOR,
-          fillColor: AREA_COLOR,
-          fillOpacity: AREA_OPACITY,
+          color: LeafletConstants.AREA_COLOR,
+          fillColor: LeafletConstants.AREA_COLOR,
+          fillOpacity: LeafletConstants.AREA_OPACITY,
         },
       ).addTo(featureGroupRef);
 
@@ -78,9 +79,9 @@ const KonumSorguPanel = ({
         outerRadius: parseFloat(response.sector.outRadius),
         startBearing: parseFloat(response.sector.startAngle),
         endBearing: parseFloat(response.sector.stopAngle),
-        fillColor: AREA_COLOR,
-        fillOpacity: AREA_OPACITY,
-        color: AREA_COLOR,
+        fillColor: LeafletConstants.AREA_COLOR,
+        fillOpacity: LeafletConstants.AREA_OPACITY,
+        color: LeafletConstants.AREA_COLOR,
         // rhumb: true,
         // numberOfPoints: 50000,
         // fill: true,
@@ -89,15 +90,15 @@ const KonumSorguPanel = ({
 
       // BAZ MARKER
       L.marker([response.sector.bazX, response.sector.bazY], {
-        icon: BazIcon,
+        icon: LeafletConstants.BazIcon,
       }).addTo(featureGroupRef);
 
       // map.fitBounds(featureGroupRef.getBounds().pad(0.5));
     } else if (response instanceof SonKonumCircularResponse) {
       L.circle([response.circle.X, response.circle.Y], response.circle.radius, {
-        fillColor: AREA_COLOR,
-        fillOpacity: AREA_OPACITY,
-        color: AREA_COLOR,
+        fillColor: LeafletConstants.AREA_COLOR,
+        fillOpacity: LeafletConstants.AREA_OPACITY,
+        color: LeafletConstants.AREA_COLOR,
       }).addTo(featureGroupRef);
     }
 
@@ -106,7 +107,35 @@ const KonumSorguPanel = ({
 
   const gecmisSorgula = () => {};
 
-  const sonBazSorgula = () => {};
+  const sonBazSorgula = () => {
+    const response = KonumSorguService.sonBazSorgula(hedef);
+    console.log(response);
+    featureGroupRef.clearLayers();
+
+    if (response instanceof SonBazResponse) {
+      L.sector({
+        center: [response.bazX, response.bazY],
+        innerRadius: parseFloat(0),
+        outerRadius: parseFloat(LeafletConstants.BAZ_RADIUS),
+        startBearing: parseFloat(
+          response.angle - LeafletConstants.BAZ_ANGLE_RANGE,
+        ),
+        endBearing: parseFloat(
+          response.angle + LeafletConstants.BAZ_ANGLE_RANGE,
+        ),
+        fillColor: LeafletConstants.AREA_COLOR,
+        fillOpacity: LeafletConstants.AREA_OPACITY,
+        color: LeafletConstants.AREA_COLOR,
+      }).addTo(featureGroupRef);
+
+      // BAZ MARKER
+      L.marker([response.bazX, response.bazY], {
+        icon: LeafletConstants.BazIcon,
+      }).addTo(featureGroupRef);
+
+      map.fitBounds(featureGroupRef.getBounds().pad(0.5));
+    }
+  };
 
   const sonGunSorgula = () => {};
 

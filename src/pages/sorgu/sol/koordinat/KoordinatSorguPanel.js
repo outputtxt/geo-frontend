@@ -3,11 +3,7 @@ import { useForm } from "react-hook-form";
 import Box from "@mui/material/Box";
 import * as L from "leaflet";
 import { MapContext } from "../../../../util/context/Context";
-import {
-  LATITUDE_REGEX,
-  LONGITUDE_REGEX,
-  MAX_ZOOM,
-} from "../../../../util/Constants";
+import Constants from "../../../../util/Constants";
 
 const KoordinatSorguPanel = () => {
   // MAP from Context
@@ -27,7 +23,7 @@ const KoordinatSorguPanel = () => {
   const handleKoordinatSubmit = () => {
     L.marker([x, y]).addTo(featureGroupRef);
     //map.setView([x, y], map.getZoom());
-    map.setView([x, y], MAX_ZOOM - 2);
+    map.setView([x, y], Constants.MAX_ZOOM - 2);
     // map.flyTo([x, y], MAX_ZOOM);
   };
 
@@ -53,7 +49,7 @@ const KoordinatSorguPanel = () => {
             {...register("enlemX", {
               onChange: (event) => setX(event.target.value),
               required: true,
-              pattern: LATITUDE_REGEX,
+              pattern: Constants.LATITUDE_REGEX,
             })}
           />
           {/* errors.email.type === "required"    -    errors.email.type === "pattern" */}
@@ -77,7 +73,7 @@ const KoordinatSorguPanel = () => {
             {...register("boylamY", {
               onChange: (event) => setY(event.target.value),
               required: true,
-              pattern: LONGITUDE_REGEX,
+              pattern: Constants.LONGITUDE_REGEX,
             })}
           />
           {/* errors.email.type === "required"    -    errors.email.type === "pattern" */}

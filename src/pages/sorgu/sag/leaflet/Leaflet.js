@@ -10,7 +10,7 @@ import {
 import L from "leaflet";
 import MapController from "./MapController";
 import { MapContext } from "../../../../util/context/Context";
-import { MAX_ZOOM, MAP_START_X, MAP_START_Y } from "../../../../util/Constants";
+import Constants from "../../../../util/Constants";
 import "leaflet/dist/leaflet.css";
 import "./Leaflet.css";
 
@@ -26,7 +26,7 @@ const Leaflet = ({ width, height, draggable, setMousePoint }) => {
   const { setMap, setFeatureGroupRef, setKestirmeFeatureGroupRef } =
     useContext(MapContext);
   const [layer, setLayer] = useState(false);
-  const position = [MAP_START_X, MAP_START_Y];
+  const position = [Constants.MAP_START_X, Constants.MAP_START_Y];
 
   // useEffect(() => {
   //   if (map != null) {
@@ -41,7 +41,7 @@ const Leaflet = ({ width, height, draggable, setMousePoint }) => {
         ref={setMap}
         center={position}
         zoom={13}
-        maxZoom={MAX_ZOOM}
+        maxZoom={Constants.MAX_ZOOM}
         scrollWheelZoom={true}
         attributionControl={false}
         zoomControl={false}

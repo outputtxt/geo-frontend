@@ -1,6 +1,7 @@
 import SonKonumEllipseResponse from "../../model/response/SonKonumEllipseResponse";
 import SonKonumSectorResponse from "../../model/response/SonKonumSectorResponse";
 import SonKonumCircularResponse from "../../model/response/SonKonumCircularResponse";
+import SonBazResponse from "../../model/response/SonBazResponse";
 
 export default class KonumSorguService {
   static sonKonumSorgula(hedef) {
@@ -58,5 +59,18 @@ export default class KonumSorguService {
         "Antep Şahinbey Merkez",
       );
     }
+  }
+
+  static sonBazSorgula(hedef) {
+    console.log(hedef);
+
+    return new SonBazResponse(
+      Date.now(),
+      6010514563,
+      39.95244,
+      32.80991,
+      290,
+      "GAZI Istanbul Yolu",
+    );
   }
 }

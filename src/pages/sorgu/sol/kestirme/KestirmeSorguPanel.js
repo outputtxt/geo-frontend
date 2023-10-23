@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { useForm } from "react-hook-form";
 import Box from "@mui/material/Box";
 import { MapContext } from "../../../../util/context/Context";
-import { LATITUDE_REGEX, LONGITUDE_REGEX } from "../../../../util/Constants";
+import Constants from "../../../../util/Constants";
 import { getLatLngs } from "../../../../util/SectorHelper";
 import * as L from "leaflet";
 // import("leaflet.sector/leaflet.sector.js");
@@ -92,7 +92,7 @@ const KestirmeSorguPanel = () => {
             {...register("bazX", {
               onChange: (event) => setBazX(event.target.value),
               required: true,
-              pattern: LATITUDE_REGEX,
+              pattern: Constants.LATITUDE_REGEX,
             })}
           />
           {errors.bazX && <p className="sorgu-form-hata-label">Hatalı BazX!</p>}
@@ -111,7 +111,7 @@ const KestirmeSorguPanel = () => {
             {...register("bazY", {
               onChange: (event) => setBazY(event.target.value),
               required: true,
-              pattern: LONGITUDE_REGEX,
+              pattern: Constants.LONGITUDE_REGEX,
             })}
           />
           {errors.bazY && <p className="sorgu-form-hata-label">Hatalı BazY!</p>}

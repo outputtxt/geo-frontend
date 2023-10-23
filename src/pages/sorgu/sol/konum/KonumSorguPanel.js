@@ -113,20 +113,28 @@ const KonumSorguPanel = ({
     featureGroupRef.clearLayers();
 
     if (response instanceof SonBazResponse) {
-      L.sector({
-        center: [response.bazX, response.bazY],
-        innerRadius: parseFloat(0),
-        outerRadius: parseFloat(LeafletConstants.BAZ_RADIUS),
-        startBearing: parseFloat(
-          response.angle - LeafletConstants.BAZ_ANGLE_RANGE,
-        ),
-        endBearing: parseFloat(
-          response.angle + LeafletConstants.BAZ_ANGLE_RANGE,
-        ),
-        fillColor: LeafletConstants.AREA_COLOR,
-        fillOpacity: LeafletConstants.AREA_OPACITY,
-        color: LeafletConstants.AREA_COLOR,
-      }).addTo(featureGroupRef);
+      if (response.angle == 0) {
+        L.circle([response.bazX, response.bazY], LeafletConstants.BAZ_RADIUS, {
+          fillColor: LeafletConstants.AREA_COLOR,
+          fillOpacity: LeafletConstants.AREA_OPACITY,
+          color: LeafletConstants.AREA_COLOR,
+        }).addTo(featureGroupRef);
+      } else {
+        L.sector({
+          center: [response.bazX, response.bazY],
+          innerRadius: parseFloat(0),
+          outerRadius: parseFloat(LeafletConstants.BAZ_RADIUS),
+          startBearing: parseFloat(
+            response.angle - LeafletConstants.BAZ_ANGLE_RANGE,
+          ),
+          endBearing: parseFloat(
+            response.angle + LeafletConstants.BAZ_ANGLE_RANGE,
+          ),
+          fillColor: LeafletConstants.AREA_COLOR,
+          fillOpacity: LeafletConstants.AREA_OPACITY,
+          color: LeafletConstants.AREA_COLOR,
+        }).addTo(featureGroupRef);
+      }
 
       // BAZ MARKER
       L.marker([response.bazX, response.bazY], {

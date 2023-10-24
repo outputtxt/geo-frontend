@@ -19,8 +19,8 @@ export class LeafletConstants {
   static BazIcon = L.icon({
     iconUrl: bazIconPng,
 
-    iconSize: [40, 48], // size of the icon
-    iconAnchor: [20, 24], // point of the icon which will correspond to marker's location
+    iconSize: [30, 36], // size of the icon
+    iconAnchor: [15, 18], // point of the icon which will correspond to marker's location
     popupAnchor: [-3, -76], // point from which the popup should open relative to the iconAnchor
   });
 

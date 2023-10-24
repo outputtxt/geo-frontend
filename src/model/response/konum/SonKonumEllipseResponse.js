@@ -1,4 +1,4 @@
-import EllipseArea from "../area/EllipseArea";
+import EllipseArea from "../../area/EllipseArea";
 import SonKonumResponse from "./SonKonumResponse";
 
 export default class SonKonumEllipseResponse extends SonKonumResponse {

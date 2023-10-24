@@ -1,7 +1,7 @@
-import SonKonumEllipseResponse from "../../model/response/SonKonumEllipseResponse";
-import SonKonumSectorResponse from "../../model/response/SonKonumSectorResponse";
-import SonKonumCircularResponse from "../../model/response/SonKonumCircularResponse";
-import SonBazResponse from "../../model/response/SonBazResponse";
+import SonKonumEllipseResponse from "../../model/response/konum/SonKonumEllipseResponse";
+import SonKonumSectorResponse from "../../model/response/konum/SonKonumSectorResponse";
+import SonKonumCircularResponse from "../../model/response/konum/SonKonumCircularResponse";
+import SonBazResponse from "../../model/response/konum/SonBazResponse";
 
 export default class KonumSorguService {
   static sonKonumSorgula(hedef) {
@@ -69,7 +69,7 @@ export default class KonumSorguService {
       6010514563,
       39.95244,
       32.80991,
-      290,
+      0,
       "GAZI Istanbul Yolu",
     );
   }

@@ -1,4 +1,4 @@
-import SectorArea from "../area/SectorArea";
+import SectorArea from "../../area/SectorArea";
 import SonKonumResponse from "./SonKonumResponse";
 
 export default class SonKonumSectorResponse extends SonKonumResponse {

@@ -2,15 +2,15 @@ import { useState, useEffect, useRef, useContext } from "react";
 import { MapContext } from "../../../../util/context/Context";
 import * as L from "leaflet";
 // import "leaflet-ellipse";
-import "./l.ellipse";
+import "../../../../util/l.ellipse";
 import { LeafletConstants } from "../../../../util/Constants";
 import HedefListesiTable from "../../../../components/HedefListesiTable";
 import { getHedefListesi } from "../../../../service/rest/HedefListesiService";
 import KonumSorguService from "../../../../service/rest/KonumSorguService";
-import SonKonumEllipseResponse from "../../../../model/response/SonKonumEllipseResponse";
-import SonKonumSectorResponse from "../../../../model/response/SonKonumSectorResponse";
-import SonKonumCircularResponse from "../../../../model/response/SonKonumCircularResponse";
-import SonBazResponse from "../../../../model/response/SonBazResponse";
+import SonKonumEllipseResponse from "../../../../model/response/konum/SonKonumEllipseResponse";
+import SonKonumSectorResponse from "../../../../model/response/konum/SonKonumSectorResponse";
+import SonKonumCircularResponse from "../../../../model/response/konum/SonKonumCircularResponse";
+import SonBazResponse from "../../../../model/response/konum/SonBazResponse";
 import KonumSorguTipi from "../../../../model/enum/KonumSorguTipi";
 import "../../../../components/HedefListesiTable.css";
 import mockHedefListesiData from "../../../../service/rest/mocks/data/mockHedefListesiData.json";
@@ -41,15 +41,17 @@ const KonumSorguPanel = ({
   const refIMSI = useRef();
 
   const onSorgulaClick = () => {
+    console.log(active);
+
     switch (active) {
       case KonumSorguTipi[0].id:
-        sonKonumSorgula();
+        return sonKonumSorgula();
       case KonumSorguTipi[1].id:
-        gecmisSorgula();
+        return gecmisSorgula();
       case KonumSorguTipi[2].id:
-        sonBazSorgula();
+        return sonBazSorgula();
       case KonumSorguTipi[3].id:
-        sonGunSorgula();
+        return sonGunSorgula();
     }
   };
 

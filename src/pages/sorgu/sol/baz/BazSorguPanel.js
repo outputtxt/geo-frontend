@@ -1,8 +1,15 @@
-import { useState, Fragment } from "react";
+import { useState, useContext, Fragment } from "react";
+import { MapContext } from "../../../../util/context/Context";
+import * as L from "leaflet";
+import { LeafletConstants } from "../../../../util/Constants";
+import BazSorguService from "../../../../service/rest/BazSorguService";
 import OperatorTipi from "../../../../model/enum/OperatorTipi";
 import Box from "@mui/material/Box";
 
 const BazSorguPanel = () => {
+  // MAP from Context
+  const { map, featureGroupRef } = useContext(MapContext);
+
   const [operator, setOperator] = useState("");
   const [cellId, setCellId] = useState(null);
   const [aveaCheckBox, setAveaCheckBox] = useState(false);
@@ -12,7 +19,40 @@ const BazSorguPanel = () => {
   // =======================  CELL BUL FUNCTIONS  =======================
   const handleCellBulSubmit = (event) => {
     event.preventDefault();
-    alert("Operator: [" + operator + "], cellId: [" + cellId + "].");
+    featureGroupRef.clearLayers();
+
+    const response = BazSorguService.cellSorgula(operator, cellId);
+    console.log(response);
+
+    if (response.angle == 0) {
+      L.circle([response.bazX, response.bazY], LeafletConstants.BAZ_RADIUS, {
+        fillColor: LeafletConstants.AREA_COLOR,
+        fillOpacity: LeafletConstants.AREA_OPACITY,
+        color: LeafletConstants.AREA_COLOR,
+      }).addTo(featureGroupRef);
+    } else {
+      L.sector({
+        center: [response.bazX, response.bazY],
+        innerRadius: parseFloat(0),
+        outerRadius: parseFloat(LeafletConstants.BAZ_RADIUS),
+        startBearing: parseFloat(
+          response.angle - LeafletConstants.BAZ_ANGLE_RANGE,
+        ),
+        endBearing: parseFloat(
+          response.angle + LeafletConstants.BAZ_ANGLE_RANGE,
+        ),
+        fillColor: LeafletConstants.AREA_COLOR,
+        fillOpacity: LeafletConstants.AREA_OPACITY,
+        color: LeafletConstants.AREA_COLOR,
+      }).addTo(featureGroupRef);
+    }
+
+    // BAZ MARKER
+    L.marker([response.bazX, response.bazY], {
+      icon: LeafletConstants.BazIcon,
+    }).addTo(featureGroupRef);
+
+    map.fitBounds(featureGroupRef.getBounds().pad(0.5));
   };
 
   const onOperatorChange = (event) => {

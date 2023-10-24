@@ -1,4 +1,4 @@
-import CircularArea from "../area/CircularArea";
+import CircularArea from "../../area/CircularArea";
 import SonKonumResponse from "./SonKonumResponse";
 
 export default class SonKonumCircularResponse extends SonKonumResponse {

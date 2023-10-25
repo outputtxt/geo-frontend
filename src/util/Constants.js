@@ -1,5 +1,6 @@
 import * as L from "leaflet";
 import bazIconPng from "../img/radio-tower-icon-14-256.png";
+import OperatorTipi from "../model/enum/OperatorTipi";
 
 export default class Constants {
   static LATITUDE_REGEX =
@@ -26,9 +27,12 @@ export class LeafletConstants {
 
   static AREA_OPACITY = 0.3;
   static AREA_COLOR = "orange";
-  static AVEA_BAZ_COLOR = "red";
-  static TURKCELL_BAZ_COLOR = "yellow";
-  static VODAFONE_BAZ_COLOR = "purple";
+
+  static OPERATOR_BAZ_COLOR_MAP = new Map([
+    [OperatorTipi[0], "red"], // AVEA
+    [OperatorTipi[1], "yellow"], // TURKCELL
+    [OperatorTipi[2], "purple"], // VODAFONE
+  ]);
 
   static BAZ_ANGLE_RANGE = 32;
   static BAZ_RADIUS = 100;

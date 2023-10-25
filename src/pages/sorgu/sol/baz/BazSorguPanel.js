@@ -12,9 +12,9 @@ const BazSorguPanel = () => {
 
   const [operator, setOperator] = useState("");
   const [cellId, setCellId] = useState(null);
-  const [aveaCheckBox, setAveaCheckBox] = useState(false);
-  const [turkcellCheckBox, setTurkcellCheckBox] = useState(false);
-  const [vodafoneCheckBox, setVodafoneCheckBox] = useState(false);
+  // const [aveaCheckBox, setAveaCheckBox] = useState(false);
+  // const [turkcellCheckBox, setTurkcellCheckBox] = useState(false);
+  // const [vodafoneCheckBox, setVodafoneCheckBox] = useState(false);
 
   // =======================  CELL BUL FUNCTIONS  =======================
   const handleCellBulSubmit = (event) => {
@@ -67,8 +67,49 @@ const BazSorguPanel = () => {
   };
 
   // =======================  BAZ ISTASYONLARI FUNCTIONS  =======================
-  const onBazIstasyonuChange = (event, baz) => {
-    alert(baz);
+  const onBazListeOperatorChange = (event, bazListeOperator) => {
+    console.log(bazListeOperator);
+    var bazColor =
+      LeafletConstants.OPERATOR_BAZ_COLOR_MAP.get(bazListeOperator);
+    var cellLocationListe = BazSorguService.bazListeSorgula(bazListeOperator);
+
+    cellLocationListe.map((cellLocation) => {
+      if (cellLocation.angle == 0) {
+        L.circle(
+          [cellLocation.X, cellLocation.Y],
+          LeafletConstants.BAZ_RADIUS,
+          {
+            fillColor: bazColor,
+            fillOpacity: LeafletConstants.AREA_OPACITY,
+            color: bazColor,
+          },
+        ).addTo(featureGroupRef);
+      } else {
+        L.sector({
+          center: [cellLocation.X, cellLocation.Y],
+          innerRadius: parseFloat(0),
+          outerRadius: parseFloat(LeafletConstants.BAZ_RADIUS),
+          startBearing: parseFloat(
+            cellLocation.angle - LeafletConstants.BAZ_ANGLE_RANGE,
+          ),
+          endBearing: parseFloat(
+            cellLocation.angle + LeafletConstants.BAZ_ANGLE_RANGE,
+          ),
+          fillColor: bazColor,
+          fillOpacity: LeafletConstants.AREA_OPACITY,
+          color: bazColor,
+        }).addTo(featureGroupRef);
+      }
+
+      // BAZ CENTER POINT
+      L.circle([cellLocation.X, cellLocation.Y], 2, {
+        fillColor: bazColor,
+        fillOpacity: 1,
+        color: bazColor,
+      }).addTo(featureGroupRef);
+    });
+
+    map.fitBounds(featureGroupRef.getBounds());
   };
 
   return (
@@ -134,7 +175,7 @@ const BazSorguPanel = () => {
                 type="checkbox"
                 id={item}
                 style={{ width: "20px", height: "20px" }}
-                onChange={(event) => onBazIstasyonuChange(event, item)}
+                onChange={(event) => onBazListeOperatorChange(event, item)}
               />
               <br />
             </Fragment>

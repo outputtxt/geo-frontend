@@ -27,6 +27,7 @@ const SorguSagPanel = ({
       ? ""
       : `${formatLatitude(mousePoint.lat)}, ${formatLongitude(mousePoint.lng)}`;
 
+  // enable to copy current mouse coordinate with CTRL + C
   useEffect(
     function copyToClipboard() {
       function handleCtrlCKeydown(event) {

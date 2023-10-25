@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import KeyboardDoubleArrowUpIcon from "@mui/icons-material/KeyboardDoubleArrowUp";
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -26,6 +26,28 @@ const SorguSagPanel = ({
     mousePoint === null
       ? ""
       : `${formatLatitude(mousePoint.lat)}, ${formatLongitude(mousePoint.lng)}`;
+
+  useEffect(
+    function copyToClipboard() {
+      function handleCtrlCKeydown(event) {
+        if (
+          event.key === "c" &&
+          event.ctrlKey &&
+          formattedCoordinates.length > 0 &&
+          navigator.clipboard
+        ) {
+          navigator.clipboard.writeText(formattedCoordinates);
+        }
+      }
+
+      document.addEventListener("keydown", handleCtrlCKeydown);
+
+      return function cleanup() {
+        document.removeEventListener("keydown", handleCtrlCKeydown);
+      };
+    },
+    [formattedCoordinates],
+  );
 
   const toggleOpen = () => {
     setOpen(!open);

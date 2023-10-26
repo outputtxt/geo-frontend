@@ -27,6 +27,7 @@ export class LeafletConstants {
 
   static AREA_OPACITY = 0.3;
   static AREA_COLOR = "orange";
+  static BORDER_WEIGHT = 0.3;
 
   static OPERATOR_BAZ_COLOR_MAP = new Map([
     [OperatorTipi[0], "red"], // AVEA

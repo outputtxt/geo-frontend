@@ -13,3 +13,7 @@ https://codesandbox.io/s/get-clicked-location-latitude-and-longitude-react-leafl
 
 ELLIPS
 https://github.com/jharris711/devto-react-leaflet-ellipse
+
+
+VALTIO
+https://www.educative.io/courses/valtio-state-management-react/valtio-in-a-nutshell

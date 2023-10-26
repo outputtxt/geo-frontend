@@ -6,7 +6,6 @@ import PanToolIcon from "@mui/icons-material/PanTool";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import Leaflet from "./leaflet/Leaflet";
 import ReactResizeDetector from "react-resize-detector";
-import { changeDraggable } from "../../../service/MapService";
 import { formatLatitude, formatLongitude } from "../../../util/Helper";
 import "./SorguSagPanel.css";
 import html2canvas from "html2canvas";
@@ -60,7 +59,6 @@ const SorguSagPanel = ({
 
   const toggleDraggable = () => {
     setDraggable(!draggable);
-    changeDraggable(!draggable);
   };
 
   const exportPDF = () => {

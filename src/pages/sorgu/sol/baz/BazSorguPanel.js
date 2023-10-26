@@ -3,12 +3,15 @@ import { MapContext } from "../../../../util/context/Context";
 import * as L from "leaflet";
 import { LeafletConstants } from "../../../../util/Constants";
 import BazSorguService from "../../../../service/rest/BazSorguService";
+import useMapService from "../../../../service/MapService";
 import OperatorTipi from "../../../../model/enum/OperatorTipi";
 import Box from "@mui/material/Box";
 
 const BazSorguPanel = () => {
   // MAP from Context
   const { map, featureGroupRef } = useContext(MapContext);
+
+  const { drawBaz } = useMapService();
 
   const [operator, setOperator] = useState("");
   const [cellId, setCellId] = useState(null);
@@ -74,32 +77,42 @@ const BazSorguPanel = () => {
     var cellLocationListe = BazSorguService.bazListeSorgula(bazListeOperator);
 
     cellLocationListe.map((cellLocation) => {
-      if (cellLocation.angle == 0) {
-        L.circle(
-          [cellLocation.X, cellLocation.Y],
-          LeafletConstants.BAZ_RADIUS,
-          {
-            fillColor: bazColor,
-            fillOpacity: LeafletConstants.AREA_OPACITY,
-            color: bazColor,
-          },
-        ).addTo(featureGroupRef);
-      } else {
-        L.sector({
-          center: [cellLocation.X, cellLocation.Y],
-          innerRadius: parseFloat(0),
-          outerRadius: parseFloat(LeafletConstants.BAZ_RADIUS),
-          startBearing: parseFloat(
-            cellLocation.angle - LeafletConstants.BAZ_ANGLE_RANGE,
-          ),
-          endBearing: parseFloat(
-            cellLocation.angle + LeafletConstants.BAZ_ANGLE_RANGE,
-          ),
-          fillColor: bazColor,
-          fillOpacity: LeafletConstants.AREA_OPACITY,
-          color: bazColor,
-        }).addTo(featureGroupRef);
-      }
+      drawBaz(
+        cellLocation.X,
+        cellLocation.Y,
+        cellLocation.angle,
+        cellLocation.adres,
+        bazColor,
+      );
+      // if (cellLocation.angle == 0) {
+      //   L.circle(
+      //     [cellLocation.X, cellLocation.Y],
+      //     LeafletConstants.BAZ_RADIUS,
+      //     {
+      //       fillColor: bazColor,
+      //       fillOpacity: LeafletConstants.AREA_OPACITY,
+      //       color: bazColor,
+      //       weight: LeafletConstants.BORDER_WEIGHT,
+      //     },
+      //   ).addTo(featureGroupRef);
+      // } else {
+      //   L.sector({
+      //     center: [cellLocation.X, cellLocation.Y],
+      //     innerRadius: parseFloat(0),
+      //     outerRadius: parseFloat(LeafletConstants.BAZ_RADIUS),
+      //     startBearing: parseFloat(
+      //       cellLocation.angle - LeafletConstants.BAZ_ANGLE_RANGE,
+      //     ),
+      //     endBearing: parseFloat(
+      //       cellLocation.angle + LeafletConstants.BAZ_ANGLE_RANGE,
+      //     ),
+      //     fillColor: bazColor,
+      //     fillOpacity: LeafletConstants.AREA_OPACITY,
+      //     color: bazColor,
+      //     // stroke: false,
+      //     weight: LeafletConstants.BORDER_WEIGHT,
+      //   }).addTo(featureGroupRef);
+      // }
 
       // BAZ CENTER POINT
       L.circle([cellLocation.X, cellLocation.Y], 2, {

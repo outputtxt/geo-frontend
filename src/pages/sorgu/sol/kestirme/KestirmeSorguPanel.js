@@ -1,15 +1,15 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
+import { useSnapshot } from "valtio";
 import { useForm } from "react-hook-form";
 import Box from "@mui/material/Box";
-import { MapContext } from "../../../../util/context/Context";
+import { MapProxy } from "../../../../util/context/Context";
 import Constants from "../../../../util/Constants";
 import { getLatLngs } from "../../../../util/SectorHelper";
 import * as L from "leaflet";
 // import("leaflet.sector/leaflet.sector.js");
 
 const KestirmeSorguPanel = () => {
-  // MAP feature group from Context
-  const { map, kestirmeFeatureGroupRef } = useContext(MapContext);
+  const mapState = useSnapshot(MapProxy);
 
   const {
     register,
@@ -28,7 +28,7 @@ const KestirmeSorguPanel = () => {
 
   const handleKestirmeSubmit = () => {
     if (!sorguyuSilme) {
-      kestirmeFeatureGroupRef.clearLayers();
+      mapState.layers.kestirme.current.clearLayers();
     }
 
     // console.log("sektor ciz");
@@ -60,14 +60,14 @@ const KestirmeSorguPanel = () => {
       fillOpacity: 0.7,
       color: "hotpink",
       opacity: 1.0,
-    }).addTo(kestirmeFeatureGroupRef);
+    }).addTo(mapState.layers.kestirme.current);
 
-    map.fitBounds(kestirmeFeatureGroupRef.getBounds().pad(0.5));
+    mapState.map.current.fitBounds(mapState.layers.kestirme.current.getBounds().pad(0.5));
     //map.setView([bazX, bazY], MAX_ZOOM - 2);
   };
 
   const onSil = () => {
-    kestirmeFeatureGroupRef.clearLayers();
+    mapState.layers.kestirme.current.clearLayers();
   };
 
   return (

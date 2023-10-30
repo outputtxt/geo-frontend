@@ -1,18 +1,6 @@
-import { useState, createContext, useMemo } from "react";
+import { useState, createContext, createRef } from "react";
+import { proxy, ref } from "valtio";
 
-// export const SerivceContext = createContext({
-//   mapService: undefined
-// });
-
-// export const ServiceContextProvider = ({children}) => {
-//   //const mapService = new MapService();
-
-//   return (
-//     // <SideBarContext.Provider value={{ mapService }}>
-//     //   {children}
-//     // </SideBarContext.Provider>
-//   );
-// };
 
 export const SideBarContext = createContext({
   visible: undefined,
@@ -32,43 +20,14 @@ export const SideBarContextProvider = ({ children }) => {
   );
 };
 
-// ==========================  MAP CONTEXT  ==========================
-export const MapContext = createContext({
-  map: undefined,
-  setMap: undefined,
-  featureGroupRef: undefined,
-  setFeatureGroupRef: undefined,
-  kestirmeFeatureGroupRef: undefined,
-  setKestirmeFeatureGroupRef: undefined,
+// ==========================  MAP CONTEXT - VALTIO  ==========================
+export const MapProxy = proxy({
+  map: ref(createRef()),
+  layers: {
+    sorgu: ref(createRef()),
+    kestirme: ref(createRef()),
+    aveaBazList: ref(createRef()),
+    turkcellBazList: ref(createRef()),
+    vodafoneBazList: ref(createRef())
+  }
 });
-
-export const MapContextProvider = ({ children }) => {
-  const [map, setMap] = useState(null);
-  const [featureGroupRef, setFeatureGroupRef] = useState(null);
-  const [kestirmeFeatureGroupRef, setKestirmeFeatureGroupRef] = useState(null);
-
-  const mapProvider = useMemo(
-    () => ({
-      map,
-      setMap,
-      featureGroupRef,
-      setFeatureGroupRef,
-      kestirmeFeatureGroupRef,
-      setKestirmeFeatureGroupRef,
-    }),
-    [
-      map,
-      setMap,
-      featureGroupRef,
-      setFeatureGroupRef,
-      kestirmeFeatureGroupRef,
-      setKestirmeFeatureGroupRef,
-    ],
-  );
-
-  return (
-    <MapContext.Provider value={{ ...mapProvider }}>
-      {children}
-    </MapContext.Provider>
-  );
-};

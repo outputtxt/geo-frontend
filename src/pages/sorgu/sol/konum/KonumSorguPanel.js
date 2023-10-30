@@ -1,8 +1,7 @@
-import { useState, useEffect, useRef, useContext } from "react";
-import { MapContext } from "../../../../util/context/Context";
+import { useState, useEffect, useRef } from "react";
+import { useSnapshot } from "valtio";
+import { MapProxy } from "../../../../util/context/Context";
 import * as L from "leaflet";
-// import "leaflet-ellipse";
-import "../../../../util/l.ellipse";
 import { LeafletConstants } from "../../../../util/Constants";
 import HedefListesiTable from "../../../../components/HedefListesiTable";
 import { getHedefListesi } from "../../../../service/rest/HedefListesiService";
@@ -22,8 +21,7 @@ const KonumSorguPanel = ({
   setContentHeader,
   setContentOpen,
 }) => {
-  // MAP from Context
-  const { map, featureGroupRef } = useContext(MapContext);
+  const mapState = useSnapshot(MapProxy);
 
   const [hedef, setHedef] = useState(null);
   const [hedefListesi, setHedefListesi] = useState(null);
@@ -59,7 +57,7 @@ const KonumSorguPanel = ({
     const response = KonumSorguService.sonKonumSorgula(hedef);
     console.log(response);
 
-    featureGroupRef.clearLayers();
+    mapState.layers.sorgu.current.clearLayers();
 
     if (response instanceof SonKonumEllipseResponse) {
       var elips = L.ellipse(
@@ -71,9 +69,9 @@ const KonumSorguPanel = ({
           fillColor: LeafletConstants.AREA_COLOR,
           fillOpacity: LeafletConstants.AREA_OPACITY,
         },
-      ).addTo(featureGroupRef);
+      ).addTo(mapState.layers.sorgu.current);
 
-      // map.fitBounds(featureGroupRef.getBounds().pad(0.5));
+      // map.fitBounds(mapState.layers.sorgu.current.getBounds().pad(0.5));
     } else if (response instanceof SonKonumSectorResponse) {
       L.sector({
         center: [response.sector.bazX, response.sector.bazY],
@@ -88,23 +86,23 @@ const KonumSorguPanel = ({
         // numberOfPoints: 50000,
         // fill: true,
         // opacity: 1.0,
-      }).addTo(featureGroupRef);
+      }).addTo(mapState.layers.sorgu.current);
 
       // BAZ MARKER
       L.marker([response.sector.bazX, response.sector.bazY], {
         icon: LeafletConstants.BazIcon,
-      }).addTo(featureGroupRef);
+      }).addTo(mapState.layers.sorgu.current);
 
-      // map.fitBounds(featureGroupRef.getBounds().pad(0.5));
+      // mapState..fitBounds(mapState.layers.sorgu.current.getBounds().pad(0.5));
     } else if (response instanceof SonKonumCircularResponse) {
       L.circle([response.circle.X, response.circle.Y], response.circle.radius, {
         fillColor: LeafletConstants.AREA_COLOR,
         fillOpacity: LeafletConstants.AREA_OPACITY,
         color: LeafletConstants.AREA_COLOR,
-      }).addTo(featureGroupRef);
+      }).addTo(mapState.layers.sorgu.current);
     }
 
-    map.fitBounds(featureGroupRef.getBounds().pad(0.5));
+    mapState.map.current.fitBounds(mapState.layers.sorgu.current.getBounds().pad(0.5));
   };
 
   const gecmisSorgula = () => {};
@@ -112,7 +110,7 @@ const KonumSorguPanel = ({
   const sonBazSorgula = () => {
     const response = KonumSorguService.sonBazSorgula(hedef);
     console.log(response);
-    featureGroupRef.clearLayers();
+    mapState.layers.sorgu.current.clearLayers();
 
     if (response instanceof SonBazResponse) {
       if (response.angle == 0) {
@@ -120,7 +118,7 @@ const KonumSorguPanel = ({
           fillColor: LeafletConstants.AREA_COLOR,
           fillOpacity: LeafletConstants.AREA_OPACITY,
           color: LeafletConstants.AREA_COLOR,
-        }).addTo(featureGroupRef);
+        }).addTo(mapState.layers.sorgu.current);
       } else {
         L.sector({
           center: [response.bazX, response.bazY],
@@ -135,15 +133,15 @@ const KonumSorguPanel = ({
           fillColor: LeafletConstants.AREA_COLOR,
           fillOpacity: LeafletConstants.AREA_OPACITY,
           color: LeafletConstants.AREA_COLOR,
-        }).addTo(featureGroupRef);
+        }).addTo(mapState.layers.sorgu.current);
       }
 
       // BAZ MARKER
       L.marker([response.bazX, response.bazY], {
         icon: LeafletConstants.BazIcon,
-      }).addTo(featureGroupRef);
+      }).addTo(mapState.layers.sorgu.current);
 
-      map.fitBounds(featureGroupRef.getBounds().pad(0.5));
+      mapState.map.current.fitBounds(mapState.layers.sorgu.current.getBounds().pad(0.5));
     }
   };
 

@@ -1,19 +1,14 @@
-import { useState, useEffect, useRef, useContext } from "react";
-import {
-  MapContainer,
-  TileLayer,
-  FeatureGroup,
-  useMapEvents,
-  Marker,
-  Popup,
-} from "react-leaflet";
+import { useState } from "react";
+import { useSnapshot } from "valtio";
+import { MapContainer, TileLayer, FeatureGroup, LayersControl } from "react-leaflet";
 import L from "leaflet";
 import MapController from "./MapController";
-import { MapContext } from "../../../../util/context/Context";
+import { MapProxy } from "../../../../util/context/Context";
 import Constants from "../../../../util/Constants";
 import "leaflet/dist/leaflet.css";
 import "./Leaflet.css";
 
+//***************  bug fix for Leaflet Default Icon  ***************
 delete L.Icon.Default.prototype._getIconUrl;
 
 L.Icon.Default.mergeOptions({
@@ -22,24 +17,16 @@ L.Icon.Default.mergeOptions({
   shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
 });
 
+//=============================  LEAFLET  =============================
 const Leaflet = ({ width, height, draggable, setMousePoint }) => {
-  const { setMap, setFeatureGroupRef, setKestirmeFeatureGroupRef } =
-    useContext(MapContext);
+  const mapState = useSnapshot(MapProxy);
   const [layer, setLayer] = useState(false);
-  const position = [Constants.MAP_START_X, Constants.MAP_START_Y];
-
-  // useEffect(() => {
-  //   if (map != null) {
-  //     //console.log(map);
-  //     //map.setZoom(map.getZoom() + 1);
-  //   }
-  // }, [map]);
-
+  
   return (
     <div className="leaflet-container">
       <MapContainer
-        ref={setMap}
-        center={position}
+        ref={mapState.map}
+        center={[Constants.MAP_START_X, Constants.MAP_START_Y]}
         zoom={13}
         maxZoom={Constants.MAX_ZOOM}
         scrollWheelZoom={true}
@@ -57,17 +44,24 @@ const Leaflet = ({ width, height, draggable, setMousePoint }) => {
           <TileLayer url="https://www.google.cn/maps/vt?lyrs=m@189&gl=cn&x={x}&y={y}&z={z}" />
         )}
 
-        <FeatureGroup ref={setFeatureGroupRef} />
+      <LayersControl position="topright">
+        <LayersControl.Overlay checked name="Sorgu Katmanı">
+          <FeatureGroup ref={mapState.layers.sorgu} />
+        </LayersControl.Overlay>
+        <LayersControl.Overlay checked name="Kestirme Katmanı">
+          <FeatureGroup ref={mapState.layers.kestirme} />
+        </LayersControl.Overlay>
+        <LayersControl.Overlay checked name="Avea Baz İstasyonları">
+          <FeatureGroup ref={mapState.layers.aveaBazList} />
+        </LayersControl.Overlay>
+        <LayersControl.Overlay checked name="Turkcell Baz İstasyonları">
+          <FeatureGroup ref={mapState.layers.turkcellBazList} />
+        </LayersControl.Overlay>
+        <LayersControl.Overlay checked name="Vodafone Baz İstasyonları">
+          <FeatureGroup ref={mapState.layers.vodafoneBazList} />
+        </LayersControl.Overlay>
+      </LayersControl>
 
-        <FeatureGroup ref={setKestirmeFeatureGroupRef} />
-
-        {/*}
-        <Marker position={position}>
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
-        </Marker>
-        */}
         <MapController
           width={width}
           height={height}

@@ -1,5 +1,6 @@
-import { useState, useContext, Fragment } from "react";
-import { MapContext } from "../../../../util/context/Context";
+import { useState, Fragment } from "react";
+import { useSnapshot } from "valtio";
+import { MapProxy } from "../../../../util/context/Context";
 import * as L from "leaflet";
 import { LeafletConstants } from "../../../../util/Constants";
 import BazSorguService from "../../../../service/rest/BazSorguService";
@@ -8,9 +9,7 @@ import OperatorTipi from "../../../../model/enum/OperatorTipi";
 import Box from "@mui/material/Box";
 
 const BazSorguPanel = () => {
-  // MAP from Context
-  const { map, featureGroupRef } = useContext(MapContext);
-
+  const mapState = useSnapshot(MapProxy);
   const { drawBaz } = useMapService();
 
   const [operator, setOperator] = useState("");
@@ -22,7 +21,7 @@ const BazSorguPanel = () => {
   // =======================  CELL BUL FUNCTIONS  =======================
   const handleCellBulSubmit = (event) => {
     event.preventDefault();
-    featureGroupRef.clearLayers();
+    mapState.layers.sorgu.current.clearLayers();
 
     const response = BazSorguService.cellSorgula(operator, cellId);
     console.log(response);
@@ -32,7 +31,7 @@ const BazSorguPanel = () => {
         fillColor: LeafletConstants.AREA_COLOR,
         fillOpacity: LeafletConstants.AREA_OPACITY,
         color: LeafletConstants.AREA_COLOR,
-      }).addTo(featureGroupRef);
+      }).addTo(mapState.layers.sorgu.current);
     } else {
       L.sector({
         center: [response.bazX, response.bazY],
@@ -47,15 +46,15 @@ const BazSorguPanel = () => {
         fillColor: LeafletConstants.AREA_COLOR,
         fillOpacity: LeafletConstants.AREA_OPACITY,
         color: LeafletConstants.AREA_COLOR,
-      }).addTo(featureGroupRef);
+      }).addTo(mapState.layers.sorgu.current);
     }
 
     // BAZ MARKER
     L.marker([response.bazX, response.bazY], {
       icon: LeafletConstants.BazIcon,
-    }).addTo(featureGroupRef);
+    }).addTo(mapState.layers.sorgu.current);
 
-    map.fitBounds(featureGroupRef.getBounds().pad(0.5));
+    mapState.map.current.fitBounds(mapState.layers.sorgu.current.getBounds().pad(0.5));
   };
 
   const onOperatorChange = (event) => {
@@ -71,6 +70,21 @@ const BazSorguPanel = () => {
 
   // =======================  BAZ ISTASYONLARI FUNCTIONS  =======================
   const onBazListeOperatorChange = (event, bazListeOperator) => {
+    var bazListeLayer;
+    switch (bazListeOperator) {
+      case OperatorTipi[0]:
+        bazListeLayer = mapState.layers.aveaBazList;
+        break;
+      case OperatorTipi[1]:
+        bazListeLayer = mapState.layers.turkcellBazList;
+        break;
+      case OperatorTipi[2]:
+        bazListeLayer = mapState.layers.vodafoneBazList;
+        break;
+    }
+
+    bazListeLayer = bazListeLayer.current;
+  
     if (event.target.checked) {
       var bazColor =
         LeafletConstants.OPERATOR_BAZ_COLOR_MAP.get(bazListeOperator);
@@ -78,11 +92,12 @@ const BazSorguPanel = () => {
 
       cellLocationListe.map((cellLocation) => {
         drawBaz(
+          bazListeLayer,
           cellLocation.X,
           cellLocation.Y,
           cellLocation.angle,
           cellLocation.adres,
-          bazColor,
+          bazColor
         );
 
         // BAZ CENTER POINT
@@ -90,12 +105,12 @@ const BazSorguPanel = () => {
           fillColor: bazColor,
           fillOpacity: 1,
           color: bazColor,
-        }).addTo(featureGroupRef);
+        }).addTo(bazListeLayer);
       });
 
-      map.fitBounds(featureGroupRef.getBounds());
+      mapState.map.current.fitBounds(bazListeLayer.getBounds());
     } else {
-      featureGroupRef.clearLayers();
+      bazListeLayer.clearLayers();
     }
   };
 

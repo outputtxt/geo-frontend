@@ -1,18 +1,23 @@
-import { useContext } from "react";
-import { MapContext } from "../util/context/Context";
-import * as L from "leaflet";
+import { useSnapshot } from "valtio";
+import { MapProxy } from "../util/context/Context";
 import { LeafletConstants } from "../util/Constants";
+import * as L from "leaflet";
+import "leaflet.sector";  // one time import is enough for all L usages
+// import "leaflet-ellipse";
+import "../util/l.ellipse"; // one time import is enough for all L usages
+
 
 export const useMapService = () => {
-  // MAP from Context
-  const { map, featureGroupRef } = useContext(MapContext);
+
+  const mapState = useSnapshot(MapProxy);
 
   const drawBaz = (
+    bazListeLayer,
     bazX,
     bazY,
     angle,
     adres,
-    color = LeafletConstants.AREA_COLOR,
+    color = LeafletConstants.AREA_COLOR
   ) => {
     if (angle == 0) {
       L.circle([bazX, bazY], LeafletConstants.BAZ_RADIUS, {
@@ -20,7 +25,7 @@ export const useMapService = () => {
         fillOpacity: LeafletConstants.AREA_OPACITY,
         color: "black",
         weight: LeafletConstants.BORDER_WEIGHT,
-      }).addTo(featureGroupRef);
+      }).addTo(bazListeLayer);
     } else {
       L.sector({
         center: [bazX, bazY],
@@ -32,7 +37,7 @@ export const useMapService = () => {
         fillOpacity: LeafletConstants.AREA_OPACITY,
         color: "black",
         weight: LeafletConstants.BORDER_WEIGHT,
-      }).addTo(featureGroupRef);
+      }).addTo(bazListeLayer);
     }
 
     // BAZ CENTER POINT
@@ -40,45 +45,10 @@ export const useMapService = () => {
       fillColor: color,
       fillOpacity: 1,
       color: color,
-    }).addTo(featureGroupRef);
+    }).addTo(bazListeLayer);
   };
 
   return { drawBaz };
 };
 
 export default useMapService;
-
-// export const useDrawBaz = (
-//   bazX,
-//   bazY,
-//   angle,
-//   adres,
-//   color = LeafletConstants.AREA_COLOR,
-//   opacity = LeafletConstants.AREA_OPACITY,
-// ) => {
-//   // MAP from Context
-//   const { map, featureGroupRef } = useContext(MapContext);
-
-//   if (angle == 0) {
-//     L.circle([bazX, bazY], LeafletConstants.BAZ_RADIUS, {
-//       fillColor: color,
-//       fillOpacity: opacity,
-//       color: color,
-//     }).addTo(featureGroupRef);
-//   } else {
-//     L.sector({
-//       center: [response.bazX, response.bazY],
-//       innerRadius: parseFloat(0),
-//       outerRadius: parseFloat(LeafletConstants.BAZ_RADIUS),
-//       startBearing: parseFloat(
-//         response.angle - LeafletConstants.BAZ_ANGLE_RANGE,
-//       ),
-//       endBearing: parseFloat(response.angle + LeafletConstants.BAZ_ANGLE_RANGE),
-//       fillColor: LeafletConstants.AREA_COLOR,
-//       fillOpacity: LeafletConstants.AREA_OPACITY,
-//       color: LeafletConstants.AREA_COLOR,
-//     }).addTo(featureGroupRef);
-//   }
-
-//   return null;
-// };

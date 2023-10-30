@@ -1,13 +1,13 @@
 import { useState, useContext } from "react";
+import { useSnapshot } from "valtio";
 import { useForm } from "react-hook-form";
 import Box from "@mui/material/Box";
 import * as L from "leaflet";
-import { MapContext } from "../../../../util/context/Context";
+import { MapProxy } from "../../../../util/context/Context";
 import Constants from "../../../../util/Constants";
 
 const KoordinatSorguPanel = () => {
-  // MAP from Context
-  const { map, featureGroupRef } = useContext(MapContext);
+  const mapState = useSnapshot(MapProxy);
 
   // This State
   const {
@@ -21,9 +21,9 @@ const KoordinatSorguPanel = () => {
 
   //*************  Koordinat Sorgu  *************/
   const handleKoordinatSubmit = () => {
-    L.marker([x, y]).addTo(featureGroupRef);
+    L.marker([x, y]).addTo(mapState.layers.sorgu.current);
     //map.setView([x, y], map.getZoom());
-    map.setView([x, y], Constants.MAX_ZOOM - 2);
+    mapState.map.current.setView([x, y], Constants.MAX_ZOOM - 2);
     // map.flyTo([x, y], MAX_ZOOM);
   };
 

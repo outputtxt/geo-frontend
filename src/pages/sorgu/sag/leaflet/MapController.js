@@ -3,7 +3,6 @@ import { MapContext } from "../../../../util/context/Context";
 import { LeafletConstants } from "../../../../util/Constants";
 import { useMapEvents } from "react-leaflet";
 import "leaflet.sector";
-// import L from "leaflet";
 import * as L from "leaflet";
 
 const MapController = ({ width, height, draggable, setMousePoint }) => {

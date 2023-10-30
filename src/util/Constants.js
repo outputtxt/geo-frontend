@@ -27,14 +27,14 @@ export class LeafletConstants {
 
   static AREA_OPACITY = 0.3;
   static AREA_COLOR = "orange";
-  static BORDER_WEIGHT = 0.3;
+  static BORDER_WEIGHT = 0.4;
 
   static OPERATOR_BAZ_COLOR_MAP = new Map([
     [OperatorTipi[0], "red"], // AVEA
     [OperatorTipi[1], "yellow"], // TURKCELL
-    [OperatorTipi[2], "purple"], // VODAFONE
+    [OperatorTipi[2], "MediumBlue"], // VODAFONE
   ]);
 
   static BAZ_ANGLE_RANGE = 32;
-  static BAZ_RADIUS = 100;
+  static BAZ_RADIUS = 200;
 }

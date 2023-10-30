@@ -2,6 +2,8 @@ import CellSorguResponse from "../../model/response/baz/CellSorguResponse";
 import CellLocation from "../../model/response/baz/CellLocation";
 import OperatorTipi from "../../model/enum/OperatorTipi";
 import mockAveaBazListData from "../rest/mocks/data/mockAveaBazListData.json";
+import mockTurkcellBazListData from "../rest/mocks/data/mockTurkcellBazListData.json";
+import mockVodafoneBazListData from "../rest/mocks/data/mockVodafoneBazListData.json";
 
 export default class BazSorguService {
   static cellSorgula(operator, cellId) {
@@ -28,8 +30,18 @@ export default class BazSorguService {
       });
     } else if (operator === OperatorTipi[1]) {
       // TURKCELL
+      mockTurkcellBazListData.map((baz) => {
+        cellList.push(
+          new CellLocation(baz.bazX, baz.bazY, baz.angle, baz.adres),
+        );
+      });
     } else {
       // if (operator === OperatorTipi[2]) { // VODAFONE
+      mockVodafoneBazListData.map((baz) => {
+        cellList.push(
+          new CellLocation(baz.bazX, baz.bazY, baz.angle, baz.adres),
+        );
+      });
     }
 
     return cellList;

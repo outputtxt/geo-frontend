@@ -1,0 +1,32 @@
+[
+  { "bazX": 39.909654, "bazY": 32.756939, "angle": 1, "adres": "adres" },
+  { "bazX": 39.909654, "bazY": 32.756939, "angle": 70, "adres": "adres" },
+  { "bazX": 39.909654, "bazY": 32.756939, "angle": 160, "adres": "adres" },
+
+  { "bazX": 39.909078, "bazY": 32.756402, "angle": 10, "adres": "adres" },
+
+  { "bazX": 39.90781, "bazY": 32.756574, "angle": 220, "adres": "adres" },
+  { "bazX": 39.90781, "bazY": 32.756574, "angle": 140, "adres": "adres" },
+  { "bazX": 39.90781, "bazY": 32.756574, "angle": 32, "adres": "adres" },
+  { "bazX": 39.90781, "bazY": 32.756574, "angle": 90, "adres": "adres" },
+  { "bazX": 39.90781, "bazY": 32.756574, "angle": 290, "adres": "adres" },
+
+  { "bazX": 39.908255, "bazY": 32.762733, "angle": 1, "adres": "adres" },
+  { "bazX": 39.908255, "bazY": 32.762733, "angle": 302, "adres": "adres" },
+  { "bazX": 39.908255, "bazY": 32.762733, "angle": 45, "adres": "adres" },
+  { "bazX": 39.908255, "bazY": 32.762733, "angle": 290, "adres": "adres" },
+
+  { "bazX": 39.909473, "bazY": 32.767088, "angle": 80, "adres": "adres" },
+  { "bazX": 39.909473, "bazY": 32.767088, "angle": 250, "adres": "adres" },
+  { "bazX": 39.909473, "bazY": 32.767088, "angle": 300, "adres": "adres" },
+  { "bazX": 39.909473, "bazY": 32.767088, "angle": 355, "adres": "adres" },
+  { "bazX": 39.909473, "bazY": 32.767088, "angle": 35, "adres": "adres" },
+
+  { "bazX": 39.912024, "bazY": 32.768075, "angle": 162, "adres": "adres" },
+  { "bazX": 39.912024, "bazY": 32.768075, "angle": 85, "adres": "adres" },
+  { "bazX": 39.912024, "bazY": 32.768075, "angle": 245, "adres": "adres" },
+
+  { "bazX": 39.910477, "bazY": 32.773075, "angle": 25, "adres": "adres" },
+  { "bazX": 39.910477, "bazY": 32.773075, "angle": 315, "adres": "adres" },
+  { "bazX": 39.910477, "bazY": 32.773075, "angle": 153, "adres": "adres" }
+]

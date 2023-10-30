@@ -71,58 +71,32 @@ const BazSorguPanel = () => {
 
   // =======================  BAZ ISTASYONLARI FUNCTIONS  =======================
   const onBazListeOperatorChange = (event, bazListeOperator) => {
-    console.log(bazListeOperator);
-    var bazColor =
-      LeafletConstants.OPERATOR_BAZ_COLOR_MAP.get(bazListeOperator);
-    var cellLocationListe = BazSorguService.bazListeSorgula(bazListeOperator);
+    if (event.target.checked) {
+      var bazColor =
+        LeafletConstants.OPERATOR_BAZ_COLOR_MAP.get(bazListeOperator);
+      var cellLocationListe = BazSorguService.bazListeSorgula(bazListeOperator);
 
-    cellLocationListe.map((cellLocation) => {
-      drawBaz(
-        cellLocation.X,
-        cellLocation.Y,
-        cellLocation.angle,
-        cellLocation.adres,
-        bazColor,
-      );
-      // if (cellLocation.angle == 0) {
-      //   L.circle(
-      //     [cellLocation.X, cellLocation.Y],
-      //     LeafletConstants.BAZ_RADIUS,
-      //     {
-      //       fillColor: bazColor,
-      //       fillOpacity: LeafletConstants.AREA_OPACITY,
-      //       color: bazColor,
-      //       weight: LeafletConstants.BORDER_WEIGHT,
-      //     },
-      //   ).addTo(featureGroupRef);
-      // } else {
-      //   L.sector({
-      //     center: [cellLocation.X, cellLocation.Y],
-      //     innerRadius: parseFloat(0),
-      //     outerRadius: parseFloat(LeafletConstants.BAZ_RADIUS),
-      //     startBearing: parseFloat(
-      //       cellLocation.angle - LeafletConstants.BAZ_ANGLE_RANGE,
-      //     ),
-      //     endBearing: parseFloat(
-      //       cellLocation.angle + LeafletConstants.BAZ_ANGLE_RANGE,
-      //     ),
-      //     fillColor: bazColor,
-      //     fillOpacity: LeafletConstants.AREA_OPACITY,
-      //     color: bazColor,
-      //     // stroke: false,
-      //     weight: LeafletConstants.BORDER_WEIGHT,
-      //   }).addTo(featureGroupRef);
-      // }
+      cellLocationListe.map((cellLocation) => {
+        drawBaz(
+          cellLocation.X,
+          cellLocation.Y,
+          cellLocation.angle,
+          cellLocation.adres,
+          bazColor,
+        );
 
-      // BAZ CENTER POINT
-      L.circle([cellLocation.X, cellLocation.Y], 2, {
-        fillColor: bazColor,
-        fillOpacity: 1,
-        color: bazColor,
-      }).addTo(featureGroupRef);
-    });
+        // BAZ CENTER POINT
+        L.circle([cellLocation.X, cellLocation.Y], 2, {
+          fillColor: bazColor,
+          fillOpacity: 1,
+          color: bazColor,
+        }).addTo(featureGroupRef);
+      });
 
-    map.fitBounds(featureGroupRef.getBounds());
+      map.fitBounds(featureGroupRef.getBounds());
+    } else {
+      featureGroupRef.clearLayers();
+    }
   };
 
   return (

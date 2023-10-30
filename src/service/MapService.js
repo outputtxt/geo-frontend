@@ -18,7 +18,7 @@ export const useMapService = () => {
       L.circle([bazX, bazY], LeafletConstants.BAZ_RADIUS, {
         fillColor: color,
         fillOpacity: LeafletConstants.AREA_OPACITY,
-        color: color,
+        color: "black",
         weight: LeafletConstants.BORDER_WEIGHT,
       }).addTo(featureGroupRef);
     } else {
@@ -30,7 +30,7 @@ export const useMapService = () => {
         endBearing: parseFloat(angle + LeafletConstants.BAZ_ANGLE_RANGE),
         fillColor: color,
         fillOpacity: LeafletConstants.AREA_OPACITY,
-        color: color,
+        color: "black",
         weight: LeafletConstants.BORDER_WEIGHT,
       }).addTo(featureGroupRef);
     }

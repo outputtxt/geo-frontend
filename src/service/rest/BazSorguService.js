@@ -13,7 +13,7 @@ export default class BazSorguService {
       2120514563,
       39.90845,
       32.75165,
-      340,
+      (cellId % 2 == 0 ? 340 : 0),
       "GAZI Istanbul Yolu",
     );
   }

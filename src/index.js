@@ -1,7 +1,10 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
-import { SideBarContextProvider } from "./util/context/Context.js";
+import {
+  VisibilityContextProvider,
+  MapContextProvider,
+} from "./util/context/Context.js";
 
 import App from "./App";
 
@@ -28,12 +31,14 @@ const root = createRoot(rootElement);
 
 // appReady.then(() => {
 root.render(
-  <SideBarContextProvider>
+  <MapContextProvider>
+    <VisibilityContextProvider>
       <StrictMode>
         <BrowserRouter>
           <App />
         </BrowserRouter>
       </StrictMode>
-  </SideBarContextProvider>,
+    </VisibilityContextProvider>
+  </MapContextProvider>,
 );
 // });

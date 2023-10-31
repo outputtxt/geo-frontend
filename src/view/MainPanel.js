@@ -5,15 +5,14 @@ import Sidebar from "./sidebar/Sidebar";
 import Home from "../pages/Home";
 import AdminPanel from "../pages/AdminPanel";
 import SorguPanel from "../pages/sorgu/SorguPanel";
-import CollapsePanel from "../pages/CollapsePanel";
-import { SideBarContext } from "../util/context/Context.js";
+import { VisibilityContext } from "../util/context/Context.js";
 
 const MainPanel = () => {
-  const { visible } = useContext(SideBarContext);
+  const { sideBarVisible } = useContext(VisibilityContext);
 
   return (
     <div className="App">
-      {visible ? <Sidebar /> : null}
+      {sideBarVisible ? <Sidebar /> : null}
 
       <div className="full-page">
         <Routes>

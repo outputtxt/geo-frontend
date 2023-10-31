@@ -1,14 +1,12 @@
-import { useEffect } from "react";
-import { useSnapshot } from "valtio";
-import { MapProxy } from "../../../../util/context/Context";
+import { useEffect, useContext } from "react";
+import { MapContext } from "../../../../util/context/Context";
 import { useMapEvents } from "react-leaflet";
 
-
 const MapController = ({ width, height, draggable, setMousePoint }) => {
-  const mapState = useSnapshot(MapProxy);
+  const { map } = useContext(MapContext);
 
   // const zoomIn = (count) => {
-  //   mapState.map.current.setZoom(map.getZoom() + count);
+  //   map.setZoom(map.getZoom() + count);
   // };
 
   // ******** track mouse coordinates on map ********
@@ -23,18 +21,18 @@ const MapController = ({ width, height, draggable, setMousePoint }) => {
 
   // ******** rerender the map for each size change ********
   useEffect(() => {
-    if (mapState.map.current != null) {
-      mapState.map.current.invalidateSize();
+    if (map != null) {
+      map.invalidateSize();
     }
   }, [height, width]);
 
   // ******** enable/disable map draggable ********
   useEffect(() => {
-    if (mapState.map.current != null) {
+    if (map != null) {
       if (draggable) {
-        mapState.map.current.dragging.enable();
+        map.dragging.enable();
       } else {
-        mapState.map.current.dragging.disable();
+        map.dragging.disable();
       }
     }
   }, [draggable]);

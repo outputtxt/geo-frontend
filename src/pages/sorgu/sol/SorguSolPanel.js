@@ -1,7 +1,6 @@
-import { useState, useEffect } from "react";
-import { useSnapshot } from "valtio";
+import { useState, useContext, useEffect } from "react";
 import SorguTipi from "../../../model/enum/SorguTipi";
-import { MapProxy } from "../../../util/context/Context";
+import { MapContext } from "../../../util/context/Context";
 import KonumSorguPanel from "./konum/KonumSorguPanel";
 import BazSorguPanel from "./baz/BazSorguPanel";
 import KoordinatSorguPanel from "./koordinat/KoordinatSorguPanel";
@@ -13,12 +12,12 @@ const SorguSolPanel = ({
   setContentHeader,
   setContentOpen,
 }) => {
+  const { map, layerSorgu } = useContext(MapContext);
   const [active, setActive] = useState(SorguTipi[0].name);
-  const mapState = useSnapshot(MapProxy);
 
   useEffect(() => {
-    if (mapState != null && mapState.map.current != null) {
-      mapState.layers.sorgu.current.clearLayers();
+    if (map != null) {
+      layerSorgu.clearLayers();
     }
   }, [active]);
 

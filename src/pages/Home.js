@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import secureLocalStorage from "react-secure-storage";
 import { useContext } from "react";
-import { SideBarContext } from "../util/context/Context.js";
+import { VisibilityContext } from "../util/context/Context.js";
 
 const Home = () => {
-  const { open } = useContext(SideBarContext);
-  const { visible, setVisible } = useContext(SideBarContext);
+  const { sideBarVisible, setSideBarVisible, sideBarOpen } =
+    useContext(VisibilityContext);
 
   useEffect(() => {
     secureLocalStorage.setItem("object", {
@@ -19,11 +19,11 @@ const Home = () => {
 
   function HandleClick() {
     alert("this is:" + secureLocalStorage.getItem("number"));
-    setVisible(!visible);
+    setSideBarVisible(!sideBarVisible);
   }
 
   function ToggleSideBar() {
-    alert(open);
+    alert(sideBarOpen);
   }
 
   return (

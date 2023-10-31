@@ -1,6 +1,5 @@
-import { useState, useEffect, useRef } from "react";
-import { useSnapshot } from "valtio";
-import { MapProxy } from "../../../../util/context/Context";
+import { useState, useContext, useEffect, useRef } from "react";
+import { MapContext } from "../../../../util/context/Context";
 import * as L from "leaflet";
 import { LeafletConstants } from "../../../../util/Constants";
 import HedefListesiTable from "../../../../components/HedefListesiTable";
@@ -21,7 +20,7 @@ const KonumSorguPanel = ({
   setContentHeader,
   setContentOpen,
 }) => {
-  const mapState = useSnapshot(MapProxy);
+  const { map, layerSorgu } = useContext(MapContext);
 
   const [hedef, setHedef] = useState(null);
   const [hedefListesi, setHedefListesi] = useState(null);
@@ -57,7 +56,7 @@ const KonumSorguPanel = ({
     const response = KonumSorguService.sonKonumSorgula(hedef);
     console.log(response);
 
-    mapState.layers.sorgu.current.clearLayers();
+    layerSorgu.clearLayers();
 
     if (response instanceof SonKonumEllipseResponse) {
       var elips = L.ellipse(
@@ -69,9 +68,9 @@ const KonumSorguPanel = ({
           fillColor: LeafletConstants.AREA_COLOR,
           fillOpacity: LeafletConstants.AREA_OPACITY,
         },
-      ).addTo(mapState.layers.sorgu.current);
+      ).addTo(layerSorgu);
 
-      // map.fitBounds(mapState.layers.sorgu.current.getBounds().pad(0.5));
+      // map.fitBounds(layerSorgu.getBounds().pad(0.5));
     } else if (response instanceof SonKonumSectorResponse) {
       L.sector({
         center: [response.sector.bazX, response.sector.bazY],
@@ -86,23 +85,23 @@ const KonumSorguPanel = ({
         // numberOfPoints: 50000,
         // fill: true,
         // opacity: 1.0,
-      }).addTo(mapState.layers.sorgu.current);
+      }).addTo(layerSorgu);
 
       // BAZ MARKER
       L.marker([response.sector.bazX, response.sector.bazY], {
         icon: LeafletConstants.BazIcon,
-      }).addTo(mapState.layers.sorgu.current);
+      }).addTo(layerSorgu);
 
-      // mapState..fitBounds(mapState.layers.sorgu.current.getBounds().pad(0.5));
+      // mapState..fitBounds(layerSorgu.getBounds().pad(0.5));
     } else if (response instanceof SonKonumCircularResponse) {
       L.circle([response.circle.X, response.circle.Y], response.circle.radius, {
         fillColor: LeafletConstants.AREA_COLOR,
         fillOpacity: LeafletConstants.AREA_OPACITY,
         color: LeafletConstants.AREA_COLOR,
-      }).addTo(mapState.layers.sorgu.current);
+      }).addTo(layerSorgu);
     }
 
-    mapState.map.current.fitBounds(mapState.layers.sorgu.current.getBounds().pad(0.5));
+    map.fitBounds(layerSorgu.getBounds().pad(0.5));
   };
 
   const gecmisSorgula = () => {};
@@ -110,7 +109,7 @@ const KonumSorguPanel = ({
   const sonBazSorgula = () => {
     const response = KonumSorguService.sonBazSorgula(hedef);
     console.log(response);
-    mapState.layers.sorgu.current.clearLayers();
+    layerSorgu.clearLayers();
 
     if (response instanceof SonBazResponse) {
       if (response.angle == 0) {
@@ -118,7 +117,7 @@ const KonumSorguPanel = ({
           fillColor: LeafletConstants.AREA_COLOR,
           fillOpacity: LeafletConstants.AREA_OPACITY,
           color: LeafletConstants.AREA_COLOR,
-        }).addTo(mapState.layers.sorgu.current);
+        }).addTo(layerSorgu);
       } else {
         L.sector({
           center: [response.bazX, response.bazY],
@@ -133,15 +132,15 @@ const KonumSorguPanel = ({
           fillColor: LeafletConstants.AREA_COLOR,
           fillOpacity: LeafletConstants.AREA_OPACITY,
           color: LeafletConstants.AREA_COLOR,
-        }).addTo(mapState.layers.sorgu.current);
+        }).addTo(layerSorgu);
       }
 
       // BAZ MARKER
       L.marker([response.bazX, response.bazY], {
         icon: LeafletConstants.BazIcon,
-      }).addTo(mapState.layers.sorgu.current);
+      }).addTo(layerSorgu);
 
-      mapState.map.current.fitBounds(mapState.layers.sorgu.current.getBounds().pad(0.5));
+      map.fitBounds(layerSorgu.getBounds().pad(0.5));
     }
   };
 

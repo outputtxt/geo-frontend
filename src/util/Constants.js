@@ -29,6 +29,10 @@ export class LeafletConstants {
   static AREA_COLOR = "orange";
   static BORDER_WEIGHT = 0.4;
 
+  static AVEA_BAZ_COLOR = "red";
+  static TURKCELL_BAZ_COLOR = "yellow";
+  static VODAFONE_BAZ_COLOR = "MediumBlue";
+
   static OPERATOR_BAZ_COLOR_MAP = new Map([
     [OperatorTipi[0], "red"], // AVEA
     [OperatorTipi[1], "yellow"], // TURKCELL

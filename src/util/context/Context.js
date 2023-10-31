@@ -1,33 +1,91 @@
-import { useState, createContext, createRef } from "react";
-import { proxy, ref } from "valtio";
+import { useState, createContext, useMemo } from "react";
 
-
-export const SideBarContext = createContext({
-  visible: undefined,
-  setVisible: undefined,
-  open: undefined,
-  setOpen: undefined,
+export const VisibilityContext = createContext({
+  sideBarVisible: undefined,
+  setSideBarVisible: undefined,
+  sideBarOpen: undefined,
+  setSideBarOpen: undefined,
 });
 
-export const SideBarContextProvider = ({ children }) => {
-  const [open, setOpen] = useState(true);
-  const [visible, setVisible] = useState(true);
+export const VisibilityContextProvider = ({ children }) => {
+  const [sideBarVisible, setSideBarVisible] = useState(true);
+  const [sideBarOpen, setSideBarOpen] = useState(true);
+
+  const sideBarProvider = useMemo(
+    () => ({
+      sideBarVisible,
+      setSideBarVisible,
+      sideBarOpen,
+      setSideBarOpen,
+    }),
+    [sideBarVisible, setSideBarVisible, sideBarOpen, setSideBarOpen],
+  );
 
   return (
-    <SideBarContext.Provider value={{ open, setOpen, visible, setVisible }}>
+    <VisibilityContext.Provider value={{ ...sideBarProvider }}>
       {children}
-    </SideBarContext.Provider>
+    </VisibilityContext.Provider>
   );
 };
 
-// ==========================  MAP CONTEXT - VALTIO  ==========================
-export const MapProxy = proxy({
-  map: ref(createRef()),
-  layers: {
-    sorgu: ref(createRef()),
-    kestirme: ref(createRef()),
-    aveaBazList: ref(createRef()),
-    turkcellBazList: ref(createRef()),
-    vodafoneBazList: ref(createRef())
-  }
+// ==========================  MAP CONTEXT  ==========================
+export const MapContext = createContext({
+  map: undefined,
+  setMap: undefined,
+  layerSorgu: undefined,
+  setLayerSorgu: undefined,
+  layerKestirme: undefined,
+  setLayerKestirme: undefined,
+  layerAveaBazList: undefined,
+  setLayerAveaBazList: undefined,
+  layerTurkcellBazList: undefined,
+  setLayerTurkcellBazList: undefined,
+  layerVodafoneBazList: undefined,
+  setLayerVodafoneBazList: undefined,
 });
+
+export const MapContextProvider = ({ children }) => {
+  const [map, setMap] = useState(null);
+  const [layerSorgu, setLayerSorgu] = useState(null);
+  const [layerKestirme, setLayerKestirme] = useState(null);
+  const [layerAveaBazList, setLayerAveaBazList] = useState(null);
+  const [layerTurkcellBazList, setLayerTurkcellBazList] = useState(null);
+  const [layerVodafoneBazList, setLayerVodafoneBazList] = useState(null);
+
+  const mapProvider = useMemo(
+    () => ({
+      map,
+      setMap,
+      layerSorgu,
+      setLayerSorgu,
+      layerKestirme,
+      setLayerKestirme,
+      layerAveaBazList,
+      setLayerAveaBazList,
+      layerTurkcellBazList,
+      setLayerTurkcellBazList,
+      layerVodafoneBazList,
+      setLayerVodafoneBazList,
+    }),
+    [
+      map,
+      setMap,
+      layerSorgu,
+      setLayerSorgu,
+      layerKestirme,
+      setLayerKestirme,
+      layerAveaBazList,
+      setLayerAveaBazList,
+      layerTurkcellBazList,
+      setLayerTurkcellBazList,
+      layerVodafoneBazList,
+      setLayerVodafoneBazList,
+    ],
+  );
+
+  return (
+    <MapContext.Provider value={{ ...mapProvider }}>
+      {children}
+    </MapContext.Provider>
+  );
+};

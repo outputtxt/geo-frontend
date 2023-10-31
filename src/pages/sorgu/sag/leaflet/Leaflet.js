@@ -1,10 +1,15 @@
-import { useState } from "react";
-import { useSnapshot } from "valtio";
-import { MapContainer, TileLayer, FeatureGroup, LayersControl } from "react-leaflet";
+import { useState, useContext, useEffect } from "react";
+import {
+  MapContainer,
+  TileLayer,
+  FeatureGroup,
+  LayersControl,
+} from "react-leaflet";
 import L from "leaflet";
 import MapController from "./MapController";
-import { MapProxy } from "../../../../util/context/Context";
+import { MapContext } from "../../../../util/context/Context";
 import Constants from "../../../../util/Constants";
+import { LeafletConstants } from "../../../../util/Constants";
 import "leaflet/dist/leaflet.css";
 import "./Leaflet.css";
 
@@ -19,13 +24,41 @@ L.Icon.Default.mergeOptions({
 
 //=============================  LEAFLET  =============================
 const Leaflet = ({ width, height, draggable, setMousePoint }) => {
-  const mapState = useSnapshot(MapProxy);
+  const mapContext = useContext(MapContext);
   const [layer, setLayer] = useState(false);
-  
+
+  const aveaBazListeOptions = {
+    fillColor: LeafletConstants.AVEA_BAZ_COLOR,
+    fillOpacity: LeafletConstants.AREA_OPACITY,
+    color: "black",
+    weight: LeafletConstants.BORDER_WEIGHT,
+  };
+
+  const turkcellBazListeOptions = {
+    fillColor: LeafletConstants.TURKCELL_BAZ_COLOR,
+    fillOpacity: LeafletConstants.AREA_OPACITY,
+    color: "black",
+    weight: LeafletConstants.BORDER_WEIGHT,
+  };
+
+  const vodafoneBazListeOptions = {
+    fillColor: LeafletConstants.VODAFONE_BAZ_COLOR,
+    fillOpacity: LeafletConstants.AREA_OPACITY,
+    color: "black",
+    weight: LeafletConstants.BORDER_WEIGHT,
+  };
+
+  useEffect(() => {
+    if (mapContext.layerAveaBazList != null) {
+      mapContext.layerAveaBazList.setStyle(aveaBazListeOptions);
+      // map.invalidateSize();
+    }
+  }, [mapContext.layerAveaBazList]);
+
   return (
     <div className="leaflet-container">
       <MapContainer
-        ref={mapState.map}
+        ref={mapContext.setMap}
         center={[Constants.MAP_START_X, Constants.MAP_START_Y]}
         zoom={13}
         maxZoom={Constants.MAX_ZOOM}
@@ -44,23 +77,32 @@ const Leaflet = ({ width, height, draggable, setMousePoint }) => {
           <TileLayer url="https://www.google.cn/maps/vt?lyrs=m@189&gl=cn&x={x}&y={y}&z={z}" />
         )}
 
-      <LayersControl position="topright">
-        <LayersControl.Overlay checked name="Sorgu Katmanı">
-          <FeatureGroup ref={mapState.layers.sorgu} />
-        </LayersControl.Overlay>
-        <LayersControl.Overlay checked name="Kestirme Katmanı">
-          <FeatureGroup ref={mapState.layers.kestirme} />
-        </LayersControl.Overlay>
-        <LayersControl.Overlay checked name="Avea Baz İstasyonları">
-          <FeatureGroup ref={mapState.layers.aveaBazList} />
-        </LayersControl.Overlay>
-        <LayersControl.Overlay checked name="Turkcell Baz İstasyonları">
-          <FeatureGroup ref={mapState.layers.turkcellBazList} />
-        </LayersControl.Overlay>
-        <LayersControl.Overlay checked name="Vodafone Baz İstasyonları">
-          <FeatureGroup ref={mapState.layers.vodafoneBazList} />
-        </LayersControl.Overlay>
-      </LayersControl>
+        <LayersControl position="topright">
+          <LayersControl.Overlay checked name="Sorgu Katmanı">
+            <FeatureGroup ref={mapContext.setLayerSorgu} />
+          </LayersControl.Overlay>
+          <LayersControl.Overlay checked name="Kestirme Katmanı">
+            <FeatureGroup ref={mapContext.setLayerKestirme} />
+          </LayersControl.Overlay>
+          <LayersControl.Overlay checked name="Avea Baz İstasyonları">
+            <FeatureGroup
+              pathOptions={aveaBazListeOptions}
+              ref={mapContext.setLayerAveaBazList}
+            />
+          </LayersControl.Overlay>
+          <LayersControl.Overlay checked name="Turkcell Baz İstasyonları">
+            <FeatureGroup
+              pathOptions={turkcellBazListeOptions}
+              ref={mapContext.setLayerTurkcellBazList}
+            />
+          </LayersControl.Overlay>
+          <LayersControl.Overlay checked name="Vodafone Baz İstasyonları">
+            <FeatureGroup
+              pathOptions={vodafoneBazListeOptions}
+              ref={mapContext.setLayerVodafoneBazList}
+            />
+          </LayersControl.Overlay>
+        </LayersControl>
 
         <MapController
           width={width}

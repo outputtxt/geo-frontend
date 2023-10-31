@@ -4,19 +4,19 @@ import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { sidebarData } from "./sidebarData";
 import styles from "./sidebar.module.css";
-import { SideBarContext } from "../../util/context/Context.js";
+import { VisibilityContext } from "../../util/context/Context.js";
 
 const Sidebar = () => {
-  const { open, setOpen } = useContext(SideBarContext);
+  const { sideBarOpen, setSideBarOpen } = useContext(VisibilityContext);
 
   const toggleOpen = () => {
-    setOpen(!open);
+    setSideBarOpen(!sideBarOpen);
   };
 
   return (
-    <div className={open ? styles.sidenav : styles.sidenavClosed}>
+    <div className={sideBarOpen ? styles.sidenav : styles.sidenavClosed}>
       <button className={styles.menuBtn} onClick={toggleOpen}>
-        {open ? (
+        {sideBarOpen ? (
           <KeyboardDoubleArrowLeftIcon />
         ) : (
           <KeyboardDoubleArrowRightIcon />

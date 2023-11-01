@@ -55,14 +55,13 @@ const KestirmeSorguPanel = () => {
       // rhumb: true,
       // numberOfPoints: 50000,
       fill: true,
-      fillColor: "pink",
+      // fillColor: "pink",
       fillOpacity: 0.7,
-      color: "hotpink",
+      // color: "hotpink",
       opacity: 1.0,
     }).addTo(layerKestirme);
 
     map.fitBounds(layerKestirme.getBounds().pad(0.5));
-    //map.setView([bazX, bazY], MAX_ZOOM - 2);
   };
 
   const onSil = () => {

@@ -27,27 +27,6 @@ const Leaflet = ({ width, height, draggable, setMousePoint }) => {
   const mapContext = useContext(MapContext);
   const [layer, setLayer] = useState(false);
 
-  const aveaBazListeOptions = {
-    fillColor: LeafletConstants.AVEA_BAZ_COLOR,
-    fillOpacity: LeafletConstants.AREA_OPACITY,
-    color: "black",
-    weight: LeafletConstants.BORDER_WEIGHT,
-  };
-
-  const turkcellBazListeOptions = {
-    fillColor: LeafletConstants.TURKCELL_BAZ_COLOR,
-    fillOpacity: LeafletConstants.AREA_OPACITY,
-    color: "black",
-    weight: LeafletConstants.BORDER_WEIGHT,
-  };
-
-  const vodafoneBazListeOptions = {
-    fillColor: LeafletConstants.VODAFONE_BAZ_COLOR,
-    fillOpacity: LeafletConstants.AREA_OPACITY,
-    color: "black",
-    weight: LeafletConstants.BORDER_WEIGHT,
-  };
-
   return (
     <div className="leaflet-container">
       <MapContainer
@@ -82,19 +61,19 @@ const Leaflet = ({ width, height, draggable, setMousePoint }) => {
           </LayersControl.Overlay>
           <LayersControl.Overlay checked name="Avea Baz İstasyonları">
             <FeatureGroup
-              pathOptions={aveaBazListeOptions}
+              name="LayerAveaBazList"
               ref={mapContext.setLayerAveaBazList}
             />
           </LayersControl.Overlay>
           <LayersControl.Overlay checked name="Turkcell Baz İstasyonları">
             <FeatureGroup
-              pathOptions={turkcellBazListeOptions}
+              name="LayerTurkcellBazList"
               ref={mapContext.setLayerTurkcellBazList}
             />
           </LayersControl.Overlay>
           <LayersControl.Overlay checked name="Vodafone Baz İstasyonları">
             <FeatureGroup
-              pathOptions={vodafoneBazListeOptions}
+              name="LayerVodafoneBazList"
               ref={mapContext.setLayerVodafoneBazList}
             />
           </LayersControl.Overlay>

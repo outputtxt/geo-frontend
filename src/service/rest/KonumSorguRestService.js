@@ -3,7 +3,7 @@ import SonKonumSectorResponse from "../../model/response/konum/SonKonumSectorRes
 import SonKonumCircularResponse from "../../model/response/konum/SonKonumCircularResponse";
 import SonBazResponse from "../../model/response/konum/SonBazResponse";
 
-export default class KonumSorguService {
+export default class KonumSorguRestService {
   static sonKonumSorgula(hedef) {
     console.log(hedef);
 

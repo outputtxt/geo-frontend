@@ -26,6 +26,10 @@ export const useMapService = () => {
         outerRadius: parseFloat(LeafletConstants.BAZ_RADIUS),
         startBearing: parseFloat(angle - LeafletConstants.BAZ_ANGLE_RANGE),
         endBearing: parseFloat(angle + LeafletConstants.BAZ_ANGLE_RANGE),
+        fillColor: color,
+        fillOpacity: LeafletConstants.AREA_OPACITY,
+        color: "black",
+        weight: LeafletConstants.BORDER_WEIGHT,
       }).addTo(bazListeLayer);
     }
 

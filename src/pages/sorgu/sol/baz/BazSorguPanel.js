@@ -2,14 +2,16 @@ import { useState, useContext, Fragment } from "react";
 import { MapContext } from "../../../../util/context/Context";
 import * as L from "leaflet";
 import { LeafletConstants } from "../../../../util/Constants";
-import BazSorguService from "../../../../service/rest/BazSorguService";
+import BazSorguRestService from "../../../../service/rest/BazSorguRestService";
 import useMapService from "../../../../service/MapService";
+import useBazSorguService from "../../../../service/BazSorguService";
 import OperatorTipi from "../../../../model/enum/OperatorTipi";
 import Box from "@mui/material/Box";
 
 const BazSorguPanel = () => {
   const mapContext = useContext(MapContext);
   const { drawBaz } = useMapService();
+  const bazSorguService = useBazSorguService();
 
   const [operator, setOperator] = useState("");
   const [cellId, setCellId] = useState(null);
@@ -20,40 +22,7 @@ const BazSorguPanel = () => {
   // =======================  CELL BUL FUNCTIONS  =======================
   const handleCellBulSubmit = (event) => {
     event.preventDefault();
-    mapContext.layerSorgu.clearLayers();
-
-    const response = BazSorguService.cellSorgula(operator, cellId);
-    console.log(response);
-
-    if (response.angle == 0) {
-      L.circle([response.bazX, response.bazY], LeafletConstants.BAZ_RADIUS, {
-        fillColor: LeafletConstants.AREA_COLOR,
-        fillOpacity: LeafletConstants.AREA_OPACITY,
-        color: LeafletConstants.AREA_COLOR,
-      }).addTo(mapContext.layerSorgu);
-    } else {
-      L.sector({
-        center: [response.bazX, response.bazY],
-        innerRadius: parseFloat(0),
-        outerRadius: parseFloat(LeafletConstants.BAZ_RADIUS),
-        startBearing: parseFloat(
-          response.angle - LeafletConstants.BAZ_ANGLE_RANGE,
-        ),
-        endBearing: parseFloat(
-          response.angle + LeafletConstants.BAZ_ANGLE_RANGE,
-        ),
-        fillColor: LeafletConstants.AREA_COLOR,
-        fillOpacity: LeafletConstants.AREA_OPACITY,
-        color: LeafletConstants.AREA_COLOR,
-      }).addTo(mapContext.layerSorgu);
-    }
-
-    // BAZ MARKER
-    L.marker([response.bazX, response.bazY], {
-      icon: LeafletConstants.BazIcon,
-    }).addTo(mapContext.layerSorgu);
-
-    mapContext.map.fitBounds(mapContext.layerSorgu.getBounds().pad(0.5));
+    bazSorguService.bazSorgu(operator, cellId);
   };
 
   const onOperatorChange = (event) => {
@@ -87,7 +56,8 @@ const BazSorguPanel = () => {
     if (event.target.checked) {
       var bazColor =
         LeafletConstants.OPERATOR_BAZ_COLOR_MAP.get(bazListeOperator);
-      var cellLocationListe = BazSorguService.bazListeSorgula(bazListeOperator);
+      var cellLocationListe =
+        BazSorguRestService.bazListeSorgula(bazListeOperator);
 
       cellLocationListe.map((cellLocation) => {
         drawBaz(
@@ -108,6 +78,21 @@ const BazSorguPanel = () => {
       });
 
       mapContext.map.fitBounds(bazListeLayer.getBounds());
+
+      if (mapContext.map.dragging.enabled) {
+        mapContext.map.dragging.disable();
+        mapContext.map.dragging.enable();
+      } else {
+        mapContext.map.dragging.disable();
+        mapContext.map.dragging.enable();
+      }
+
+      console.log(mapContext.map);
+      console.log(bazListeLayer);
+
+      // const evt = new Event("mouseenter");
+      mapContext.map.fireEvent("mouseout");
+      // mapContext.map.off();
     } else {
       bazListeLayer.clearLayers();
     }

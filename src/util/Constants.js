@@ -41,4 +41,32 @@ export class LeafletConstants {
 
   static BAZ_ANGLE_RANGE = 32;
   static BAZ_RADIUS = 200;
+
+  static defaultPathOptions = {
+    fillColor: LeafletConstants.AREA_COLOR,
+    fillOpacity: LeafletConstants.AREA_OPACITY,
+    color: LeafletConstants.AREA_COLOR,
+    weight: LeafletConstants.BORDER_WEIGHT,
+  };
+
+  static aveaBazListeOptions = {
+    fillColor: LeafletConstants.AVEA_BAZ_COLOR,
+    fillOpacity: LeafletConstants.AREA_OPACITY,
+    color: "black",
+    weight: LeafletConstants.BORDER_WEIGHT,
+  };
+
+  static turkcellBazListeOptions = {
+    fillColor: LeafletConstants.TURKCELL_BAZ_COLOR,
+    fillOpacity: LeafletConstants.AREA_OPACITY,
+    color: "black",
+    weight: LeafletConstants.BORDER_WEIGHT,
+  };
+
+  static vodafoneBazListeOptions = {
+    fillColor: LeafletConstants.VODAFONE_BAZ_COLOR,
+    fillOpacity: LeafletConstants.AREA_OPACITY,
+    color: "black",
+    weight: LeafletConstants.BORDER_WEIGHT,
+  };
 }

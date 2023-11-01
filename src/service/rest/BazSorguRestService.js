@@ -5,7 +5,7 @@ import mockAveaBazListData from "../rest/mocks/data/mockAveaBazListData.json";
 import mockTurkcellBazListData from "../rest/mocks/data/mockTurkcellBazListData.json";
 import mockVodafoneBazListData from "../rest/mocks/data/mockVodafoneBazListData.json";
 
-export default class BazSorguService {
+export default class BazSorguRestService {
   static cellSorgula(operator, cellId) {
     console.log(operator, cellId);
 

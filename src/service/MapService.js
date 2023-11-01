@@ -33,9 +33,6 @@ export const useMapService = () => {
     L.circle([bazX, bazY], 2, { fillOpacity: 1, color: color }).addTo(
       bazListeLayer,
     );
-
-    mapContext.map.invalidateSize();
-    console.log(bazListeLayer);
   };
 
   return { drawBaz };

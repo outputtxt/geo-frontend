@@ -48,13 +48,6 @@ const Leaflet = ({ width, height, draggable, setMousePoint }) => {
     weight: LeafletConstants.BORDER_WEIGHT,
   };
 
-  useEffect(() => {
-    if (mapContext.layerAveaBazList != null) {
-      mapContext.layerAveaBazList.setStyle(aveaBazListeOptions);
-      // map.invalidateSize();
-    }
-  }, [mapContext.layerAveaBazList]);
-
   return (
     <div className="leaflet-container">
       <MapContainer
@@ -79,10 +72,13 @@ const Leaflet = ({ width, height, draggable, setMousePoint }) => {
 
         <LayersControl position="topright">
           <LayersControl.Overlay checked name="Sorgu Katmanı">
-            <FeatureGroup ref={mapContext.setLayerSorgu} />
+            <FeatureGroup ref={mapContext.setLayerSorgu} name="LayerSorgu" />
           </LayersControl.Overlay>
           <LayersControl.Overlay checked name="Kestirme Katmanı">
-            <FeatureGroup ref={mapContext.setLayerKestirme} />
+            <FeatureGroup
+              ref={mapContext.setLayerKestirme}
+              name="LayerKestirme"
+            />
           </LayersControl.Overlay>
           <LayersControl.Overlay checked name="Avea Baz İstasyonları">
             <FeatureGroup

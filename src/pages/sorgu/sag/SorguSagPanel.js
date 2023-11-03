@@ -3,6 +3,7 @@ import KeyboardDoubleArrowUpIcon from "@mui/icons-material/KeyboardDoubleArrowUp
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
 import MenuIcon from "@mui/icons-material/Menu";
 import PanToolIcon from "@mui/icons-material/PanTool";
+import RefreshIcon from "@mui/icons-material/Refresh";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import Leaflet from "./leaflet/Leaflet";
 import ReactResizeDetector from "react-resize-detector";

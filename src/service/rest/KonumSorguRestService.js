@@ -69,7 +69,7 @@ export default class KonumSorguRestService {
       6010514563,
       39.95244,
       32.80991,
-      0,
+      hedef.targetValue % 2 == 0 ? 0 : 140,
       "GAZI Istanbul Yolu",
     );
   }

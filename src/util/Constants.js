@@ -22,9 +22,9 @@ export default class Constants {
     popupAnchor: [-3, -76], // point from which the popup should open relative to the iconAnchor
   });
 
-  static AREA_OPACITY = 0.3;
+  static AREA_OPACITY = 0.4;
   static AREA_COLOR = "orange";
-  static BORDER_WEIGHT = 0.4;
+  static BORDER_WEIGHT = 0.5;
 
   static AVEA_BAZ_COLOR = "red";
   static TURKCELL_BAZ_COLOR = "yellow";

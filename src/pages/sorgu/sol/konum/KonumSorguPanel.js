@@ -1,18 +1,11 @@
-import { useState, useContext, useEffect, useRef } from "react";
-import { MapContext } from "../../../../util/context/Context";
-import * as L from "leaflet";
-import Constants from "../../../../util/Constants";
+import { useState, useEffect, useRef } from "react";
 import HedefListesiTable from "../../../../components/HedefListesiTable";
 import { getHedefListesi } from "../../../../service/rest/HedefListesiRestService";
-import KonumSorguRestService from "../../../../service/rest/KonumSorguRestService";
-import SonKonumEllipseResponse from "../../../../model/response/konum/SonKonumEllipseResponse";
-import SonKonumSectorResponse from "../../../../model/response/konum/SonKonumSectorResponse";
-import SonKonumCircularResponse from "../../../../model/response/konum/SonKonumCircularResponse";
-import SonBazResponse from "../../../../model/response/konum/SonBazResponse";
+import useKonumSorguService from "../../../../service/KonumSorguService";
 import KonumSorguTipi from "../../../../model/enum/KonumSorguTipi";
-import "../../../../components/HedefListesiTable.css";
 import mockHedefListesiData from "../../../../service/rest/mocks/data/mockHedefListesiData.json";
 import DatePicker from "react-datepicker";
+import "../../../../components/HedefListesiTable.css";
 import "react-datepicker/dist/react-datepicker.css";
 
 const KonumSorguPanel = ({
@@ -20,7 +13,7 @@ const KonumSorguPanel = ({
   setContentHeader,
   setContentOpen,
 }) => {
-  const { map, layerSorgu } = useContext(MapContext);
+  const konumSorguService = useKonumSorguService();
 
   const [hedef, setHedef] = useState(null);
   const [hedefListesi, setHedefListesi] = useState(null);
@@ -42,105 +35,15 @@ const KonumSorguPanel = ({
 
     switch (active) {
       case KonumSorguTipi[0].id:
-        return sonKonumSorgula();
+        return konumSorguService.sonKonumSorgula(hedef);
       case KonumSorguTipi[1].id:
-        return gecmisSorgula();
+        return konumSorguService.gecmisSorgula(hedef, dateRange);
       case KonumSorguTipi[2].id:
-        return sonBazSorgula();
+        return konumSorguService.sonBazSorgula(hedef);
       case KonumSorguTipi[3].id:
-        return sonGunSorgula();
+        return konumSorguService.sonGunSorgula(hedef, sonKacGun);
     }
   };
-
-  const sonKonumSorgula = () => {
-    const response = KonumSorguService.sonKonumSorgula(hedef);
-    console.log(response);
-
-    layerSorgu.clearLayers();
-
-    if (response instanceof SonKonumEllipseResponse) {
-      var elips = L.ellipse(
-        [response.ellipse.X, response.ellipse.Y],
-        [response.ellipse.maxRadius, response.ellipse.minRadius],
-        response.ellipse.angle,
-        {
-          color: Constants.AREA_COLOR,
-          fillColor: Constants.AREA_COLOR,
-          fillOpacity: Constants.AREA_OPACITY,
-        },
-      ).addTo(layerSorgu);
-
-      // map.fitBounds(layerSorgu.getBounds().pad(0.5));
-    } else if (response instanceof SonKonumSectorResponse) {
-      L.sector({
-        center: [response.sector.bazX, response.sector.bazY],
-        innerRadius: parseFloat(response.sector.inRadius),
-        outerRadius: parseFloat(response.sector.outRadius),
-        startBearing: parseFloat(response.sector.startAngle),
-        endBearing: parseFloat(response.sector.stopAngle),
-        fillColor: Constants.AREA_COLOR,
-        fillOpacity: Constants.AREA_OPACITY,
-        color: Constants.AREA_COLOR,
-        // rhumb: true,
-        // numberOfPoints: 50000,
-        // fill: true,
-        // opacity: 1.0,
-      }).addTo(layerSorgu);
-
-      // BAZ MARKER
-      L.marker([response.sector.bazX, response.sector.bazY], {
-        icon: Constants.BazIcon,
-      }).addTo(layerSorgu);
-
-      // mapState..fitBounds(layerSorgu.getBounds().pad(0.5));
-    } else if (response instanceof SonKonumCircularResponse) {
-      L.circle([response.circle.X, response.circle.Y], response.circle.radius, {
-        fillColor: Constants.AREA_COLOR,
-        fillOpacity: Constants.AREA_OPACITY,
-        color: Constants.AREA_COLOR,
-      }).addTo(layerSorgu);
-    }
-
-    map.fitBounds(layerSorgu.getBounds().pad(0.5));
-  };
-
-  const gecmisSorgula = () => {};
-
-  const sonBazSorgula = () => {
-    const response = KonumSorguService.sonBazSorgula(hedef);
-    console.log(response);
-    layerSorgu.clearLayers();
-
-    if (response instanceof SonBazResponse) {
-      if (response.angle == 0) {
-        L.circle([response.bazX, response.bazY], Constants.BAZ_RADIUS, {
-          fillColor: Constants.AREA_COLOR,
-          fillOpacity: Constants.AREA_OPACITY,
-          color: Constants.AREA_COLOR,
-        }).addTo(layerSorgu);
-      } else {
-        L.sector({
-          center: [response.bazX, response.bazY],
-          innerRadius: parseFloat(0),
-          outerRadius: parseFloat(Constants.BAZ_RADIUS),
-          startBearing: parseFloat(response.angle - Constants.BAZ_ANGLE_RANGE),
-          endBearing: parseFloat(response.angle + Constants.BAZ_ANGLE_RANGE),
-          fillColor: Constants.AREA_COLOR,
-          fillOpacity: Constants.AREA_OPACITY,
-          color: Constants.AREA_COLOR,
-        }).addTo(layerSorgu);
-      }
-
-      // BAZ MARKER
-      L.marker([response.bazX, response.bazY], {
-        icon: Constants.BazIcon,
-      }).addTo(layerSorgu);
-
-      map.fitBounds(layerSorgu.getBounds().pad(0.5));
-    }
-  };
-
-  const sonGunSorgula = () => {};
 
   // clear previous selected hedef from different type lists
   useEffect(() => {
@@ -183,11 +86,11 @@ const KonumSorguPanel = ({
     }
   }, [hedefListesi]);
 
-  useEffect(() => {
-    if (active == KonumSorguTipi[2].id) {
-      // alert("son baz");
-    }
-  }, [active]);
+  // useEffect(() => {
+  //   if (active == KonumSorguTipi[2].id) {
+  //     // alert("son baz");
+  //   }
+  // }, [active]);
 
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>

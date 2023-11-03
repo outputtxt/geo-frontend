@@ -13,10 +13,7 @@ export default class Constants {
 
   static MAP_START_X = 39.925018;
   static MAP_START_Y = 32.836956;
-}
 
-//**********************  LEAFLET CONSTANTS  **********************/
-export class LeafletConstants {
   static BazIcon = L.icon({
     iconUrl: bazIconPng,
 
@@ -34,39 +31,39 @@ export class LeafletConstants {
   static VODAFONE_BAZ_COLOR = "MediumBlue";
 
   static OPERATOR_BAZ_COLOR_MAP = new Map([
-    [OperatorTipi[0], "red"], // AVEA
-    [OperatorTipi[1], "yellow"], // TURKCELL
-    [OperatorTipi[2], "MediumBlue"], // VODAFONE
+    [OperatorTipi[0], Constants.AVEA_BAZ_COLOR], // AVEA
+    [OperatorTipi[1], Constants.TURKCELL_BAZ_COLOR], // TURKCELL
+    [OperatorTipi[2], Constants.VODAFONE_BAZ_COLOR], // VODAFONE
   ]);
 
   static BAZ_ANGLE_RANGE = 32;
   static BAZ_RADIUS = 200;
 
   static defaultPathOptions = {
-    fillColor: LeafletConstants.AREA_COLOR,
-    fillOpacity: LeafletConstants.AREA_OPACITY,
-    color: LeafletConstants.AREA_COLOR,
-    weight: LeafletConstants.BORDER_WEIGHT,
+    fillColor: Constants.AREA_COLOR,
+    fillOpacity: Constants.AREA_OPACITY,
+    color: Constants.AREA_COLOR,
+    weight: Constants.BORDER_WEIGHT,
   };
 
   static aveaBazListeOptions = {
-    fillColor: LeafletConstants.AVEA_BAZ_COLOR,
-    fillOpacity: LeafletConstants.AREA_OPACITY,
+    fillColor: Constants.AVEA_BAZ_COLOR,
+    fillOpacity: Constants.AREA_OPACITY,
     color: "black",
-    weight: LeafletConstants.BORDER_WEIGHT,
+    weight: Constants.BORDER_WEIGHT,
   };
 
   static turkcellBazListeOptions = {
-    fillColor: LeafletConstants.TURKCELL_BAZ_COLOR,
-    fillOpacity: LeafletConstants.AREA_OPACITY,
+    fillColor: Constants.TURKCELL_BAZ_COLOR,
+    fillOpacity: Constants.AREA_OPACITY,
     color: "black",
-    weight: LeafletConstants.BORDER_WEIGHT,
+    weight: Constants.BORDER_WEIGHT,
   };
 
   static vodafoneBazListeOptions = {
-    fillColor: LeafletConstants.VODAFONE_BAZ_COLOR,
-    fillOpacity: LeafletConstants.AREA_OPACITY,
+    fillColor: Constants.VODAFONE_BAZ_COLOR,
+    fillOpacity: Constants.AREA_OPACITY,
     color: "black",
-    weight: LeafletConstants.BORDER_WEIGHT,
+    weight: Constants.BORDER_WEIGHT,
   };
 }

@@ -31,7 +31,6 @@ const KestirmeSorguPanel = () => {
     }
 
     // console.log("sektor ciz");
-
     // let latlngs = getLatLngs(
     //   [bazX, bazY],
     //   parseFloat(inRadius),
@@ -40,9 +39,7 @@ const KestirmeSorguPanel = () => {
     //   parseFloat(stopAngle),
     //   1000,
     // );
-
     // console.log(latlngs);
-
     // // var polygon = L.polygon(latlngs, {color: 'red'}).addTo(map);
     // L.polygon(latlngs, { color: "red" }).addTo(kestirmeFeatureGroupRef);
 
@@ -52,13 +49,11 @@ const KestirmeSorguPanel = () => {
       outerRadius: parseFloat(outRadius),
       startBearing: parseFloat(startAngle),
       endBearing: parseFloat(stopAngle),
-      // rhumb: true,
-      // numberOfPoints: 50000,
       fill: true,
-      // fillColor: "pink",
-      fillOpacity: 0.7,
-      // color: "hotpink",
-      opacity: 1.0,
+      fillColor: Constants.AREA_COLOR,
+      fillOpacity: Constants.AREA_OPACITY,
+      color: "black",
+      weight: Constants.BORDER_WEIGHT,
     }).addTo(layerKestirme);
 
     map.fitBounds(layerKestirme.getBounds().pad(0.5));

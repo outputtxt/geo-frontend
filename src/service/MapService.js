@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { MapContext } from "../util/context/Context";
-import { LeafletConstants } from "../util/Constants";
+import Constants from "../util/Constants";
 import * as L from "leaflet";
 import "leaflet.sector"; // one time import is enough for all L usages
 // import "leaflet-ellipse";
@@ -15,21 +15,21 @@ export const useMapService = () => {
     bazY,
     angle,
     adres,
-    color = LeafletConstants.AREA_COLOR,
+    color = Constants.AREA_COLOR,
   ) => {
     if (angle == 0) {
-      L.circle([bazX, bazY], LeafletConstants.BAZ_RADIUS).addTo(bazListeLayer);
+      L.circle([bazX, bazY], Constants.BAZ_RADIUS).addTo(bazListeLayer);
     } else {
       L.sector({
         center: [bazX, bazY],
         innerRadius: parseFloat(0),
-        outerRadius: parseFloat(LeafletConstants.BAZ_RADIUS),
-        startBearing: parseFloat(angle - LeafletConstants.BAZ_ANGLE_RANGE),
-        endBearing: parseFloat(angle + LeafletConstants.BAZ_ANGLE_RANGE),
+        outerRadius: parseFloat(Constants.BAZ_RADIUS),
+        startBearing: parseFloat(angle - Constants.BAZ_ANGLE_RANGE),
+        endBearing: parseFloat(angle + Constants.BAZ_ANGLE_RANGE),
         fillColor: color,
-        fillOpacity: LeafletConstants.AREA_OPACITY,
+        fillOpacity: Constants.AREA_OPACITY,
         color: "black",
-        weight: LeafletConstants.BORDER_WEIGHT,
+        weight: Constants.BORDER_WEIGHT,
       }).addTo(bazListeLayer);
     }
 

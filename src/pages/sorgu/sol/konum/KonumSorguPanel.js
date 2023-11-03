@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect, useRef } from "react";
 import { MapContext } from "../../../../util/context/Context";
 import * as L from "leaflet";
-import { LeafletConstants } from "../../../../util/Constants";
+import Constants from "../../../../util/Constants";
 import HedefListesiTable from "../../../../components/HedefListesiTable";
 import { getHedefListesi } from "../../../../service/rest/HedefListesiRestService";
 import KonumSorguRestService from "../../../../service/rest/KonumSorguRestService";
@@ -64,9 +64,9 @@ const KonumSorguPanel = ({
         [response.ellipse.maxRadius, response.ellipse.minRadius],
         response.ellipse.angle,
         {
-          color: LeafletConstants.AREA_COLOR,
-          fillColor: LeafletConstants.AREA_COLOR,
-          fillOpacity: LeafletConstants.AREA_OPACITY,
+          color: Constants.AREA_COLOR,
+          fillColor: Constants.AREA_COLOR,
+          fillOpacity: Constants.AREA_OPACITY,
         },
       ).addTo(layerSorgu);
 
@@ -78,9 +78,9 @@ const KonumSorguPanel = ({
         outerRadius: parseFloat(response.sector.outRadius),
         startBearing: parseFloat(response.sector.startAngle),
         endBearing: parseFloat(response.sector.stopAngle),
-        fillColor: LeafletConstants.AREA_COLOR,
-        fillOpacity: LeafletConstants.AREA_OPACITY,
-        color: LeafletConstants.AREA_COLOR,
+        fillColor: Constants.AREA_COLOR,
+        fillOpacity: Constants.AREA_OPACITY,
+        color: Constants.AREA_COLOR,
         // rhumb: true,
         // numberOfPoints: 50000,
         // fill: true,
@@ -89,15 +89,15 @@ const KonumSorguPanel = ({
 
       // BAZ MARKER
       L.marker([response.sector.bazX, response.sector.bazY], {
-        icon: LeafletConstants.BazIcon,
+        icon: Constants.BazIcon,
       }).addTo(layerSorgu);
 
       // mapState..fitBounds(layerSorgu.getBounds().pad(0.5));
     } else if (response instanceof SonKonumCircularResponse) {
       L.circle([response.circle.X, response.circle.Y], response.circle.radius, {
-        fillColor: LeafletConstants.AREA_COLOR,
-        fillOpacity: LeafletConstants.AREA_OPACITY,
-        color: LeafletConstants.AREA_COLOR,
+        fillColor: Constants.AREA_COLOR,
+        fillOpacity: Constants.AREA_OPACITY,
+        color: Constants.AREA_COLOR,
       }).addTo(layerSorgu);
     }
 
@@ -113,31 +113,27 @@ const KonumSorguPanel = ({
 
     if (response instanceof SonBazResponse) {
       if (response.angle == 0) {
-        L.circle([response.bazX, response.bazY], LeafletConstants.BAZ_RADIUS, {
-          fillColor: LeafletConstants.AREA_COLOR,
-          fillOpacity: LeafletConstants.AREA_OPACITY,
-          color: LeafletConstants.AREA_COLOR,
+        L.circle([response.bazX, response.bazY], Constants.BAZ_RADIUS, {
+          fillColor: Constants.AREA_COLOR,
+          fillOpacity: Constants.AREA_OPACITY,
+          color: Constants.AREA_COLOR,
         }).addTo(layerSorgu);
       } else {
         L.sector({
           center: [response.bazX, response.bazY],
           innerRadius: parseFloat(0),
-          outerRadius: parseFloat(LeafletConstants.BAZ_RADIUS),
-          startBearing: parseFloat(
-            response.angle - LeafletConstants.BAZ_ANGLE_RANGE,
-          ),
-          endBearing: parseFloat(
-            response.angle + LeafletConstants.BAZ_ANGLE_RANGE,
-          ),
-          fillColor: LeafletConstants.AREA_COLOR,
-          fillOpacity: LeafletConstants.AREA_OPACITY,
-          color: LeafletConstants.AREA_COLOR,
+          outerRadius: parseFloat(Constants.BAZ_RADIUS),
+          startBearing: parseFloat(response.angle - Constants.BAZ_ANGLE_RANGE),
+          endBearing: parseFloat(response.angle + Constants.BAZ_ANGLE_RANGE),
+          fillColor: Constants.AREA_COLOR,
+          fillOpacity: Constants.AREA_OPACITY,
+          color: Constants.AREA_COLOR,
         }).addTo(layerSorgu);
       }
 
       // BAZ MARKER
       L.marker([response.bazX, response.bazY], {
-        icon: LeafletConstants.BazIcon,
+        icon: Constants.BazIcon,
       }).addTo(layerSorgu);
 
       map.fitBounds(layerSorgu.getBounds().pad(0.5));

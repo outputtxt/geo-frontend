@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { MapContext } from "../util/context/Context";
-import { LeafletConstants } from "../util/Constants";
+import Constants from "../util/Constants";
 import BazSorguRestService from "./rest/BazSorguRestService";
 import OperatorTipi from "../model/enum/OperatorTipi";
 import * as L from "leaflet";
@@ -21,30 +21,26 @@ export const useBazSorguService = () => {
     if (response.angle == 0) {
       L.circle(
         [response.bazX, response.bazY],
-        LeafletConstants.BAZ_RADIUS,
-        LeafletConstants.defaultPathOptions,
+        Constants.BAZ_RADIUS,
+        Constants.defaultPathOptions,
       ).addTo(mapContext.layerSorgu);
     } else {
       L.sector({
         center: [response.bazX, response.bazY],
         innerRadius: parseFloat(0),
-        outerRadius: parseFloat(LeafletConstants.BAZ_RADIUS),
-        startBearing: parseFloat(
-          response.angle - LeafletConstants.BAZ_ANGLE_RANGE,
-        ),
-        endBearing: parseFloat(
-          response.angle + LeafletConstants.BAZ_ANGLE_RANGE,
-        ),
-        fillColor: LeafletConstants.AREA_COLOR,
-        fillOpacity: LeafletConstants.AREA_OPACITY,
-        color: LeafletConstants.AREA_COLOR,
-        weight: LeafletConstants.BORDER_WEIGHT,
+        outerRadius: parseFloat(Constants.BAZ_RADIUS),
+        startBearing: parseFloat(response.angle - Constants.BAZ_ANGLE_RANGE),
+        endBearing: parseFloat(response.angle + Constants.BAZ_ANGLE_RANGE),
+        fillColor: Constants.AREA_COLOR,
+        fillOpacity: Constants.AREA_OPACITY,
+        color: Constants.AREA_COLOR,
+        weight: Constants.BORDER_WEIGHT,
       }).addTo(mapContext.layerSorgu);
     }
 
     // BAZ MARKER
     L.marker([response.bazX, response.bazY], {
-      icon: LeafletConstants.BazIcon,
+      icon: Constants.BazIcon,
     }).addTo(mapContext.layerSorgu);
 
     try {
@@ -61,13 +57,13 @@ export const useBazSorguService = () => {
 
     if (OperatorTipi[0] === operator) {
       bazListeLayer = mapContext.layerAveaBazList;
-      pathOptions = LeafletConstants.aveaBazListeOptions;
+      pathOptions = Constants.aveaBazListeOptions;
     } else if (OperatorTipi[1] === operator) {
       bazListeLayer = mapContext.layerTurkcellBazList;
-      pathOptions = LeafletConstants.turkcellBazListeOptions;
+      pathOptions = Constants.turkcellBazListeOptions;
     } else if (OperatorTipi[2] === operator) {
       bazListeLayer = mapContext.layerVodafoneBazList;
-      pathOptions = LeafletConstants.vodafoneBazListeOptions;
+      pathOptions = Constants.vodafoneBazListeOptions;
     }
 
     // if unchecked, then clean operator baz liste layer
@@ -77,31 +73,31 @@ export const useBazSorguService = () => {
     }
 
     // else if checked, then get operator baz liste and add to map
-    var bazColor = LeafletConstants.OPERATOR_BAZ_COLOR_MAP.get(operator);
+    var bazColor = Constants.OPERATOR_BAZ_COLOR_MAP.get(operator);
     var cellLocationListe = BazSorguRestService.bazListeSorgula(operator);
 
     cellLocationListe.map((cellLocation) => {
       if (cellLocation.angle == 0) {
         L.circle(
           [cellLocation.X, cellLocation.Y],
-          LeafletConstants.BAZ_RADIUS,
+          Constants.BAZ_RADIUS,
           pathOptions,
         ).addTo(bazListeLayer);
       } else {
         L.sector({
           center: [cellLocation.X, cellLocation.Y],
           innerRadius: parseFloat(0),
-          outerRadius: parseFloat(LeafletConstants.BAZ_RADIUS),
+          outerRadius: parseFloat(Constants.BAZ_RADIUS),
           startBearing: parseFloat(
-            cellLocation.angle - LeafletConstants.BAZ_ANGLE_RANGE,
+            cellLocation.angle - Constants.BAZ_ANGLE_RANGE,
           ),
           endBearing: parseFloat(
-            cellLocation.angle + LeafletConstants.BAZ_ANGLE_RANGE,
+            cellLocation.angle + Constants.BAZ_ANGLE_RANGE,
           ),
           fillColor: bazColor,
-          fillOpacity: LeafletConstants.AREA_OPACITY,
+          fillOpacity: Constants.AREA_OPACITY,
           color: "black",
-          weight: LeafletConstants.BORDER_WEIGHT,
+          weight: Constants.BORDER_WEIGHT,
         }).addTo(bazListeLayer);
       }
 

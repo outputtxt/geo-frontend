@@ -58,6 +58,10 @@ const SorguSagPanel = ({
     setSorguMenuOpen(!sorguMenuOpen);
   };
 
+  const onResetMapClick = () => {
+    console.log("reset map clicked");
+  };
+
   const toggleDraggable = () => {
     setDraggable(!draggable);
   };
@@ -97,6 +101,13 @@ const SorguSagPanel = ({
           title={"Sorgu Menü " + (sorguMenuOpen ? "Gizle" : "Göster")}
         >
           <MenuIcon />
+        </button>
+        <button
+          onClick={onResetMapClick}
+          title={"Haritayı Temizle"}
+          style={{ marginLeft: "10px", color: "DodgerBlue" }}
+        >
+          <RefreshIcon />
         </button>
         <button
           onClick={toggleDraggable}

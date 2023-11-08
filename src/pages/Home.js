@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import secureLocalStorage from "react-secure-storage";
 import { useContext } from "react";
-import { VisibilityContext } from "../util/context/Context.js";
+import { VisibilityContext } from "../util/Context.js";
 
 const Home = () => {
   const { sideBarVisible, setSideBarVisible, sideBarOpen } =

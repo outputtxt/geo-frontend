@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import {
   VisibilityContextProvider,
   MapContextProvider,
-} from "./util/context/Context.js";
+} from "./util/Context.js";
 
 import App from "./App";
 

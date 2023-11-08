@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import { useForm } from "react-hook-form";
 import Box from "@mui/material/Box";
-import { MapContext } from "../../../../util/context/Context";
+import { MapContext } from "../../../../util/Context";
 import Constants from "../../../../util/Constants";
 import { getLatLngs } from "../../../../util/SectorHelper";
 import * as L from "leaflet";

@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { useForm } from "react-hook-form";
 import Box from "@mui/material/Box";
 import * as L from "leaflet";
-import { MapContext } from "../../../../util/context/Context";
+import { MapContext } from "../../../../util/Context";
 import Constants from "../../../../util/Constants";
 
 const KoordinatSorguPanel = () => {

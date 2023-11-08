@@ -7,7 +7,7 @@ import {
 } from "react-leaflet";
 import L from "leaflet";
 import MapController from "./MapController";
-import { MapContext } from "../../../../util/context/Context";
+import { MapContext } from "../../../../util/Context";
 import Constants from "../../../../util/Constants";
 import "leaflet/dist/leaflet.css";
 import "./Leaflet.css";

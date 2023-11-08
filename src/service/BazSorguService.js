@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { MapContext } from "../util/context/Context";
+import { MapContext } from "../util/Context";
 import Constants from "../util/Constants";
 import BazSorguRestService from "./rest/BazSorguRestService";
 import OperatorTipi from "../model/enum/OperatorTipi";

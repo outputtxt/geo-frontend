@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { sidebarData } from "./sidebarData";
 import styles from "./sidebar.module.css";
-import { VisibilityContext } from "../../util/context/Context.js";
+import { VisibilityContext } from "../../util/Context.js";
 
 const Sidebar = () => {
   const { sideBarOpen, setSideBarOpen } = useContext(VisibilityContext);

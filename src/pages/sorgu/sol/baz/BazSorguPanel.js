@@ -87,12 +87,12 @@ const BazSorguPanel = () => {
         <div>
           {OperatorTipi.map((item) => (
             <Fragment key={item}>
-              <label className="sorgu-label" htmlFor={item}>
+              <label className="sorgu-label" htmlFor={item + "BazListCheckbox"}>
                 {item}
               </label>
               <input
                 type="checkbox"
-                id={item}
+                id={item + "BazListCheckbox"}
                 style={{ width: "20px", height: "20px" }}
                 onChange={(event) => onBazListeOperatorChange(event, item)}
               />

@@ -5,6 +5,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import PanToolIcon from "@mui/icons-material/PanTool";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
+import useMapToolbarService from "../../../service/MapToolbarService";
 import Leaflet from "./leaflet/Leaflet";
 import ReactResizeDetector from "react-resize-detector";
 import { formatLatitude, formatLongitude } from "../../../util/Helper";
@@ -18,6 +19,8 @@ const SorguSagPanel = ({
   contentHeader,
   contentOpen,
 }) => {
+  const mapToolbarService = useMapToolbarService();
+
   const [open, setOpen] = useState(true);
   const [draggable, setDraggable] = useState(true);
   const [mousePoint, setMousePoint] = useState(null);
@@ -59,7 +62,9 @@ const SorguSagPanel = ({
   };
 
   const onResetMapClick = () => {
-    console.log("reset map clicked");
+    if (confirm("Haritayı temizlemek istediğinizden emin misiniz!") == true) {
+      mapToolbarService.resetMap();
+    }
   };
 
   const toggleDraggable = () => {

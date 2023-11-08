@@ -1,5 +1,5 @@
 import { useEffect, useContext } from "react";
-import { MapContext } from "../../../../util/context/Context";
+import { MapContext } from "../../../../util/Context";
 import { useMapEvents } from "react-leaflet";
 
 const MapController = ({ width, height, draggable, setMousePoint }) => {

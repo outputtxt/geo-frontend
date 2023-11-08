@@ -5,7 +5,7 @@ import Sidebar from "./sidebar/Sidebar";
 import Home from "../pages/Home";
 import AdminPanel from "../pages/AdminPanel";
 import SorguPanel from "../pages/sorgu/SorguPanel";
-import { VisibilityContext } from "../util/context/Context.js";
+import { VisibilityContext } from "../util/Context.js";
 
 const MainPanel = () => {
   const { sideBarVisible } = useContext(VisibilityContext);

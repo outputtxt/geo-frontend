@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import SorguTipi from "../../../model/enum/SorguTipi";
-import { MapContext } from "../../../util/context/Context";
+import { MapContext } from "../../../util/Context";
 import KonumSorguPanel from "./konum/KonumSorguPanel";
 import BazSorguPanel from "./baz/BazSorguPanel";
 import KoordinatSorguPanel from "./koordinat/KoordinatSorguPanel";

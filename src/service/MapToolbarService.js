@@ -30,7 +30,18 @@ export const useMapToolbarService = () => {
     );
   };
 
-  return { resetMap };
+  //=========================  RESET MAP  =========================
+  const changeDraggable = (draggable) => {
+    if (mapContext.map != null) {
+      if (draggable) {
+        mapContext.map.dragging.enable();
+      } else {
+        mapContext.map.dragging.disable();
+      }
+    }
+  };
+
+  return { resetMap, changeDraggable };
 };
 
 export default useMapToolbarService;

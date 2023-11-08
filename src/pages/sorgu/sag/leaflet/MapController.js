@@ -2,14 +2,10 @@ import { useEffect, useContext } from "react";
 import { MapContext } from "../../../../util/Context";
 import { useMapEvents } from "react-leaflet";
 
-const MapController = ({ width, height, draggable, setMousePoint }) => {
+const MapController = ({ width, height, setMousePoint }) => {
   const { map } = useContext(MapContext);
 
-  // const zoomIn = (count) => {
-  //   map.setZoom(map.getZoom() + count);
-  // };
-
-  // ******** track mouse coordinates on map ********
+  // =================== track mouse coordinates on map ********
   useMapEvents({
     mousemove(event) {
       setMousePoint(event.latlng);
@@ -25,17 +21,6 @@ const MapController = ({ width, height, draggable, setMousePoint }) => {
       map.invalidateSize();
     }
   }, [height, width]);
-
-  // ******** enable/disable map draggable ********
-  useEffect(() => {
-    if (map != null) {
-      if (draggable) {
-        map.dragging.enable();
-      } else {
-        map.dragging.disable();
-      }
-    }
-  }, [draggable]);
 
   return null;
 };

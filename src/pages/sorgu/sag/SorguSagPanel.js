@@ -69,6 +69,7 @@ const SorguSagPanel = ({
 
   const toggleDraggable = () => {
     setDraggable(!draggable);
+    mapToolbarService.changeDraggable(!draggable);
   };
 
   const exportPDF = () => {
@@ -137,7 +138,6 @@ const SorguSagPanel = ({
             <Leaflet
               height={height}
               width={width}
-              draggable={draggable}
               setMousePoint={setMousePoint}
             />
           </div>

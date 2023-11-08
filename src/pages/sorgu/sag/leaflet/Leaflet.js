@@ -22,7 +22,7 @@ L.Icon.Default.mergeOptions({
 });
 
 //=============================  LEAFLET  =============================
-const Leaflet = ({ width, height, draggable, setMousePoint }) => {
+const Leaflet = ({ width, height, setMousePoint }) => {
   const mapContext = useContext(MapContext);
   const [layer, setLayer] = useState(false);
 
@@ -81,7 +81,6 @@ const Leaflet = ({ width, height, draggable, setMousePoint }) => {
         <MapController
           width={width}
           height={height}
-          draggable={draggable}
           setMousePoint={setMousePoint}
         />
       </MapContainer>

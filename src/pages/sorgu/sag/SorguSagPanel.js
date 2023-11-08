@@ -143,10 +143,10 @@ const SorguSagPanel = ({
           </div>
         )}
       </ReactResizeDetector>
-      <div style={{ display: contentOpen ? "" : "none" }}>
-        <div className="sorgu-sag-header" style={{ height: "30px" }}>
-          <div className="sorgu-sag-header-left">{contentHeader}</div>
-          <div className="sorgu-sag-header-right">
+      <div style={{ display: contentOpen ? "" : "none", width: "100%" }}>
+        <div className="sorgu-sag-content-header">
+          <div>{contentHeader}</div>
+          <div style={{ marginLeft: "auto" }}>
             <button className="sorgu-sag-button-36" onClick={toggleOpen}>
               {open ? (
                 <KeyboardDoubleArrowDownIcon />

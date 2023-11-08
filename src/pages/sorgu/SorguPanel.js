@@ -7,7 +7,7 @@ const SorguPanel = () => {
   const [sorguMenuOpen, setSorguMenuOpen] = useState(true);
   const [contentData, setContentData] = useState();
   const [contentHeader, setContentHeader] = useState("Test Başlk 2");
-  const [contentOpen, setContentOpen] = useState(false);
+  const [contentOpen, setContentOpen] = useState(true);
 
   return (
     <div className="sorgu-container">

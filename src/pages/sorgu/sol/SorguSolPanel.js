@@ -1,23 +1,24 @@
 import { useState, useContext, useEffect } from "react";
 import SorguTipi from "../../../model/enum/SorguTipi";
-import { MapContext } from "../../../util/Context";
+import { MapContext, ContentContext } from "../../../util/Context";
 import KonumSorguPanel from "./konum/KonumSorguPanel";
 import BazSorguPanel from "./baz/BazSorguPanel";
 import KoordinatSorguPanel from "./koordinat/KoordinatSorguPanel";
 import KestirmeSorguPanel from "./kestirme/KestirmeSorguPanel";
 import "./SorguSolPanel.css";
 
-const SorguSolPanel = ({
-  setContentData,
-  setContentHeader,
-  setContentOpen,
-}) => {
+const SorguSolPanel = () => {
   const { map, layerSorgu } = useContext(MapContext);
+  const { setContentOpen } = useContext(ContentContext);
   const [active, setActive] = useState(SorguTipi[0].name);
 
   useEffect(() => {
     if (map != null) {
       layerSorgu.clearLayers();
+    }
+
+    if (active != SorguTipi[0].name) {
+      setContentOpen(false);
     }
   }, [active]);
 
@@ -41,11 +42,7 @@ const SorguSolPanel = ({
       </div>
       <div className="sorgu-sol-content">
         <div style={{ display: active === SorguTipi[0].name ? "" : "none" }}>
-          <KonumSorguPanel
-            setContentData={setContentData}
-            setContentHeader={setContentHeader}
-            setContentOpen={setContentOpen}
-          />
+          <KonumSorguPanel />
         </div>
         <div style={{ display: active === SorguTipi[1].name ? "" : "none" }}>
           <BazSorguPanel />

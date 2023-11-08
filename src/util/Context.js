@@ -1,5 +1,45 @@
 import { useState, createContext, useMemo } from "react";
 
+export const ContentContext = createContext({
+  contentData: undefined,
+  setContentData: undefined,
+  contentHeader: undefined,
+  setContentHeader: undefined,
+  contentOpen: undefined,
+  setContentOpen: undefined,
+});
+
+export const ContentContextProvider = ({ children }) => {
+  const [contentData, setContentData] = useState();
+  const [contentHeader, setContentHeader] = useState();
+  const [contentOpen, setContentOpen] = useState(false);
+
+  const contentProvider = useMemo(
+    () => ({
+      contentData,
+      setContentData,
+      contentHeader,
+      setContentHeader,
+      contentOpen,
+      setContentOpen,
+    }),
+    [
+      contentData,
+      setContentData,
+      contentHeader,
+      setContentHeader,
+      contentOpen,
+      setContentOpen,
+    ],
+  );
+
+  return (
+    <ContentContext.Provider value={{ ...contentProvider }}>
+      {children}
+    </ContentContext.Provider>
+  );
+};
+
 export const VisibilityContext = createContext({
   sideBarVisible: undefined,
   setSideBarVisible: undefined,

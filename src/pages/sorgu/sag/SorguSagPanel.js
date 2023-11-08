@@ -1,25 +1,23 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import KeyboardDoubleArrowUpIcon from "@mui/icons-material/KeyboardDoubleArrowUp";
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
 import MenuIcon from "@mui/icons-material/Menu";
 import PanToolIcon from "@mui/icons-material/PanTool";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
+import StraightenIcon from "@mui/icons-material/Straighten";
 import useMapToolbarService from "../../../service/MapToolbarService";
 import Leaflet from "./leaflet/Leaflet";
 import ReactResizeDetector from "react-resize-detector";
 import { formatLatitude, formatLongitude } from "../../../util/Helper";
+import { ContentContext } from "../../../util/Context";
 import "./SorguSagPanel.css";
 import html2canvas from "html2canvas";
 
-const SorguSagPanel = ({
-  sorguMenuOpen,
-  setSorguMenuOpen,
-  contentData,
-  contentHeader,
-  contentOpen,
-}) => {
+const SorguSagPanel = ({ sorguMenuOpen, setSorguMenuOpen }) => {
   const mapToolbarService = useMapToolbarService();
+
+  const { contentHeader, contentOpen } = useContext(ContentContext);
 
   const [open, setOpen] = useState(true);
   const [draggable, setDraggable] = useState(true);
@@ -103,6 +101,8 @@ const SorguSagPanel = ({
     <div className="sorgu-sag-container">
       <div className="sorgu-sag-header">
         <button
+          className="toolbar-button"
+          // style={{ marginLeft: "1px" }}
           onClick={toggleSorguMenuOpen}
           title={"Sorgu Menü " + (sorguMenuOpen ? "Gizle" : "Göster")}
         >
@@ -111,7 +111,8 @@ const SorguSagPanel = ({
         <button
           onClick={onResetMapClick}
           title={"Haritayı Temizle"}
-          style={{ marginLeft: "10px", color: "DodgerBlue" }}
+          style={{ color: "DodgerBlue" }}
+          className="toolbar-button"
         >
           <RefreshIcon />
         </button>
@@ -120,12 +121,19 @@ const SorguSagPanel = ({
           title={draggable ? "" : "Sürükle"}
           className={draggable ? "select-button-on" : "select-button-off"}
         >
-          <PanToolIcon />
+          <PanToolIcon style={{ paddingTop: "3px", paddingBottom: "1px" }} />
+        </button>
+        <button
+          title="Mesafe Ölçümü Yap"
+          className="toolbar-button"
+          style={{ paddingTop: "5px" }}
+        >
+          <StraightenIcon />
         </button>
         <button
           onClick={exportPDF}
           title={"PDF Oluştur"}
-          style={{ marginLeft: "10px" }}
+          className="toolbar-button"
         >
           <PictureAsPdfIcon style={{ color: "red" }} />
         </button>

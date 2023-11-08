@@ -8,11 +8,7 @@ import DatePicker from "react-datepicker";
 import "../../../../components/HedefListesiTable.css";
 import "react-datepicker/dist/react-datepicker.css";
 
-const KonumSorguPanel = ({
-  setContentData,
-  setContentHeader,
-  setContentOpen,
-}) => {
+const KonumSorguPanel = () => {
   const konumSorguService = useKonumSorguService();
 
   const [hedef, setHedef] = useState(null);

@@ -5,9 +5,6 @@ import SorguSolPanel from "./sol/SorguSolPanel";
 
 const SorguPanel = () => {
   const [sorguMenuOpen, setSorguMenuOpen] = useState(true);
-  const [contentData, setContentData] = useState();
-  const [contentHeader, setContentHeader] = useState("Test Başlk 2");
-  const [contentOpen, setContentOpen] = useState(true);
 
   return (
     <div className="sorgu-container">
@@ -16,19 +13,12 @@ const SorguPanel = () => {
           sorguMenuOpen ? "sorgu-column-left" : "sorgu-column-left-hidden"
         }
       >
-        <SorguSolPanel
-          setContentData={setContentData}
-          setContentHeader={setContentHeader}
-          setContentOpen={setContentOpen}
-        />
+        <SorguSolPanel />
       </div>
       <div className="sorgu-column-right">
         <SorguSagPanel
           sorguMenuOpen={sorguMenuOpen}
           setSorguMenuOpen={setSorguMenuOpen}
-          contentData={contentData}
-          contentHeader={contentHeader}
-          contentOpen={contentOpen}
         />
       </div>
     </div>

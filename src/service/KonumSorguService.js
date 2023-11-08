@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { MapContext } from "../util/Context";
+import { MapContext, ContentContext } from "../util/Context";
 import Constants from "../util/Constants";
 import KonumSorguRestService from "./rest/KonumSorguRestService";
 import SonKonumEllipseResponse from "../model/response/konum/SonKonumEllipseResponse";
@@ -10,6 +10,7 @@ import * as L from "leaflet";
 
 export const useKonumSorguService = () => {
   const { map, layerSorgu } = useContext(MapContext);
+  const { setContentHeader, setContentOpen } = useContext(ContentContext);
 
   //======================  Son Konum Sorgu  ======================
   const sonKonumSorgula = (hedef) => {
@@ -59,6 +60,9 @@ export const useKonumSorguService = () => {
     } catch (err) {
       console.log(err.message);
     }
+
+    setContentHeader("Son Konum");
+    setContentOpen(true);
   };
 
   //======================  Gecmis Sorgu  ======================

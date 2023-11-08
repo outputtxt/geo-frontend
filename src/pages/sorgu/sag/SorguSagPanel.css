@@ -174,13 +174,24 @@
   }
 }
 
+.toolbar-button {
+  margin-left: 10px;
+  width: 40px;
+  height: 35px;
+  padding-top: 3px;
+}
+
 .select-button-on {
+  width: 40px;
+  height: 35px;
   margin-left: 10px;
   /* background-color: transparent;
   border: none; */
   color: green;
 }
 .select-button-off {
+  width: 40px;
+  height: 35px;
   margin-left: 10px;
   /*background-color: transparent;
   border: none;*/

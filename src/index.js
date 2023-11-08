@@ -2,6 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import {
+  ContentContextProvider,
   VisibilityContextProvider,
   MapContextProvider,
 } from "./util/Context.js";
@@ -33,11 +34,13 @@ const root = createRoot(rootElement);
 root.render(
   <MapContextProvider>
     <VisibilityContextProvider>
-      <StrictMode>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </StrictMode>
+      <ContentContextProvider>
+        <StrictMode>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </StrictMode>
+      </ContentContextProvider>
     </VisibilityContextProvider>
   </MapContextProvider>,
 );

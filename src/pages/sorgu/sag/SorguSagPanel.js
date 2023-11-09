@@ -17,7 +17,8 @@ import html2canvas from "html2canvas";
 const SorguSagPanel = ({ sorguMenuOpen, setSorguMenuOpen }) => {
   const mapToolbarService = useMapToolbarService();
 
-  const { contentHeader, contentOpen } = useContext(ContentContext);
+  const { contentHeader, contentOpen, contentData } =
+    useContext(ContentContext);
 
   const [open, setOpen] = useState(true);
   const [draggable, setDraggable] = useState(true);
@@ -167,7 +168,8 @@ const SorguSagPanel = ({ sorguMenuOpen, setSorguMenuOpen }) => {
         <div
           className={open ? "sorgu-sag-content" : "sorgu-sag-content-hidden"}
         >
-          <h1>CONTENT</h1>
+          {contentData}
+          {/* <h1>CONTENT</h1>
           ea of denouncing pleasure and praising pain was born and I will give
           you a complete account of the system, and expound the actual teachings
           of the great explorer of the truth, the master-builder of human
@@ -180,7 +182,7 @@ const SorguSagPanel = ({ sorguMenuOpen, setSorguMenuOpen }) => {
           pleasure. To take a trivial example, which of us ever undertakes
           laborious physical exercise, except to obtain some advantage from it?
           But who has any right to find fault with a man who chooses to enjoy a
-          pleasure that has no annoying consequences
+          pleasure that has no annoying consequences */}
         </div>
       </div>
     </div>

@@ -10,7 +10,8 @@ import * as L from "leaflet";
 
 export const useKonumSorguService = () => {
   const { map, layerSorgu } = useContext(MapContext);
-  const { setContentHeader, setContentOpen } = useContext(ContentContext);
+  const { setContentHeader, setContentOpen, setContentData } =
+    useContext(ContentContext);
 
   //======================  Son Konum Sorgu  ======================
   const sonKonumSorgula = (hedef) => {
@@ -55,6 +56,8 @@ export const useKonumSorguService = () => {
       ).addTo(layerSorgu);
     }
 
+    var contentData = response.getTable();
+
     try {
       map.fitBounds(layerSorgu.getBounds().pad(0.5));
     } catch (err) {
@@ -62,6 +65,7 @@ export const useKonumSorguService = () => {
     }
 
     setContentHeader("Son Konum");
+    setContentData(contentData);
     setContentOpen(true);
   };
 

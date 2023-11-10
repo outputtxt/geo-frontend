@@ -166,7 +166,11 @@ const SorguSagPanel = ({ sorguMenuOpen, setSorguMenuOpen }) => {
           </div>
         </div>
         <div
-          className={open ? "sorgu-sag-content" : "sorgu-sag-content-hidden"}
+          style={{
+            display: open ? "" : "none",
+            maxHeight: "300px",
+            overflow: "auto",
+          }}
         >
           {contentData}
           {/* <h1>CONTENT</h1>

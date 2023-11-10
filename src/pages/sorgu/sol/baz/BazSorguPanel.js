@@ -77,6 +77,7 @@ const BazSorguPanel = () => {
             type="submit"
             value="Bul"
             style={{ float: "right", marginTop: "10px" }}
+            className="sorgu-button"
             id="submit"
           />
         </form>

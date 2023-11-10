@@ -84,6 +84,7 @@ const KoordinatSorguPanel = () => {
         <input
           type="submit"
           value="Göster"
+          className="sorgu-button"
           style={{ float: "right", marginTop: "10px", marginLeft: "10px" }}
           id="goster"
         />
@@ -91,6 +92,7 @@ const KoordinatSorguPanel = () => {
           type="button"
           onClick={() => reset()}
           value="Temizle"
+          className="sorgu-button"
           style={{ float: "right", marginTop: "10px" }}
           id="clear"
         />

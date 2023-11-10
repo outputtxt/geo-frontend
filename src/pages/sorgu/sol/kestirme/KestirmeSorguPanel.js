@@ -196,26 +196,33 @@ const KestirmeSorguPanel = () => {
           <br />
         </div>
 
-        <input
-          type="submit"
-          value="Çiz"
-          className="sorgu-right-button"
-          id="ciz"
-        />
-        <input
-          type="button"
-          onClick={() => onSil()}
-          value="Harita Temizle"
-          className="sorgu-right-button"
-          id="clear"
-        />
-        <input
-          type="button"
-          onClick={() => reset()}
-          value="Form Temizle"
-          style={{ float: "right", marginTop: "10px" }}
-          id="clear"
-        />
+        <div style={{ float: "right" }}>
+          <input
+            type="button"
+            onClick={() => onSil()}
+            value="Harita Temizle"
+            className="sorgu-button"
+            style={{ marginLeft: "auto", marginTop: "15px" }}
+            id="clear"
+          />
+
+          <input
+            type="button"
+            onClick={() => reset()}
+            value="Form Temizle"
+            className="sorgu-button"
+            style={{ marginLeft: "10px" }}
+            id="clear"
+          />
+
+          <input
+            type="submit"
+            value="Çiz"
+            className="sorgu-button"
+            style={{ marginLeft: "10px" }}
+            id="ciz"
+          />
+        </div>
       </form>
     </Box>
   );

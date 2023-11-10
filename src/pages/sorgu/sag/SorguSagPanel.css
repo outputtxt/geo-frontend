@@ -117,13 +117,13 @@
   overflow: hidden;
 }
 
-.sorgu-sag-content {
+/* .sorgu-sag-content {
   height: 300px;
 }
 
 .sorgu-sag-content-hidden {
   display: none;
-}
+} */
 
 .sorgu-sag-menuBtn {
   align-self: center;

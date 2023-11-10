@@ -171,6 +171,7 @@ const KonumSorguPanel = () => {
           />
         </div>
         <button
+          className="sorgu-button"
           disabled={!hedef}
           onClick={() => onSorgulaClick()}
           style={{ float: "right", marginRight: "10px", marginTop: "10px" }}

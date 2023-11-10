@@ -4,7 +4,7 @@ import SonKonumCircularResponse from "../../model/response/konum/SonKonumCircula
 import SonBazResponse from "../../model/response/konum/SonBazResponse";
 
 export default class KonumSorguRestService {
-  static sonKonumSorgula(hedef) {
+  static sonKonumSorgula(hedef, mapFocus) {
     console.log(hedef);
 
     if (hedef.targetType === "MSISDN") {
@@ -23,6 +23,7 @@ export default class KonumSorguRestService {
       //   );
 
       return new SonKonumSectorResponse(
+        mapFocus,
         hedef.targetValue,
         Date.now(),
         39.92299,
@@ -39,6 +40,7 @@ export default class KonumSorguRestService {
       // hedef, tarih, X, Y, minRadius, maxRadius, angle, adres
 
       return new SonKonumEllipseResponse(
+        mapFocus,
         hedef.targetValue,
         Date.now(),
         39.90888,
@@ -51,6 +53,7 @@ export default class KonumSorguRestService {
     } else {
       // IMSI
       return new SonKonumCircularResponse(
+        mapFocus,
         hedef.targetValue,
         Date.now(),
         37.05861,
@@ -61,10 +64,11 @@ export default class KonumSorguRestService {
     }
   }
 
-  static sonBazSorgula(hedef) {
+  static sonBazSorgula(hedef, mapFocus) {
     console.log(hedef);
 
     return new SonBazResponse(
+      mapFocus,
       Date.now(),
       6010514563,
       39.95244,

@@ -5,6 +5,7 @@ import "./table.css";
 
 export default class SonKonumSectorResponse extends SonKonumResponse {
   constructor(
+    mapFocus,
     hedef,
     tarih,
     X,
@@ -17,7 +18,7 @@ export default class SonKonumSectorResponse extends SonKonumResponse {
     stopAngle,
     adres,
   ) {
-    super(hedef, tarih, adres);
+    super(mapFocus, hedef, tarih, adres);
     this.sector = new SectorArea(
       bazX,
       bazY,
@@ -36,7 +37,7 @@ export default class SonKonumSectorResponse extends SonKonumResponse {
         <thead>
           <tr>
             <th style={{ width: "7%" }}>Hedef</th>
-            <th style={{ width: "10%" }}>Tarih</th>
+            <th style={{ width: "9%" }}>Tarih</th>
             <th style={{ width: "6%" }}>X</th>
             <th style={{ width: "6%" }}>Y</th>
             <th style={{ width: "6%" }}>BazX</th>
@@ -45,11 +46,17 @@ export default class SonKonumSectorResponse extends SonKonumResponse {
             <th style={{ width: "5%" }}>Out Radius</th>
             <th style={{ width: "5%" }}>Start Angle</th>
             <th style={{ width: "5%" }}>Stop Angle</th>
-            <th style={{ width: "39%" }}>Adres</th>
+            <th style={{ width: "40%", textAlign: "left", paddingLeft: "5px" }}>
+              Adres
+            </th>
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr
+            onDoubleClick={() =>
+              this.mapFocus(this.sector.bazX, this.sector.bazY)
+            }
+          >
             <td>{this.hedef}</td>
             <td>{format(new Date(this.tarih), "yyyy/MM/dd HH:mm:ss")}</td>
             <td>{this.sector.X}</td>
@@ -60,7 +67,9 @@ export default class SonKonumSectorResponse extends SonKonumResponse {
             <td>{this.sector.outRadius}</td>
             <td>{this.sector.startAngle}</td>
             <td>{this.sector.stopAngle}</td>
-            <td>{this.adres}</td>
+            <td style={{ textAlign: "left", paddingLeft: "5px" }}>
+              {this.adres}
+            </td>
           </tr>
           <tr style={{ height: "20px" }}>
             <td style={{ backgroundColor: "#8d959e" }} colSpan="11"></td>

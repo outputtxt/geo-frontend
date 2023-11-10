@@ -13,10 +13,24 @@ export const useKonumSorguService = () => {
   const { setContentHeader, setContentOpen, setContentData } =
     useContext(ContentContext);
 
+  //======================   MAP FOCUS function for Content Data  ======================
+  const mapFocus = (X, Y) => {
+    try {
+      map.setView([X, Y], Constants.MAX_ZOOM - 3);
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
   //======================  Son Konum Sorgu  ======================
   const sonKonumSorgula = (hedef) => {
-    const response = KonumSorguRestService.sonKonumSorgula(hedef);
+    const response = KonumSorguRestService.sonKonumSorgula(hedef, mapFocus);
     console.log(response);
+
+    if (response == null) {
+      alert("position method failure!");
+      return;
+    }
 
     layerSorgu.clearLayers();
 
@@ -56,13 +70,13 @@ export const useKonumSorguService = () => {
       ).addTo(layerSorgu);
     }
 
-    var contentData = response.getTable();
-
     try {
       map.fitBounds(layerSorgu.getBounds().pad(0.5));
     } catch (err) {
       console.log(err.message);
     }
+
+    var contentData = response.getTable();
 
     setContentHeader("Son Konum");
     setContentData(contentData);
@@ -76,7 +90,7 @@ export const useKonumSorguService = () => {
 
   //======================  Son Baz Sorgu  ======================
   const sonBazSorgula = (hedef) => {
-    const response = KonumSorguRestService.sonBazSorgula(hedef);
+    const response = KonumSorguRestService.sonBazSorgula(hedef, mapFocus);
     console.log(response);
     layerSorgu.clearLayers();
 
@@ -111,6 +125,14 @@ export const useKonumSorguService = () => {
       } catch (err) {
         console.log(err.message);
       }
+
+      var contentData = response.getTable();
+
+      setContentHeader(
+        "En Son Sinyal Alınan Baz İstasyonu (" + hedef.targetValue + ")",
+      );
+      setContentData(contentData);
+      setContentOpen(true);
     }
   };
 

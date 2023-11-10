@@ -77,4 +77,8 @@ export default class KonumSorguRestService {
       "GAZI Istanbul Yolu",
     );
   }
+
+  static gecmisTarihSorgula(hedef, dateRange, mapFocus) {}
+
+  static gecmisGunSorgula(hedef, sonKacGun, mapFocus) {}
 }

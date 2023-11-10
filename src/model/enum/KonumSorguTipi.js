@@ -5,15 +5,15 @@ const KonumSorguTipi = [
   },
   {
     id: 1,
-    name: "Geçmiş",
-  },
-  {
-    id: 2,
     name: "Son Baz",
   },
   {
+    id: 2,
+    name: "Geçmiş Tarih",
+  },
+  {
     id: 3,
-    name: "Son 1-7 Gün",
+    name: "Geçmiş Gün",
   },
 ];
 

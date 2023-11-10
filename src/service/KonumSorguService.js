@@ -13,13 +13,20 @@ export const useKonumSorguService = () => {
   const { setContentHeader, setContentOpen, setContentData } =
     useContext(ContentContext);
 
-  //======================   MAP FOCUS function for Content Data  ======================
+  //======================   Konum Sorgu Functions  ======================
   const mapFocus = (X, Y) => {
     try {
       map.setView([X, Y], Constants.MAX_ZOOM - 3);
     } catch (err) {
       console.log(err.message);
     }
+  };
+
+  const konumSorguTemizle = () => {
+    if (layerSorgu != null) {
+      layerSorgu.clearLayers();
+    }
+    setContentOpen(false);
   };
 
   //======================  Son Konum Sorgu  ======================
@@ -83,11 +90,6 @@ export const useKonumSorguService = () => {
     setContentOpen(true);
   };
 
-  //======================  Gecmis Sorgu  ======================
-  const gecmisSorgula = (hedef, dateRange) => {
-    const [startDate, endDate] = dateRange;
-  };
-
   //======================  Son Baz Sorgu  ======================
   const sonBazSorgula = (hedef) => {
     const response = KonumSorguRestService.sonBazSorgula(hedef, mapFocus);
@@ -136,10 +138,21 @@ export const useKonumSorguService = () => {
     }
   };
 
-  //======================  Son Gun Sorgu  ======================
-  const sonGunSorgula = (hedef, sonKacGun) => {};
+  //======================  Gecmis Sorgu  ======================
+  const gecmisTarihSorgula = (hedef, dateRange) => {
+    const [startDate, endDate] = dateRange;
+  };
 
-  return { sonKonumSorgula, gecmisSorgula, sonBazSorgula, sonGunSorgula };
+  //======================  Son Gun Sorgu  ======================
+  const gecmisGunSorgula = (hedef, sonKacGun) => {};
+
+  return {
+    sonKonumSorgula,
+    sonBazSorgula,
+    gecmisTarihSorgula,
+    gecmisGunSorgula,
+    konumSorguTemizle,
+  };
 };
 
 export default useKonumSorguService;

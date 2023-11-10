@@ -26,22 +26,21 @@ const KonumSorguPanel = () => {
   const refIMEI = useRef();
   const refIMSI = useRef();
 
+  //============================  KONUM SORGULA  ============================
   const onSorgulaClick = () => {
-    console.log(active);
-
     switch (active) {
       case KonumSorguTipi[0].id:
         return konumSorguService.sonKonumSorgula(hedef);
       case KonumSorguTipi[1].id:
-        return konumSorguService.gecmisSorgula(hedef, dateRange);
-      case KonumSorguTipi[2].id:
         return konumSorguService.sonBazSorgula(hedef);
+      case KonumSorguTipi[2].id:
+        return konumSorguService.gecmisTarihSorgula(hedef, dateRange);
       case KonumSorguTipi[3].id:
-        return konumSorguService.sonGunSorgula(hedef, sonKacGun);
+        return konumSorguService.gecmisGunSorgula(hedef, sonKacGun);
     }
   };
 
-  // clear previous selected hedef from different type lists
+  //=======  clear previous selected hedef from different type lists  =======
   useEffect(() => {
     if (hedef && hedef.targetType !== "MSISDN") {
       refMSISDN.current.unSelect();
@@ -82,11 +81,9 @@ const KonumSorguPanel = () => {
     }
   }, [hedefListesi]);
 
-  // useEffect(() => {
-  //   if (active == KonumSorguTipi[2].id) {
-  //     // alert("son baz");
-  //   }
-  // }, [active]);
+  useEffect(() => {
+    konumSorguService.konumSorguTemizle();
+  }, [active]);
 
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
@@ -107,7 +104,7 @@ const KonumSorguPanel = () => {
       </div>
 
       <div className="sorgu-sol-content">
-        {active == 1 && (
+        {active == 2 && (
           <div className="sorgu-fieldset-no-border">
             <label className="sorgu-label" htmlFor="gecmis">
               Geçmiş

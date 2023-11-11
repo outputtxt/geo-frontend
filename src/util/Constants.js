@@ -1,5 +1,8 @@
 import * as L from "leaflet";
 import bazIconPng from "../img/radio-tower-icon-14-256.png";
+import greenMarkerIconPng from "../img/marker-icon-green.png";
+import blueMarkerIconPng from "../img/marker-icon-blue.png";
+import markerShadowPng from "../img/marker-shadow.png";
 import OperatorTipi from "../model/enum/OperatorTipi";
 
 export default class Constants {
@@ -20,6 +23,24 @@ export default class Constants {
     iconSize: [30, 36], // size of the icon
     iconAnchor: [15, 18], // point of the icon which will correspond to marker's location
     popupAnchor: [-3, -76], // point from which the popup should open relative to the iconAnchor
+  });
+
+  static MarkerIconGreen = new L.Icon({
+    iconUrl: greenMarkerIconPng,
+    shadowUrl: markerShadowPng,
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41],
+  });
+
+  static MarkerIconBlue = new L.Icon({
+    iconUrl: blueMarkerIconPng,
+    shadowUrl: markerShadowPng,
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41],
   });
 
   static AREA_OPACITY = 0.35;

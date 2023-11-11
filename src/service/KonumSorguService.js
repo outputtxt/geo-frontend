@@ -1,17 +1,20 @@
 import { useContext } from "react";
 import { MapContext, ContentContext } from "../util/Context";
+import { format } from "date-fns";
 import Constants from "../util/Constants";
 import KonumSorguRestService from "./rest/KonumSorguRestService";
 import SonKonumEllipseResponse from "../model/response/konum/SonKonumEllipseResponse";
 import SonKonumSectorResponse from "../model/response/konum/SonKonumSectorResponse";
 import SonKonumCircularResponse from "../model/response/konum/SonKonumCircularResponse";
 import SonBazResponse from "../model/response/konum/SonBazResponse";
+import GecmisKonumSorguResponse from "../model/response/konum/gecmis/GecmisKonumSorguResponse";
 import * as L from "leaflet";
 
 export const useKonumSorguService = () => {
   const { map, layerSorgu } = useContext(MapContext);
   const { setContentHeader, setContentOpen, setContentData } =
     useContext(ContentContext);
+  var gecmisSorguMarkers = new Map();
 
   //======================   Konum Sorgu Functions  ======================
   const mapFocus = (X, Y) => {
@@ -128,23 +131,67 @@ export const useKonumSorguService = () => {
         console.log(err.message);
       }
 
-      var contentData = response.getTable();
-
       setContentHeader(
         "En Son Sinyal Alınan Baz İstasyonu (" + hedef.targetValue + ")",
       );
-      setContentData(contentData);
+      setContentData(response.getTable());
       setContentOpen(true);
     }
   };
 
   //======================  Gecmis Sorgu  ======================
   const gecmisTarihSorgula = (hedef, dateRange) => {
-    const [startDate, endDate] = dateRange;
+    const response = KonumSorguRestService.gecmisTarihSorgula(
+      hedef,
+      dateRange,
+      mapFocus,
+    );
+
+    if (!(response instanceof GecmisKonumSorguResponse)) {
+      alert("wrong response!");
+      return;
+    }
+
+    Array.from(response.baseStationMap.values()).map((base) => {
+      var marker = L.marker([base.bazX, base.bazY], {
+        icon: Constants.MarkerIconBlue,
+      })
+        .addTo(layerSorgu)
+        .on("click", function (e) {
+          mapFocus(base.bazX, base.bazY);
+          e.target.setIcon(Constants.MarkerIconGreen);
+        });
+
+      gecmisSorguMarkers.set(base.cellId, marker);
+    });
+
+    try {
+      map.fitBounds(layerSorgu.getBounds().pad(0.5));
+    } catch (err) {
+      console.log(err.message);
+    }
+
+    setContentHeader(
+      "Geçmiş Kayıtlar [" +
+        format(new Date(dateRange[1]), "yyyy/MM/dd") +
+        "- " +
+        format(new Date(dateRange[0]), "yyyy/MM/dd") +
+        "] Hedef [" +
+        hedef.targetValue +
+        "]",
+    );
+    setContentData(response.getTable());
+    setContentOpen(true);
   };
 
   //======================  Son Gun Sorgu  ======================
-  const gecmisGunSorgula = (hedef, sonKacGun) => {};
+  const gecmisGunSorgula = (hedef, sonKacGun) => {
+    const endDate = new Date();
+    const startDate = new Date();
+    startDate.setDate(startDate.getDate() - (sonKacGun - 1));
+
+    gecmisTarihSorgula(hedef, [startDate, endDate]);
+  };
 
   return {
     sonKonumSorgula,

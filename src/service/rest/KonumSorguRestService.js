@@ -2,6 +2,8 @@ import SonKonumEllipseResponse from "../../model/response/konum/SonKonumEllipseR
 import SonKonumSectorResponse from "../../model/response/konum/SonKonumSectorResponse";
 import SonKonumCircularResponse from "../../model/response/konum/SonKonumCircularResponse";
 import SonBazResponse from "../../model/response/konum/SonBazResponse";
+import GecmisKonumSorguResponse from "../../model/response/konum/gecmis/GecmisKonumSorguResponse";
+import mockGecmisKonumData from "../../service/rest/mocks/data/mockGecmisKonumData.json";
 
 export default class KonumSorguRestService {
   static sonKonumSorgula(hedef, mapFocus) {
@@ -78,7 +80,12 @@ export default class KonumSorguRestService {
     );
   }
 
-  static gecmisTarihSorgula(hedef, dateRange, mapFocus) {}
+  static gecmisTarihSorgula(hedef, dateRange, mapFocus) {
+    // const [startDate, endDate] = dateRange;
+    // console.log("hedef: " + hedef.targetValue);
+    // console.log("startDate: %s, endDate: %s", startDate, endDate);
+    // console.log(mockGecmisKonumData);
 
-  static gecmisGunSorgula(hedef, sonKacGun, mapFocus) {}
+    return new GecmisKonumSorguResponse(mapFocus, mockGecmisKonumData);
+  }
 }

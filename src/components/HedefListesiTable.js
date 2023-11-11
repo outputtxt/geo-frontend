@@ -25,8 +25,15 @@ const HedefListesiTable = forwardRef((props, ref) => {
       lastSelectedRow.classList.remove("selected");
     }
 
-    e.target.parentElement.classList.add("selected");
-    setLastSelectedRow(e.target.parentElement);
+    if (e.target.parentElement != lastSelectedRow) {
+      // SELECT ROW
+      e.target.parentElement.classList.add("selected");
+      setLastSelectedRow(e.target.parentElement);
+    } else {
+      // UNSELECT SAME ROW
+      props.setHedef(null);
+      setLastSelectedRow(null);
+    }
   };
 
   const onHeaderClick = () => {

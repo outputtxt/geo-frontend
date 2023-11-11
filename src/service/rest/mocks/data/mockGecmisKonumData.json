@@ -1,0 +1,338 @@
+[
+  {
+    "callDetails": {
+      "no1": "905558009905",
+      "tip": "Aradı",
+      "no2": "905558009909",
+      "tarih": "2011-10-18 19:07:07",
+      "sure": "283"
+    },
+    "baseStationInfo": {
+      "cellId": "6010623922",
+      "bazX": "39.95244",
+      "bazY": "32.80991",
+      "angle": "290",
+      "adres": "tarim koy karsisi gazi mah ist yol"
+    }
+  },
+  {
+    "callDetails": {
+      "no1": "905558009905",
+      "tip": "Arandı",
+      "no2": "905558009909",
+      "tarih": "2011-10-18 16:30:07",
+      "sure": "15"
+    },
+    "baseStationInfo": {
+      "cellId": "6010623921",
+      "bazX": "39.95244",
+      "bazY": "32.80991",
+      "angle": "290",
+      "adres": "tarim koy karsisi gazi mah ist yol"
+    }
+  },
+  {
+    "callDetails": {
+      "no1": "905558009905",
+      "tip": "Arandı",
+      "no2": "905558009909",
+      "tarih": "2011-10-18 08:38:07",
+      "sure": "6"
+    },
+    "baseStationInfo": {
+      "cellId": "60006678",
+      "bazX": "39.95981",
+      "bazY": "32.84571",
+      "angle": "20",
+      "adres": "demir sanayi"
+    }
+  },
+  {
+    "callDetails": {
+      "no1": "905558009905",
+      "tip": "Aradı",
+      "no2": "905558009909",
+      "tarih": "2011-10-17 16:50:09",
+      "sure": "88"
+    },
+    "baseStationInfo": {
+      "cellId": "3120634577",
+      "bazX": "39.84269",
+      "bazY": "32.80341",
+      "angle": "70",
+      "adres": "konya yolu ahlatli bel kavsak"
+    }
+  },
+  {
+    "callDetails": {
+      "no1": "905558009905",
+      "tip": "Aradı",
+      "no2": "905558009909",
+      "tarih": "2011-10-17 16:48:09",
+      "sure": "82"
+    },
+    "baseStationInfo": {
+      "cellId": "312063337",
+      "bazX": "39.86416",
+      "bazY": "32.81188",
+      "angle": "190",
+      "adres": "akpinar mahallesi pinar basi camii"
+    }
+  },
+  {
+    "callDetails": {
+      "no1": "905558009905",
+      "tip": "Arandı",
+      "no2": "905558009909",
+      "tarih": "2011-10-17 16:46:09",
+      "sure": "60"
+    },
+    "baseStationInfo": {
+      "cellId": "3120634632",
+      "bazX": "39.88150",
+      "bazY": "32.81238",
+      "angle": "190",
+      "adres": "konya yolu 9km opet"
+    }
+  },
+  {
+    "callDetails": {
+      "no1": "905558009905",
+      "tip": "Arandı",
+      "no2": "905558009909",
+      "tarih": "2011-10-17 15:46:09",
+      "sure": "60"
+    },
+    "baseStationInfo": {
+      "cellId": "3120634632",
+      "bazX": "39.88150",
+      "bazY": "32.81238",
+      "angle": "190",
+      "adres": "konya yolu 9km opet"
+    }
+  },
+  {
+    "callDetails": {
+      "no1": "905558009905",
+      "tip": "Aradı",
+      "no2": "905558009909",
+      "tarih": "2011-10-18 19:07:07",
+      "sure": "283"
+    },
+    "baseStationInfo": {
+      "cellId": "6010623922",
+      "bazX": "39.95244",
+      "bazY": "32.80991",
+      "angle": "290",
+      "adres": "tarim koy karsisi gazi mah ist yol"
+    }
+  },
+  {
+    "callDetails": {
+      "no1": "905558009905",
+      "tip": "Arandı",
+      "no2": "905558009909",
+      "tarih": "2011-10-18 16:30:07",
+      "sure": "15"
+    },
+    "baseStationInfo": {
+      "cellId": "6010623921",
+      "bazX": "39.95244",
+      "bazY": "32.80991",
+      "angle": "290",
+      "adres": "tarim koy karsisi gazi mah ist yol"
+    }
+  },
+  {
+    "callDetails": {
+      "no1": "905558009905",
+      "tip": "Arandı",
+      "no2": "905558009909",
+      "tarih": "2011-10-18 08:38:07",
+      "sure": "6"
+    },
+    "baseStationInfo": {
+      "cellId": "60006678",
+      "bazX": "39.95981",
+      "bazY": "32.84571",
+      "angle": "20",
+      "adres": "demir sanayi"
+    }
+  },
+  {
+    "callDetails": {
+      "no1": "905558009905",
+      "tip": "Aradı",
+      "no2": "905558009909",
+      "tarih": "2011-10-17 16:50:09",
+      "sure": "88"
+    },
+    "baseStationInfo": {
+      "cellId": "3120634577",
+      "bazX": "39.84269",
+      "bazY": "32.80341",
+      "angle": "70",
+      "adres": "konya yolu ahlatli bel kavsak"
+    }
+  },
+  {
+    "callDetails": {
+      "no1": "905558009905",
+      "tip": "Aradı",
+      "no2": "905558009909",
+      "tarih": "2011-10-17 16:48:09",
+      "sure": "82"
+    },
+    "baseStationInfo": {
+      "cellId": "312063337",
+      "bazX": "39.86416",
+      "bazY": "32.81188",
+      "angle": "190",
+      "adres": "akpinar mahallesi pinar basi camii"
+    }
+  },
+  {
+    "callDetails": {
+      "no1": "905558009905",
+      "tip": "Arandı",
+      "no2": "905558009909",
+      "tarih": "2011-10-17 16:46:09",
+      "sure": "60"
+    },
+    "baseStationInfo": {
+      "cellId": "3120634632",
+      "bazX": "39.88150",
+      "bazY": "32.81238",
+      "angle": "190",
+      "adres": "konya yolu 9km opet"
+    }
+  },
+  {
+    "callDetails": {
+      "no1": "905558009905",
+      "tip": "Arandı",
+      "no2": "905558009909",
+      "tarih": "2011-10-17 15:46:09",
+      "sure": "60"
+    },
+    "baseStationInfo": {
+      "cellId": "3120634632",
+      "bazX": "39.88150",
+      "bazY": "32.81238",
+      "angle": "190",
+      "adres": "konya yolu 9km opet"
+    }
+  },
+  {
+    "callDetails": {
+      "no1": "905558009905",
+      "tip": "Aradı",
+      "no2": "905558009909",
+      "tarih": "2011-10-18 19:07:07",
+      "sure": "283"
+    },
+    "baseStationInfo": {
+      "cellId": "6010623922",
+      "bazX": "39.95244",
+      "bazY": "32.80991",
+      "angle": "290",
+      "adres": "tarim koy karsisi gazi mah ist yol"
+    }
+  },
+  {
+    "callDetails": {
+      "no1": "905558009905",
+      "tip": "Arandı",
+      "no2": "905558009909",
+      "tarih": "2011-10-18 16:30:07",
+      "sure": "15"
+    },
+    "baseStationInfo": {
+      "cellId": "6010623921",
+      "bazX": "39.95244",
+      "bazY": "32.80991",
+      "angle": "290",
+      "adres": "tarim koy karsisi gazi mah ist yol"
+    }
+  },
+  {
+    "callDetails": {
+      "no1": "905558009905",
+      "tip": "Arandı",
+      "no2": "905558009909",
+      "tarih": "2011-10-18 08:38:07",
+      "sure": "6"
+    },
+    "baseStationInfo": {
+      "cellId": "60006678",
+      "bazX": "39.95981",
+      "bazY": "32.84571",
+      "angle": "20",
+      "adres": "demir sanayi"
+    }
+  },
+  {
+    "callDetails": {
+      "no1": "905558009905",
+      "tip": "Aradı",
+      "no2": "905558009909",
+      "tarih": "2011-10-17 16:50:09",
+      "sure": "88"
+    },
+    "baseStationInfo": {
+      "cellId": "3120634577",
+      "bazX": "39.84269",
+      "bazY": "32.80341",
+      "angle": "70",
+      "adres": "konya yolu ahlatli bel kavsak"
+    }
+  },
+  {
+    "callDetails": {
+      "no1": "905558009905",
+      "tip": "Aradı",
+      "no2": "905558009909",
+      "tarih": "2011-10-17 16:48:09",
+      "sure": "82"
+    },
+    "baseStationInfo": {
+      "cellId": "312063337",
+      "bazX": "39.86416",
+      "bazY": "32.81188",
+      "angle": "190",
+      "adres": "akpinar mahallesi pinar basi camii"
+    }
+  },
+  {
+    "callDetails": {
+      "no1": "905558009905",
+      "tip": "Arandı",
+      "no2": "905558009909",
+      "tarih": "2011-10-17 16:46:09",
+      "sure": "60"
+    },
+    "baseStationInfo": {
+      "cellId": "3120634632",
+      "bazX": "39.88150",
+      "bazY": "32.81238",
+      "angle": "190",
+      "adres": "konya yolu 9km opet"
+    }
+  },
+  {
+    "callDetails": {
+      "no1": "905558009905",
+      "tip": "Arandı",
+      "no2": "905558009909",
+      "tarih": "2011-10-17 15:46:09",
+      "sure": "60"
+    },
+    "baseStationInfo": {
+      "cellId": "3120634632",
+      "bazX": "39.88150",
+      "bazY": "32.81238",
+      "angle": "190",
+      "adres": "konya yolu 9km opet"
+    }
+  }
+]

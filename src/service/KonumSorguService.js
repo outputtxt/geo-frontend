@@ -14,7 +14,8 @@ export const useKonumSorguService = () => {
   const { map, layerSorgu } = useContext(MapContext);
   const { setContentHeader, setContentOpen, setContentData } =
     useContext(ContentContext);
-  var gecmisSorguMarkers = new Map();
+  var gecmisSorguMarkersMap = new Map();
+  var selectedCellId = null;
 
   //======================   Konum Sorgu Functions  ======================
   const mapFocus = (X, Y) => {
@@ -24,6 +25,23 @@ export const useKonumSorguService = () => {
       console.log(err.message);
     }
   };
+
+  const selectMarker = (cellId) => {
+    if(selectedCellId === cellId) {
+      var marker = gecmisSorguMarkersMap.get(selectedCellId); 
+      marker.setIcon(Constants.MarkerIconBlue);
+      selectedCellId = null;
+    } else {
+      if(selectedCellId != null ) {
+        var marker = gecmisSorguMarkersMap.get(selectedCellId); 
+        marker.setIcon(Constants.MarkerIconBlue);
+      }
+
+      marker = gecmisSorguMarkersMap.get(cellId);
+      marker.setIcon(Constants.MarkerIconGreen);
+      selectedCellId = cellId;
+    }
+  }
 
   const konumSorguTemizle = () => {
     if (layerSorgu != null) {
@@ -145,6 +163,7 @@ export const useKonumSorguService = () => {
       hedef,
       dateRange,
       mapFocus,
+      selectMarker
     );
 
     if (!(response instanceof GecmisKonumSorguResponse)) {
@@ -157,12 +176,9 @@ export const useKonumSorguService = () => {
         icon: Constants.MarkerIconBlue,
       })
         .addTo(layerSorgu)
-        .on("click", function (e) {
-          mapFocus(base.bazX, base.bazY);
-          e.target.setIcon(Constants.MarkerIconGreen);
-        });
+        .on("click", function (e) { selectMarker(base.cellId); });
 
-      gecmisSorguMarkers.set(base.cellId, marker);
+      gecmisSorguMarkersMap.set(base.cellId, marker);
     });
 
     try {

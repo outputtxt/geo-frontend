@@ -4,8 +4,9 @@ import { format } from "date-fns";
 import "../table.css";
 
 export default class GecmisKonumSorguResponse {
-  constructor(mapFocus, data) {
+  constructor(mapFocus, selectMarker, data) {
     this.mapFocus = mapFocus;
+    this.selectMarker = selectMarker;
     this.htsList = [];
     this.baseStationMap = new Map();
 
@@ -66,6 +67,7 @@ export default class GecmisKonumSorguResponse {
               onDoubleClick={() =>
                 this.mapFocus(item.cellLocation.X, item.cellLocation.Y)
               }
+              onClick={() => this.selectMarker(item.cellLocation.cellId)}
             >
               <td>{index + 1}</td>
               <td>{item.callDetails.no1}</td>

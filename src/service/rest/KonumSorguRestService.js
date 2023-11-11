@@ -80,12 +80,12 @@ export default class KonumSorguRestService {
     );
   }
 
-  static gecmisTarihSorgula(hedef, dateRange, mapFocus) {
+  static gecmisTarihSorgula(hedef, dateRange, mapFocus, selectMarker) {
     // const [startDate, endDate] = dateRange;
     // console.log("hedef: " + hedef.targetValue);
     // console.log("startDate: %s, endDate: %s", startDate, endDate);
     // console.log(mockGecmisKonumData);
 
-    return new GecmisKonumSorguResponse(mapFocus, mockGecmisKonumData);
+    return new GecmisKonumSorguResponse(mapFocus, selectMarker, mockGecmisKonumData);
   }
 }

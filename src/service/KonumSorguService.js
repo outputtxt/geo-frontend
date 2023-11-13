@@ -26,7 +26,7 @@ export const useKonumSorguService = () => {
     }
   };
 
-  const selectMarker = (e, cellId) => {
+  const selectMarker = (cellId) => {
     if (selectedCellId === cellId) {
       var marker = gecmisSorguMarkersMap.get(selectedCellId);
       marker.setIcon(Constants.MarkerIconBlue);
@@ -185,7 +185,7 @@ export const useKonumSorguService = () => {
       })
         .addTo(layerSorgu)
         .on("click", function (e) {
-          selectMarker(e, base.cellId);
+          selectMarker(base.cellId);
         });
 
       gecmisSorguMarkersMap.set(base.cellId, marker);

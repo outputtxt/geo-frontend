@@ -33,3 +33,7 @@
 .contenttable tbody tr.selected {
   background-color: var(--aqua-2);
 }
+
+.contenttable-selected-td {
+  background-color: palegreen;
+}

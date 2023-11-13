@@ -26,14 +26,14 @@ export const useKonumSorguService = () => {
     }
   };
 
-  const selectMarker = (cellId) => {
-    if(selectedCellId === cellId) {
-      var marker = gecmisSorguMarkersMap.get(selectedCellId); 
+  const selectMarker = (e, cellId) => {
+    if (selectedCellId === cellId) {
+      var marker = gecmisSorguMarkersMap.get(selectedCellId);
       marker.setIcon(Constants.MarkerIconBlue);
       selectedCellId = null;
     } else {
-      if(selectedCellId != null ) {
-        var marker = gecmisSorguMarkersMap.get(selectedCellId); 
+      if (selectedCellId != null) {
+        var marker = gecmisSorguMarkersMap.get(selectedCellId);
         marker.setIcon(Constants.MarkerIconBlue);
       }
 
@@ -41,7 +41,17 @@ export const useKonumSorguService = () => {
       marker.setIcon(Constants.MarkerIconGreen);
       selectedCellId = cellId;
     }
-  }
+
+    var elements = document.querySelectorAll('[id^="htsCellIdSelector"]');
+
+    Array.from(elements).map((item) => {
+      if (item.innerHTML === selectedCellId) {
+        item.classList.add("contenttable-selected-td");
+      } else {
+        item.classList.remove("contenttable-selected-td");
+      }
+    });
+  };
 
   const konumSorguTemizle = () => {
     if (layerSorgu != null) {
@@ -104,10 +114,8 @@ export const useKonumSorguService = () => {
       console.log(err.message);
     }
 
-    var contentData = response.getTable();
-
     setContentHeader("Son Konum");
-    setContentData(contentData);
+    setContentData(response.getTable());
     setContentOpen(true);
   };
 
@@ -163,7 +171,7 @@ export const useKonumSorguService = () => {
       hedef,
       dateRange,
       mapFocus,
-      selectMarker
+      selectMarker,
     );
 
     if (!(response instanceof GecmisKonumSorguResponse)) {
@@ -176,7 +184,9 @@ export const useKonumSorguService = () => {
         icon: Constants.MarkerIconBlue,
       })
         .addTo(layerSorgu)
-        .on("click", function (e) { selectMarker(base.cellId); });
+        .on("click", function (e) {
+          selectMarker(e, base.cellId);
+        });
 
       gecmisSorguMarkersMap.set(base.cellId, marker);
     });

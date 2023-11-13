@@ -1,3 +1,4 @@
+import { useState } from "react";
 import BaseStationHtsRecord from "./BaseStationHtsRecord";
 import CellSorguResponse from "../../baz/CellSorguResponse";
 import { format } from "date-fns";
@@ -67,7 +68,7 @@ export default class GecmisKonumSorguResponse {
               onDoubleClick={() =>
                 this.mapFocus(item.cellLocation.X, item.cellLocation.Y)
               }
-              onClick={() => this.selectMarker(item.cellLocation.cellId)}
+              onClick={(e) => this.selectMarker(e, item.cellLocation.cellId)}
             >
               <td>{index + 1}</td>
               <td>{item.callDetails.no1}</td>
@@ -80,7 +81,7 @@ export default class GecmisKonumSorguResponse {
                 )}
               </td>
               <td>{item.callDetails.sure}</td>
-              <td>{item.cellLocation.cellId}</td>
+              <td id="htsCellIdSelector">{item.cellLocation.cellId}</td>
               <td>{item.cellLocation.X}</td>
               <td>{item.cellLocation.Y}</td>
               <td>{item.cellLocation.angle}</td>

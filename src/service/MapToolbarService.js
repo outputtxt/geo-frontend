@@ -1,10 +1,11 @@
 import { useContext } from "react";
-import { MapContext } from "../util/Context";
+import { MapContext, ContentContext } from "../util/Context";
 import Constants from "../util/Constants";
 import * as L from "leaflet";
 
 export const useMapToolbarService = () => {
   const mapContext = useContext(MapContext);
+  const contentContext = useContext(ContentContext);
 
   //=========================  RESET MAP  =========================
   const resetMap = () => {
@@ -28,6 +29,9 @@ export const useMapToolbarService = () => {
       [Constants.MAP_START_X, Constants.MAP_START_Y],
       Constants.MAX_ZOOM - 4,
     );
+
+    // set content panel to closed
+    contentContext.setContentOpen(false);
   };
 
   //=========================  RESET MAP  =========================

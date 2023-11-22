@@ -32,9 +32,9 @@ const KonumSorguPanel = () => {
       case KonumSorguTipi[0].id:
         return konumSorguService.sonKonumSorgula(hedef);
       case KonumSorguTipi[1].id:
-        return konumSorguService.sonBazSorgula(hedef);
-      case KonumSorguTipi[2].id:
         return konumSorguService.gecmisTarihSorgula(hedef, dateRange);
+      case KonumSorguTipi[2].id:
+        return konumSorguService.sonBazSorgula(hedef);
       case KonumSorguTipi[3].id:
         return konumSorguService.gecmisGunSorgula(hedef, sonKacGun);
     }
@@ -97,6 +97,7 @@ const KonumSorguPanel = () => {
             }
             key={item.id}
             onClick={() => setActive(item.id)}
+            style={{ fontSize: "12px", fontWeight: "bold" }}
           >
             {item.name}
           </button>
@@ -104,7 +105,7 @@ const KonumSorguPanel = () => {
       </div>
 
       <div className="sorgu-sol-content">
-        {active == 2 && (
+        {active == 1 && (
           <div className="sorgu-fieldset-no-border">
             <label className="sorgu-label" htmlFor="gecmis">
               Geçmiş

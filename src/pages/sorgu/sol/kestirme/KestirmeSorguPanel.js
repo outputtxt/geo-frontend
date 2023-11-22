@@ -200,7 +200,7 @@ const KestirmeSorguPanel = () => {
           <input
             type="button"
             onClick={() => onSil()}
-            value="Harita Temizle"
+            value="Eskiyi Temizle"
             className="sorgu-button"
             style={{ marginLeft: "auto", marginTop: "15px" }}
             id="clear"

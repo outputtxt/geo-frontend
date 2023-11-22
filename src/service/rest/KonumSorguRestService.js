@@ -6,10 +6,10 @@ import GecmisKonumSorguResponse from "../../model/response/konum/gecmis/GecmisKo
 import mockGecmisKonumData from "../../service/rest/mocks/data/mockGecmisKonumData.json";
 
 export default class KonumSorguRestService {
-  static sonKonumSorgula(hedef, mapFocus) {
-    console.log(hedef);
+  static sonKonumSorgula(target, mapFocus) {
+    console.log(target);
 
-    if (hedef.targetType === "MSISDN") {
+    if (target.targetType === "MSISDN") {
       //   return new SonKonumSectorResponse(
       //     hedef.targetValue,
       //     Date.now(),
@@ -26,7 +26,7 @@ export default class KonumSorguRestService {
 
       return new SonKonumSectorResponse(
         mapFocus,
-        hedef.targetValue,
+        target.targetValue,
         Date.now(),
         39.92299,
         32.80831,
@@ -38,12 +38,12 @@ export default class KonumSorguRestService {
         362,
         "Ankara Yenimahalle Tepe",
       );
-    } else if (hedef.targetType === "IMEI") {
-      // hedef, tarih, X, Y, minRadius, maxRadius, angle, adres
+    } else if (target.targetType === "IMEI") {
+      // target, tarih, X, Y, minRadius, maxRadius, angle, adres
 
       return new SonKonumEllipseResponse(
         mapFocus,
-        hedef.targetValue,
+        target.targetValue,
         Date.now(),
         39.90888,
         32.7612,
@@ -56,7 +56,7 @@ export default class KonumSorguRestService {
       // IMSI
       return new SonKonumCircularResponse(
         mapFocus,
-        hedef.targetValue,
+        target.targetValue,
         Date.now(),
         37.05861,
         37.3474,
@@ -86,6 +86,10 @@ export default class KonumSorguRestService {
     // console.log("startDate: %s, endDate: %s", startDate, endDate);
     // console.log(mockGecmisKonumData);
 
-    return new GecmisKonumSorguResponse(mapFocus, selectMarker, mockGecmisKonumData);
+    return new GecmisKonumSorguResponse(
+      mapFocus,
+      selectMarker,
+      mockGecmisKonumData,
+    );
   }
 }

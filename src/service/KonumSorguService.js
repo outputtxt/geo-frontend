@@ -66,7 +66,7 @@ export const useKonumSorguService = () => {
     console.log(response);
 
     if (response == null) {
-      alert("position method failure!");
+      alert("Son Konum Sorgu uygulamaya bağlanamadı!");
       return;
     }
 

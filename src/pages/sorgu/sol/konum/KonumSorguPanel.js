@@ -88,7 +88,7 @@ const KonumSorguPanel = () => {
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <div className="sorgu-sol-tab-group">
-        {KonumSorguTipi.map((item) => (
+        {KonumSorguTipi.filter((item) => item.hidden === false).map((item) => (
           <button
             className={
               active === item.id
@@ -97,7 +97,7 @@ const KonumSorguPanel = () => {
             }
             key={item.id}
             onClick={() => setActive(item.id)}
-            style={{ fontSize: "12px", fontWeight: "bold" }}
+            style={{ fontSize: "13px", fontWeight: "bold" }}
           >
             {item.name}
           </button>

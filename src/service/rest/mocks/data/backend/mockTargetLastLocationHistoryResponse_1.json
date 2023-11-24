@@ -1,0 +1,259 @@
+{
+    "requestId": "e9429739-931d-463e-8a76-2592230152f3",
+    "responseCode": "SUCCESS",
+    "responseMessage": "Basarili",
+    "locations": [
+        {
+            "target": {
+                "targetValue": "905053332211",
+                "targetType": "IMSI"
+            },
+            "operator": "TURKCELL",
+            "dateTime": "2023-11-25T02:03:45.2042342",
+            "location": {
+                "midPointLatitude": null,
+                "midPointLongitude": null,
+                "baseStationLatitude": 39.95244,
+                "baseStationLongitude": 32.80991,
+                "inRadius": null,
+                "outRadius": null,
+                "startAngle": 290.0,
+                "stopAngle": null,
+                "areaType": null
+            },
+            "primaryDevice": true,
+            "address": "tarim koy karsisi gazi mah ist yol"
+        },
+        {
+            "target": {
+                "targetValue": "905053332211",
+                "targetType": "IMSI"
+            },
+            "operator": "TURKCELL",
+            "dateTime": "2023-11-25T02:03:45.2062336",
+            "location": {
+                "midPointLatitude": null,
+                "midPointLongitude": null,
+                "baseStationLatitude": 39.95344,
+                "baseStationLongitude": 32.80991,
+                "inRadius": null,
+                "outRadius": null,
+                "startAngle": 290.0,
+                "stopAngle": null,
+                "areaType": null
+            },
+            "primaryDevice": true,
+            "address": "tarim koy karsisi gazi mah ist yol"
+        },
+        {
+            "target": {
+                "targetValue": "905053332211",
+                "targetType": "IMSI"
+            },
+            "operator": "TURKCELL",
+            "dateTime": "2023-11-25T02:03:45.2062336",
+            "location": {
+                "midPointLatitude": null,
+                "midPointLongitude": null,
+                "baseStationLatitude": 39.95981,
+                "baseStationLongitude": 32.84571,
+                "inRadius": null,
+                "outRadius": null,
+                "startAngle": 20.0,
+                "stopAngle": null,
+                "areaType": null
+            },
+            "primaryDevice": true,
+            "address": "demir sanayi"
+        },
+        {
+            "target": {
+                "targetValue": "905053332211",
+                "targetType": "IMSI"
+            },
+            "operator": "TURKCELL",
+            "dateTime": "2023-11-25T02:03:45.2062336",
+            "location": {
+                "midPointLatitude": null,
+                "midPointLongitude": null,
+                "baseStationLatitude": 39.84269,
+                "baseStationLongitude": 32.80341,
+                "inRadius": null,
+                "outRadius": null,
+                "startAngle": 70.0,
+                "stopAngle": null,
+                "areaType": null
+            },
+            "primaryDevice": true,
+            "address": "konya yolu ahlatli bel kavsak"
+        },
+        {
+            "target": {
+                "targetValue": "905053332211",
+                "targetType": "IMSI"
+            },
+            "operator": "TURKCELL",
+            "dateTime": "2023-11-25T02:03:45.2062336",
+            "location": {
+                "midPointLatitude": null,
+                "midPointLongitude": null,
+                "baseStationLatitude": 39.86416,
+                "baseStationLongitude": 32.81188,
+                "inRadius": null,
+                "outRadius": null,
+                "startAngle": 190.0,
+                "stopAngle": null,
+                "areaType": null
+            },
+            "primaryDevice": true,
+            "address": "akpinar mahallesi pinar basi camii"
+        },
+        {
+            "target": {
+                "targetValue": "905053332211",
+                "targetType": "IMSI"
+            },
+            "operator": "TURKCELL",
+            "dateTime": "2023-11-25T02:03:45.2062336",
+            "location": {
+                "midPointLatitude": null,
+                "midPointLongitude": null,
+                "baseStationLatitude": 39.8815,
+                "baseStationLongitude": 32.81238,
+                "inRadius": null,
+                "outRadius": null,
+                "startAngle": 190.0,
+                "stopAngle": null,
+                "areaType": null
+            },
+            "primaryDevice": true,
+            "address": "konya yolu 9km opet"
+        },
+        {
+            "target": {
+                "targetValue": "905053332211",
+                "targetType": "IMSI"
+            },
+            "operator": "TURKCELL",
+            "dateTime": "2023-11-25T02:03:45.2062336",
+            "location": {
+                "midPointLatitude": null,
+                "midPointLongitude": null,
+                "baseStationLatitude": 39.95244,
+                "baseStationLongitude": 32.80991,
+                "inRadius": null,
+                "outRadius": null,
+                "startAngle": 290.0,
+                "stopAngle": null,
+                "areaType": null
+            },
+            "primaryDevice": true,
+            "address": "tarim koy karsisi gazi mah ist yol"
+        },
+        {
+            "target": {
+                "targetValue": "905053332211",
+                "targetType": "IMSI"
+            },
+            "operator": "TURKCELL",
+            "dateTime": "2023-11-25T02:03:45.2062336",
+            "location": {
+                "midPointLatitude": null,
+                "midPointLongitude": null,
+                "baseStationLatitude": 39.95344,
+                "baseStationLongitude": 32.80991,
+                "inRadius": null,
+                "outRadius": null,
+                "startAngle": 290.0,
+                "stopAngle": null,
+                "areaType": null
+            },
+            "primaryDevice": true,
+            "address": "tarim koy karsisi gazi mah ist yol"
+        },
+        {
+            "target": {
+                "targetValue": "905053332211",
+                "targetType": "IMSI"
+            },
+            "operator": "TURKCELL",
+            "dateTime": "2023-11-25T02:03:45.2062336",
+            "location": {
+                "midPointLatitude": null,
+                "midPointLongitude": null,
+                "baseStationLatitude": 39.95981,
+                "baseStationLongitude": 32.84571,
+                "inRadius": null,
+                "outRadius": null,
+                "startAngle": 20.0,
+                "stopAngle": null,
+                "areaType": null
+            },
+            "primaryDevice": true,
+            "address": "demir sanayi"
+        },
+        {
+            "target": {
+                "targetValue": "905053332211",
+                "targetType": "IMSI"
+            },
+            "operator": "TURKCELL",
+            "dateTime": "2023-11-25T02:03:45.2062336",
+            "location": {
+                "midPointLatitude": null,
+                "midPointLongitude": null,
+                "baseStationLatitude": 39.84269,
+                "baseStationLongitude": 32.80341,
+                "inRadius": null,
+                "outRadius": null,
+                "startAngle": 70.0,
+                "stopAngle": null,
+                "areaType": null
+            },
+            "primaryDevice": true,
+            "address": "konya yolu ahlatli bel kavsak"
+        },
+        {
+            "target": {
+                "targetValue": "905053332211",
+                "targetType": "IMSI"
+            },
+            "operator": "TURKCELL",
+            "dateTime": "2023-11-25T02:03:45.2062336",
+            "location": {
+                "midPointLatitude": null,
+                "midPointLongitude": null,
+                "baseStationLatitude": 39.86416,
+                "baseStationLongitude": 32.81188,
+                "inRadius": null,
+                "outRadius": null,
+                "startAngle": 190.0,
+                "stopAngle": null,
+                "areaType": null
+            },
+            "primaryDevice": true,
+            "address": "akpinar mahallesi pinar basi camii"
+        },
+        {
+            "target": {
+                "targetValue": "905053332211",
+                "targetType": "IMSI"
+            },
+            "operator": "TURKCELL",
+            "dateTime": "2023-11-25T02:03:45.2062336",
+            "location": {
+                "midPointLatitude": null,
+                "midPointLongitude": null,
+                "baseStationLatitude": 39.8815,
+                "baseStationLongitude": 32.81238,
+                "inRadius": null,
+                "outRadius": null,
+                "startAngle": 190.0,
+                "stopAngle": null,
+                "areaType": null
+            },
+            "primaryDevice": true,
+            "address": "konya yolu 9km opet"
+        }
+    ]
+}

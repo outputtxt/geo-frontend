@@ -1,0 +1,28 @@
+{
+    "requestId": "e9429739-931d-463e-8a76-2592230152f3",
+    "operator": "TURKTELEKOM",
+    "responseCode": "SUCCESS",
+    "responseMessage": "Basarili",
+    "locations": [
+        {
+            "target": {
+                "targetValue": "905053332211",
+                "targetType": "IMSI"
+            },
+            "dateTime": "2023-11-25T01:31:04.6139016",
+            "location": {
+                "midPointLatitude": null,
+                "midPointLongitude": 0.0,
+                "baseStationLatitude": 37.05861,
+                "baseStationLongitude": 37.3474,
+                "inRadius": 537.0,
+                "outRadius": null,
+                "startAngle": null,
+                "stopAngle": null,
+                "areaType": "Circular"
+            },
+            "primaryDevice": true,
+            "address": "Antep Şahinbey Merkez"
+        }
+    ]
+}

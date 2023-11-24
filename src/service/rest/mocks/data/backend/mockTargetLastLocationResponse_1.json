@@ -1,0 +1,68 @@
+{
+    "requestId": "e9429739-931d-463e-8a76-2592230152f3",
+    "operator": "TURKCELL",
+    "responseCode": "SUCCESS",
+    "responseMessage": "Basarili",
+    "locations": [
+        {
+            "target": {
+                "targetValue": "905053332211",
+                "targetType": "MSISDN"
+            },
+            "dateTime": "2023-11-25T01:29:30.6946893",
+            "location": {
+                "midPointLatitude": 39.92299,
+                "midPointLongitude": 32.80831,
+                "baseStationLatitude": 39.91719,
+                "baseStationLongitude": 32.81303,
+                "inRadius": 625.0,
+                "outRadius": 896.0,
+                "startAngle": 294.0,
+                "stopAngle": 362.0,
+                "areaType": "CircularArc"
+            },
+            "primaryDevice": true,
+            "address": "Ankara, Çankaya, Merkez"
+        },
+        {
+            "target": {
+                "targetValue": "905053332211",
+                "targetType": "MSISDN"
+            },
+            "dateTime": "2023-11-25T01:29:30.6966903",
+            "location": {
+                "midPointLatitude": 39.93299,
+                "midPointLongitude": 32.80831,
+                "baseStationLatitude": 39.92719,
+                "baseStationLongitude": 32.81303,
+                "inRadius": 625.0,
+                "outRadius": 896.0,
+                "startAngle": 294.0,
+                "stopAngle": 362.0,
+                "areaType": "CircularArc"
+            },
+            "primaryDevice": false,
+            "address": "Ankara, Çankaya, Merkez 2"
+        },
+        {
+            "target": {
+                "targetValue": "905053332211",
+                "targetType": "MSISDN"
+            },
+            "dateTime": "2023-11-25T01:29:30.6966903",
+            "location": {
+                "midPointLatitude": 39.93299,
+                "midPointLongitude": 32.81831,
+                "baseStationLatitude": 39.92719,
+                "baseStationLongitude": 32.82303,
+                "inRadius": 148.0,
+                "outRadius": 299.0,
+                "startAngle": 325.0,
+                "stopAngle": 0.0,
+                "areaType": "Elliptical"
+            },
+            "primaryDevice": false,
+            "address": "Ankara, Çankaya, Merkez 3"
+        }
+    ]
+}

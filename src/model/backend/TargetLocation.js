@@ -7,5 +7,6 @@ export default class TargetLocation {
     this.dateTime = item.dateTime;
     this.location = new Location(item.location);
     this.primaryDevice = item.primaryDevice;
+    this.address = item.address;
   }
 }

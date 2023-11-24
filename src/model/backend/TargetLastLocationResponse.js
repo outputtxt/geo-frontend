@@ -7,7 +7,6 @@ export default class TargetLastLocationResponse {
     this.operator = data.operator;
     this.responseCode = data.responseCode;
     this.responseMessage = data.responseMessage;
-    this.address = data.address;
     this.locations = [];
 
     data.locations.map((item) => {

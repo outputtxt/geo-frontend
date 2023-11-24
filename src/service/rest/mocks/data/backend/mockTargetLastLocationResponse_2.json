@@ -1,0 +1,28 @@
+{
+    "requestId": "e9429739-931d-463e-8a76-2592230152f3",
+    "operator": "TURKTELEKOM",
+    "responseCode": "SUCCESS",
+    "responseMessage": "Basarili",
+    "locations": [
+        {
+            "target": {
+                "targetValue": "905053332211",
+                "targetType": "IMEI"
+            },
+            "dateTime": "2023-11-25T01:30:41.6335435",
+            "location": {
+                "midPointLatitude": null,
+                "midPointLongitude": 0.0,
+                "baseStationLatitude": 39.90888,
+                "baseStationLongitude": 32.7612,
+                "inRadius": 148.0,
+                "outRadius": 299.0,
+                "startAngle": 294.0,
+                "stopAngle": 315.0,
+                "areaType": "Elliptical"
+            },
+            "primaryDevice": true,
+            "address": "Ankara, Çankaya, Merkez"
+        }
+    ]
+}

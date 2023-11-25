@@ -8,72 +8,43 @@ import mockGecmisKonumData from "../../service/rest/mocks/data/mockGecmisKonumDa
 import mockTargetLastLocationResponse_1 from "../../service/rest/mocks/data/backend/mockTargetLastLocationResponse_1.json";
 import mockTargetLastLocationResponse_2 from "../../service/rest/mocks/data/backend/mockTargetLastLocationResponse_2.json";
 import mockTargetLastLocationResponse_3 from "../../service/rest/mocks/data/backend/mockTargetLastLocationResponse_3.json";
+import { v4 as uuidv4 } from 'uuid';
 
 export default class KonumSorguRestService {
-  static sonKonumSorgula(target, mapFocus) {
+  static async sonKonumSorgula(target, mapFocus) {
+    try {
+      const fetchResponse = await fetch("http://localhost:8080/targetLocation/lastLocation", {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: "POST",
+        body: JSON.stringify({
+          id: uuidv4(),
+          target: {
+              targetValue: target.targetValue,
+              targetType: target.targetType
+          }
+        })
+      });
 
-    if (target.targetType === "MSISDN") {
-      return new TargetLastLocationResponse(mapFocus, mockTargetLastLocationResponse_1);
-    } else if (target.targetType === "IMEI") {
-      return new TargetLastLocationResponse(mapFocus, mockTargetLastLocationResponse_2);
-    } else {
-      return new TargetLastLocationResponse(mapFocus, mockTargetLastLocationResponse_3);
+      const data = await fetchResponse.json();
+      console.log(data);
+      var response = new TargetLastLocationResponse(mapFocus, data);
+
+    } catch (error) {
+      console.error("There was an error!", error);
     }
 
+    return response;
+
+    
     // if (target.targetType === "MSISDN") {
-      //   return new SonKonumSectorResponse(
-      //     hedef.targetValue,
-      //     Date.now(),
-      //     39.83834,
-      //     32.66,
-      //     39.83834,
-      //     32.66,
-      //     3015,
-      //     3286,
-      //     0,
-      //     360,
-      //     "Ankara Yenimahalle Merkez",
-      //   );
-
-    //   return new SonKonumSectorResponse(
-    //     mapFocus,
-    //     target.targetValue,
-    //     Date.now(),
-    //     39.92299,
-    //     32.80831,
-    //     39.91719,
-    //     32.81303,
-    //     625,
-    //     896,
-    //     294,
-    //     362,
-    //     "Ankara Yenimahalle Tepe",
-    //   );
+    //   return new TargetLastLocationResponse(mapFocus, mockTargetLastLocationResponse_1);
     // } else if (target.targetType === "IMEI") {
-    //   // target, tarih, X, Y, minRadius, maxRadius, angle, adres
-
-    //   return new SonKonumEllipseResponse(
-    //     mapFocus,
-    //     target.targetValue,
-    //     Date.now(),
-    //     39.90888,
-    //     32.7612,
-    //     148,
-    //     299,
-    //     360 - 45,
-    //     "Ankara, Çankaya, Merkez",
-    //   );
+    //   return new TargetLastLocationResponse(mapFocus, mockTargetLastLocationResponse_2);
     // } else {
-    //   // IMSI
-    //   return new SonKonumCircularResponse(
-    //     mapFocus,
-    //     target.targetValue,
-    //     Date.now(),
-    //     37.05861,
-    //     37.3474,
-    //     537,
-    //     "Antep Şahinbey Merkez",
-    //   );
+    //   return new TargetLastLocationResponse(mapFocus, mockTargetLastLocationResponse_3);
     // }
   }
 

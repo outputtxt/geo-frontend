@@ -3,13 +3,10 @@ import { MapContext, ContentContext } from "../util/Context";
 import { format } from "date-fns";
 import Constants from "../util/Constants";
 import KonumSorguRestService from "./rest/KonumSorguRestService";
-import SonKonumEllipseResponse from "../model/response/konum/SonKonumEllipseResponse";
-import SonKonumSectorResponse from "../model/response/konum/SonKonumSectorResponse";
-import SonKonumCircularResponse from "../model/response/konum/SonKonumCircularResponse";
+import TargetLastLocationResponse from "../model/backend/TargetLastLocationResponse";
 import SonBazResponse from "../model/response/konum/SonBazResponse";
 import GecmisKonumSorguResponse from "../model/response/konum/gecmis/GecmisKonumSorguResponse";
 import * as L from "leaflet";
-import { responsiveProperty } from "@mui/material/styles/cssUtils";
 
 export const useKonumSorguService = () => {
   const { map, layerSorgu } = useContext(MapContext);
@@ -62,11 +59,10 @@ export const useKonumSorguService = () => {
   };
 
   //======================  Son Konum Sorgu  ======================
-  const sonKonumSorgula = (target) => {
-    const response = KonumSorguRestService.sonKonumSorgula(target, mapFocus);
-    console.log(response);
+  const sonKonumSorgula = async (target) => {
+    const response = await KonumSorguRestService.sonKonumSorgula(target, mapFocus);
 
-    if (response === null) {
+    if (response == null) {
       alert("Son Konum Sorgu uygulamaya bağlanamadı!");
       return;
     } else if (response.responseCode != "SUCCESS") {

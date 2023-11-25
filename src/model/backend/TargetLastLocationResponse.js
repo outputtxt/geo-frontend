@@ -6,6 +6,7 @@ import "../table.css";
 export default class TargetLastLocationResponse {
   constructor(mapFocus, data) {
     this.mapFocus = mapFocus;
+    
     this.requestId = data.requestId;
     this.operator = data.operator;
     this.responseCode = data.responseCode;

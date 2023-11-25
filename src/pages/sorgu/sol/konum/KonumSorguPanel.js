@@ -32,7 +32,7 @@ const KonumSorguPanel = () => {
       case KonumSorguTipi[0].id:
         return konumSorguService.sonKonumSorgula(hedef);
       case KonumSorguTipi[1].id:
-        return konumSorguService.gecmisTarihSorgula(hedef, dateRange);
+        return konumSorguService.sonKonumGecmisSorgula(hedef, dateRange);
       case KonumSorguTipi[2].id:
         return konumSorguService.sonBazSorgula(hedef);
       case KonumSorguTipi[3].id:

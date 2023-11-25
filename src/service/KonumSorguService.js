@@ -117,6 +117,41 @@ export const useKonumSorguService = () => {
     setContentOpen(true);
   };
 
+  //======================  Son Konum Gecmis Sorgu  ======================
+  const sonKonumGecmisSorgula = async (target, dateRange) => {
+    const response = await KonumSorguRestService.sonKonumGecmisSorgula(target, dateRange, mapFocus);
+
+
+    if (response == null) {
+      alert("Son Konum Sorgu Geçmişi uygulamaya bağlanamadı!");
+      return;
+    } else if (response.responseCode != "SUCCESS") {
+      alert(response.responseMessage);
+      return;
+    }
+
+    layerSorgu.clearLayers();
+
+    response.locations.map((targetLocationHistory) => {
+        // Target Location Marker
+        L.marker([targetLocationHistory.location.baseStationLatitude, 
+          targetLocationHistory.location.baseStationLongitude], {
+          icon: Constants.MarkerIconBlue,
+        }).addTo(layerSorgu);
+    });
+
+    try {
+      map.fitBounds(layerSorgu.getBounds().pad(0.5));
+    } catch (err) {
+      console.log(err.message);
+    }
+
+    setContentHeader("Son Konum Sorgu Geçmişi ("+ target.targetValue +")");
+    setContentData(response.getTable());
+    setContentOpen(true);
+  }
+  
+
   //======================  Son Baz Sorgu  ======================
   const sonBazSorgula = (hedef) => {
     const response = KonumSorguRestService.sonBazSorgula(hedef, mapFocus);
@@ -217,8 +252,9 @@ export const useKonumSorguService = () => {
 
   return {
     sonKonumSorgula,
+    sonKonumGecmisSorgula,
     sonBazSorgula,
-    gecmisTarihSorgula,
+    // gecmisTarihSorgula,
     gecmisGunSorgula,
     konumSorguTemizle,
   };

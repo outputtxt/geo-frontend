@@ -1,0 +1,39 @@
+.contenttable {
+  min-width: 100%;
+  background-color: white;
+}
+
+.contenttable thead th {
+  background-color: #8d959e;
+  color: white;
+  font-weight: bold;
+  font-size: 12px;
+  height: 30px;
+}
+
+.contenttable tr {
+  width: 100%!;
+  height: 20px;
+  min-width: 100%;
+  font-size: 11px;
+}
+
+.contenttable tbody tr:nth-child(odd) {
+  background-color: #eef1f3;
+}
+
+.contenttable tbody tr:nth-child(even) {
+  background-color: #d2d8dd;
+}
+
+.contenttable tbody tr:hover {
+  background-color: var(--aqua-2-rgb-opacity-03);
+}
+
+.contenttable tbody tr.selected {
+  background-color: var(--aqua-2);
+}
+
+.contenttable-selected-td {
+  background-color: palegreen;
+}

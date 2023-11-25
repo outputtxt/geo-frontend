@@ -1,5 +1,5 @@
 import Target from "./Target";
-import Target from "./Location";
+import Location from "./Location";
 
 export default class TargetLocation {
   constructor(item) {

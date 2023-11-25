@@ -8,7 +8,6 @@ export default class Location {
     this.outRadius = item.outRadius;
     this.startAngle = item.startAngle;
     this.stopAngle = item.stopAngle;
-    this.midPointLatitude = item.midPointLatitude;
     this.areaType = item.areaType;
   }
 }

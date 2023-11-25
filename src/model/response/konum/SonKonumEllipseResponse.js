@@ -1,7 +1,7 @@
 import EllipseArea from "../../area/EllipseArea";
 import SonKonumResponse from "./SonKonumResponse";
 import { format } from "date-fns";
-import "./table.css";
+import "../../table.css";
 
 export default class SonKonumEllipseResponse extends SonKonumResponse {
   constructor(

@@ -1,7 +1,7 @@
 import SectorArea from "../../area/SectorArea";
 import SonKonumResponse from "./SonKonumResponse";
 import { format } from "date-fns";
-import "./table.css";
+import "../../table.css";
 
 export default class SonKonumSectorResponse extends SonKonumResponse {
   constructor(
@@ -80,4 +80,3 @@ export default class SonKonumSectorResponse extends SonKonumResponse {
   };
 }
 
-// var(--background-color-4)

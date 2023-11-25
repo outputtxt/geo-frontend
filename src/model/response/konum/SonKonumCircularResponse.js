@@ -1,7 +1,7 @@
 import CircularArea from "../../area/CircularArea";
 import SonKonumResponse from "./SonKonumResponse";
 import { format } from "date-fns";
-import "./table.css";
+import "../../table.css";
 
 export default class SonKonumCircularResponse extends SonKonumResponse {
   constructor(mapFocus, hedef, tarih, X, Y, radius, adres) {

@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import "./table.css";
+import "../../table.css";
 
 export default class SonBazResponse {
   constructor(mapFocus, tarih, cellId, bazX, bazY, angle, adres) {

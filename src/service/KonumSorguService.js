@@ -9,6 +9,7 @@ import SonKonumCircularResponse from "../model/response/konum/SonKonumCircularRe
 import SonBazResponse from "../model/response/konum/SonBazResponse";
 import GecmisKonumSorguResponse from "../model/response/konum/gecmis/GecmisKonumSorguResponse";
 import * as L from "leaflet";
+import { responsiveProperty } from "@mui/material/styles/cssUtils";
 
 export const useKonumSorguService = () => {
   const { map, layerSorgu } = useContext(MapContext);
@@ -61,52 +62,53 @@ export const useKonumSorguService = () => {
   };
 
   //======================  Son Konum Sorgu  ======================
-  const sonKonumSorgula = (hedef) => {
-    const response = KonumSorguRestService.sonKonumSorgula(hedef, mapFocus);
+  const sonKonumSorgula = (target) => {
+    const response = KonumSorguRestService.sonKonumSorgula(target, mapFocus);
     console.log(response);
 
-    if (response == null) {
+    if (response === null) {
       alert("Son Konum Sorgu uygulamaya bağlanamadı!");
+      return;
+    } else if (response.responseCode != "SUCCESS") {
+      alert(response.responseMessage);
       return;
     }
 
     layerSorgu.clearLayers();
 
-    if (response instanceof SonKonumEllipseResponse) {
-      var elips = L.ellipse(
-        [response.ellipse.X, response.ellipse.Y],
-        [response.ellipse.maxRadius, response.ellipse.minRadius],
-        response.ellipse.angle,
-        Constants.defaultPathOptions,
-      ).addTo(layerSorgu);
+    response.locations.map((targetLocation) => {
+      if(targetLocation.location.areaType === "Elliptical") {
+        L.ellipse(
+          [targetLocation.location.baseStationLatitude, targetLocation.location.baseStationLongitude],
+          [targetLocation.location.outRadius, targetLocation.location.inRadius],
+          targetLocation.location.startAngle,
+          Constants.defaultPathOptions,
+        ).addTo(layerSorgu);
+      } else if (targetLocation.location.areaType === "CircularArc") {
+        L.sector({
+          center: [targetLocation.location.baseStationLatitude, targetLocation.location.baseStationLongitude],
+          innerRadius: parseFloat(targetLocation.location.inRadius),
+          outerRadius: parseFloat(targetLocation.location.outRadius),
+          startBearing: parseFloat(targetLocation.location.startAngle),
+          endBearing: parseFloat(targetLocation.location.stopAngle),
+          fillColor: Constants.AREA_COLOR,
+          fillOpacity: Constants.AREA_OPACITY,
+          color: Constants.AREA_COLOR,
+          weight: Constants.BORDER_WEIGHT,
+        }).addTo(layerSorgu);
 
-      // map.fitBounds(layerSorgu.getBounds().pad(0.5));
-    } else if (response instanceof SonKonumSectorResponse) {
-      L.sector({
-        center: [response.sector.bazX, response.sector.bazY],
-        innerRadius: parseFloat(response.sector.inRadius),
-        outerRadius: parseFloat(response.sector.outRadius),
-        startBearing: parseFloat(response.sector.startAngle),
-        endBearing: parseFloat(response.sector.stopAngle),
-        fillColor: Constants.AREA_COLOR,
-        fillOpacity: Constants.AREA_OPACITY,
-        color: Constants.AREA_COLOR,
-        weight: Constants.BORDER_WEIGHT,
-      }).addTo(layerSorgu);
-
-      // BAZ MARKER
-      L.marker([response.sector.bazX, response.sector.bazY], {
-        icon: Constants.BazIcon,
-      }).addTo(layerSorgu);
-
-      // mapState..fitBounds(layerSorgu.getBounds().pad(0.5));
-    } else if (response instanceof SonKonumCircularResponse) {
-      L.circle(
-        [response.circle.X, response.circle.Y],
-        response.circle.radius,
-        Constants.defaultPathOptions,
-      ).addTo(layerSorgu);
-    }
+        // BAZ MARKER
+        L.marker([targetLocation.location.baseStationLatitude, targetLocation.location.baseStationLongitude], {
+          icon: Constants.BazIcon,
+        }).addTo(layerSorgu);
+      } else if (targetLocation.location.areaType === "Circular") {
+        L.circle(
+          [targetLocation.location.baseStationLatitude, targetLocation.location.baseStationLongitude],
+          targetLocation.location.inRadius,
+          Constants.defaultPathOptions,
+        ).addTo(layerSorgu);
+      }
+    });
 
     try {
       map.fitBounds(layerSorgu.getBounds().pad(0.5));
@@ -114,7 +116,7 @@ export const useKonumSorguService = () => {
       console.log(err.message);
     }
 
-    setContentHeader("Son Konum");
+    setContentHeader("Son Konum ("+ target.targetValue +") [Veriler "+ response.operator +" tarafından üretilen yaklaşık değerlerdir]");
     setContentData(response.getTable());
     setContentOpen(true);
   };
@@ -202,9 +204,7 @@ export const useKonumSorguService = () => {
         format(new Date(dateRange[1]), "yyyy/MM/dd") +
         "- " +
         format(new Date(dateRange[0]), "yyyy/MM/dd") +
-        "] Hedef [" +
-        hedef.targetValue +
-        "]",
+        "] Hedef [" + hedef.targetValue + "]",
     );
     setContentData(response.getTable());
     setContentOpen(true);

@@ -2,7 +2,7 @@ import { useState } from "react";
 import BaseStationHtsRecord from "./BaseStationHtsRecord";
 import CellSorguResponse from "../../baz/CellSorguResponse";
 import { format } from "date-fns";
-import "../table.css";
+import "../../../table.css";
 
 export default class GecmisKonumSorguResponse {
   constructor(mapFocus, selectMarker, data) {

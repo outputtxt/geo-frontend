@@ -31,26 +31,26 @@ export default class TargetLastBaseStationResponse {
             </th>
           </tr>
         </thead>
-            <tbody>
-                <tr onDoubleClick={() =>
-                    this.mapFocus(this.baseStationDetail.location.latitude,
-                        this.baseStationDetail.location.longitude)
-                }>
-                    <td>{format(new Date(this.baseStationDetail.dateTime), "yyyy/MM/dd HH:mm:ss")}</td>
-                    <td>{this.operator}</td>
-                    <td>{this.baseStationDetail.cellId}</td>
-                    <td>{this.baseStationDetail.location.latitude}</td>
-                    <td>{this.baseStationDetail.location.longitude}</td>
-                    <td>{this.baseStationDetail.location.angle}</td>
-                    <td style={{ textAlign: "left", paddingLeft: "5px" }}>
-                        {this.baseStationDetail.address}
-                    </td>
-                </tr>
+        <tbody>
+          <tr onDoubleClick={() =>
+            this.mapFocus(this.baseStationDetail.location.latitude,
+              this.baseStationDetail.location.longitude)
+          }>
+            <td>{format(new Date(this.baseStationDetail.dateTime), "yyyy/MM/dd HH:mm:ss")}</td>
+            <td>{this.operator}</td>
+            <td>{this.baseStationDetail.cellId}</td>
+            <td>{this.baseStationDetail.location.latitude}</td>
+            <td>{this.baseStationDetail.location.longitude}</td>
+            <td>{this.baseStationDetail.location.angle}</td>
+            <td style={{ textAlign: "left", paddingLeft: "5px" }}>
+              {this.baseStationDetail.address}
+            </td>
+          </tr>
 
-                <tr style={{ height: "20px" }}>
-                    <td style={{ backgroundColor: "#8d959e" }} colSpan="11"></td>
-                </tr>
-            </tbody>
+          <tr style={{ height: "20px" }}>
+            <td style={{ backgroundColor: "#8d959e" }} colSpan="11"></td>
+          </tr>
+        </tbody>
       </table>
     );
   };

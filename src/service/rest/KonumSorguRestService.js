@@ -1,10 +1,8 @@
 import TargetLastLocationResponse from "../../model/backend/TargetLastLocationResponse";
 import TargetLastLocationHistoryResponse from "../../model/backend/TargetLastLocationHistoryResponse";
 import TargetLastBaseStationResponse from "../../model/backend/TargetLastBaseStationResponse";
+import TargetLastXDaysBaseStationsResponse from "../../model/backend/TargetLastXDaysBaseStationsResponse";
 
-
-import SonBazResponse from "../../model/response/konum/SonBazResponse";
-import GecmisKonumSorguResponse from "../../model/response/konum/gecmis/GecmisKonumSorguResponse";
 import mockGecmisKonumData from "../../service/rest/mocks/data/mockGecmisKonumData.json";
 import mockTargetLastLocationHistoryResponse_1 from "../../service/rest/mocks/data/backend/mockTargetLastLocationHistoryResponse_1.json";
 import mockTargetLastLocationResponse_1 from "../../service/rest/mocks/data/backend/mockTargetLastLocationResponse_1.json";
@@ -125,16 +123,48 @@ export default class KonumSorguRestService {
     // );
   }
 
-  static gecmisTarihSorgula(hedef, dateRange, mapFocus, selectMarker) {
-    // const [startDate, endDate] = dateRange;
-    // console.log("hedef: " + hedef.targetValue);
-    // console.log("startDate: %s, endDate: %s", startDate, endDate);
-    // console.log(mockGecmisKonumData);
+  //==============================  SON BAZ X GUN SORGU  ==============================
+  static async sonBazXGunSorgula (mapFocus, selectMarker, target, sonKacGun) {
+    
+    try {
+      const fetchResponse = await fetch("http://localhost:8080/baseStation/lastXDaysBaseStationsOfTarget", {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: "POST",
+        body: JSON.stringify({
+          id: uuidv4(),
+          target: {
+              targetValue: target.targetValue,
+              targetType: target.targetType
+          },
+          numberOfDays: sonKacGun
+        })
+      });
 
-    return new GecmisKonumSorguResponse(
-      mapFocus,
-      selectMarker,
-      mockGecmisKonumData,
-    );
+      const data = await fetchResponse.json();
+      console.log(data);
+
+      var response = new TargetLastXDaysBaseStationsResponse(mapFocus, selectMarker, data);
+    } catch (error) {
+      console.error("There was an error!", error);
+    }
+
+    return response;
   }
+
+
+  // static gecmisTarihSorgula(hedef, dateRange, mapFocus, selectMarker) {
+  //   // const [startDate, endDate] = dateRange;
+  //   // console.log("hedef: " + hedef.targetValue);
+  //   // console.log("startDate: %s, endDate: %s", startDate, endDate);
+  //   // console.log(mockGecmisKonumData);
+
+  //   return new GecmisKonumSorguResponse(
+  //     mapFocus,
+  //     selectMarker,
+  //     mockGecmisKonumData,
+  //   );
+  // }
 }

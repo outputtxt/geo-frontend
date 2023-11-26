@@ -36,7 +36,7 @@ const KonumSorguPanel = () => {
       case KonumSorguTipi[2].id:
         return konumSorguService.sonBazSorgula(hedef);
       case KonumSorguTipi[3].id:
-        return konumSorguService.gecmisGunSorgula(hedef, sonKacGun);
+        return konumSorguService.sonBazXGunSorgula(hedef, sonKacGun);
     }
   };
 

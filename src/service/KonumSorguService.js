@@ -204,29 +204,28 @@ export const useKonumSorguService = () => {
     
   };
 
-  //======================  Gecmis Sorgu  ======================
-  const gecmisTarihSorgula = (hedef, dateRange) => {
-    const response = KonumSorguRestService.gecmisTarihSorgula(
-      hedef,
-      dateRange,
-      mapFocus,
-      selectMarker,
-    );
-
-    if (!(response instanceof GecmisKonumSorguResponse)) {
-      alert("wrong response!");
+  //======================  Son Baz Gecmis Gun Sorgu  ======================
+  const sonBazXGunSorgula = async (hedef, sonKacGun) => {
+    const response = await KonumSorguRestService.sonBazXGunSorgula(mapFocus, selectMarker, hedef, sonKacGun);
+    
+    if (response == null || response instanceof Promise) {
+      alert("Son Baz X Gün Sorgu Geçmişi uygulamaya bağlanamadı!");
+      return;
+    } else if (response.responseCode != "SUCCESS") {
+      alert(response.responseMessage);
       return;
     }
 
+    // DRAW BASE STATION MARKERS ON MAP
     Array.from(response.baseStationMap.values()).map((base) => {
-      var marker = L.marker([base.bazX, base.bazY], {
+      var marker = L.marker([base.location.latitude, base.location.longitude], {
         icon: Constants.MarkerIconBlue,
       })
         .addTo(layerSorgu)
         .on("click", function (e) {
           selectMarker(base.cellId);
         });
-
+  
       gecmisSorguMarkersMap.set(base.cellId, marker);
     });
 
@@ -236,32 +235,72 @@ export const useKonumSorguService = () => {
       console.log(err.message);
     }
 
-    setContentHeader(
-      "Geçmiş Kayıtlar [" +
-        format(new Date(dateRange[1]), "yyyy/MM/dd") +
-        "- " +
-        format(new Date(dateRange[0]), "yyyy/MM/dd") +
-        "] Hedef [" + hedef.targetValue + "]",
-    );
+    // SET CONTENT TABLE
+    setContentHeader("Son " + sonKacGun + 
+      " Günde Görüşme Yapılan Baz İstasyonları ("+ hedef.targetValue + ")");
     setContentData(response.getTable());
     setContentOpen(true);
-  };
+  }
+  
 
-  //======================  Son Gun Sorgu  ======================
-  const gecmisGunSorgula = (hedef, sonKacGun) => {
-    const endDate = new Date();
-    const startDate = new Date();
-    startDate.setDate(startDate.getDate() - (sonKacGun - 1));
 
-    gecmisTarihSorgula(hedef, [startDate, endDate]);
-  };
+  // //======================  Gecmis Sorgu  ======================
+  // const gecmisTarihSorgula = (hedef, dateRange) => {
+  //   const response = KonumSorguRestService.gecmisTarihSorgula(
+  //     hedef,
+  //     dateRange,
+  //     mapFocus,
+  //     selectMarker,
+  //   );
+
+  //   if (!(response instanceof GecmisKonumSorguResponse)) {
+  //     alert("wrong response!");
+  //     return;
+  //   }
+
+  //   Array.from(response.baseStationMap.values()).map((base) => {
+  //     var marker = L.marker([base.bazX, base.bazY], {
+  //       icon: Constants.MarkerIconBlue,
+  //     })
+  //       .addTo(layerSorgu)
+  //       .on("click", function (e) {
+  //         selectMarker(base.cellId);
+  //       });
+
+  //     gecmisSorguMarkersMap.set(base.cellId, marker);
+  //   });
+
+  //   try {
+  //     map.fitBounds(layerSorgu.getBounds().pad(0.5));
+  //   } catch (err) {
+  //     console.log(err.message);
+  //   }
+
+  //   setContentHeader(
+  //     "Geçmiş Kayıtlar [" +
+  //       format(new Date(dateRange[1]), "yyyy/MM/dd") +
+  //       "- " +
+  //       format(new Date(dateRange[0]), "yyyy/MM/dd") +
+  //       "] Hedef [" + hedef.targetValue + "]",
+  //   );
+  //   setContentData(response.getTable());
+  //   setContentOpen(true);
+  // };
+
+  // //======================  Son Gun Sorgu  ======================
+  // const gecmisGunSorgula = (hedef, sonKacGun) => {
+  //   const endDate = new Date();
+  //   const startDate = new Date();
+  //   startDate.setDate(startDate.getDate() - (sonKacGun - 1));
+
+  //   gecmisTarihSorgula(hedef, [startDate, endDate]);
+  // };
 
   return {
     sonKonumSorgula,
     sonKonumGecmisSorgula,
     sonBazSorgula,
-    // gecmisTarihSorgula,
-    gecmisGunSorgula,
+    sonBazXGunSorgula,
     konumSorguTemizle,
   };
 };

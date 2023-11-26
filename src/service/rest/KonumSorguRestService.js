@@ -1,5 +1,7 @@
 import TargetLastLocationResponse from "../../model/backend/TargetLastLocationResponse";
 import TargetLastLocationHistoryResponse from "../../model/backend/TargetLastLocationHistoryResponse";
+import TargetLastBaseStationResponse from "../../model/backend/TargetLastBaseStationResponse";
+
 
 import SonBazResponse from "../../model/response/konum/SonBazResponse";
 import GecmisKonumSorguResponse from "../../model/response/konum/gecmis/GecmisKonumSorguResponse";
@@ -83,18 +85,44 @@ export default class KonumSorguRestService {
     return response;
   }
 
-  static sonBazSorgula(hedef, mapFocus) {
-    console.log(hedef);
+  //==============================  SON BAZ SORGU  ==============================
+  static async sonBazSorgula(target, mapFocus) {
 
-    return new SonBazResponse(
-      mapFocus,
-      Date.now(),
-      6010514563,
-      39.95244,
-      32.80991,
-      hedef.targetValue % 2 == 0 ? 0 : 140,
-      "GAZI Istanbul Yolu",
-    );
+    try {
+      const fetchResponse = await fetch("http://localhost:8080/baseStation/lastBaseStationOfTarget", {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: "POST",
+        body: JSON.stringify({
+          id: uuidv4(),
+          target: {
+              targetValue: target.targetValue,
+              targetType: target.targetType
+          }
+        })
+      });
+
+      const data = await fetchResponse.json();
+      console.log(data);
+
+      var response = new TargetLastBaseStationResponse(mapFocus, data);
+    } catch (error) {
+      console.error("There was an error!", error);
+    }
+
+    return response;
+
+    // return new SonBazResponse(
+    //   mapFocus,
+    //   Date.now(),
+    //   6010514563,
+    //   39.95244,
+    //   32.80991,
+    //   target.targetValue % 2 == 0 ? 0 : 140,
+    //   "GAZI Istanbul Yolu",
+    // );
   }
 
   static gecmisTarihSorgula(hedef, dateRange, mapFocus, selectMarker) {

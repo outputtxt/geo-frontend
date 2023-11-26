@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { MapContext } from "../util/Context";
+import { MapContext, ContentContext } from "../util/Context";
 import Constants from "../util/Constants";
 import BazSorguRestService from "./rest/BazSorguRestService";
 import OperatorTipi from "../model/enum/OperatorTipi";
@@ -10,27 +10,44 @@ import "../util/l.ellipse"; // one time import is enough for all L usages
 
 export const useBazSorguService = () => {
   const mapContext = useContext(MapContext);
+  const { setContentHeader, setContentOpen, setContentData } = useContext(ContentContext);
+
+  const mapFocus = (X, Y) => {
+    try {
+      mapContext.map.setView([X, Y], Constants.MAX_ZOOM - 3);
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
 
   //=========================  BAZ SORGU  =========================
-  const bazSorgu = (operator, cellId) => {
+  const bazSorgu = async (operator, cellId) => {
     mapContext.layerSorgu.clearLayers();
 
-    const response = BazSorguRestService.cellSorgula(operator, cellId);
+    const response = await BazSorguRestService.cellSorgula(mapFocus, operator, cellId);
     console.log(response);
 
-    if (response.angle == 0) {
+    if(response == null || response instanceof Promise) {
+      alert("Baz Sorgu uygulamaya bağlanamadı!");
+      return;
+    } else if (response.responseCode != "SUCCESS") {
+      alert(response.responseMessage);
+      return;
+    }
+
+    if (response.baseStationDetail.location.angle == 0) {
       L.circle(
-        [response.bazX, response.bazY],
+        [response.baseStationDetail.location.latitude, response.baseStationDetail.location.longitude],
         Constants.BAZ_RADIUS,
         Constants.defaultPathOptions,
       ).addTo(mapContext.layerSorgu);
     } else {
       L.sector({
-        center: [response.bazX, response.bazY],
+        center: [response.baseStationDetail.location.latitude, response.baseStationDetail.location.longitude],
         innerRadius: parseFloat(0),
         outerRadius: parseFloat(Constants.BAZ_RADIUS),
-        startBearing: parseFloat(response.angle - Constants.BAZ_ANGLE_RANGE),
-        endBearing: parseFloat(response.angle + Constants.BAZ_ANGLE_RANGE),
+        startBearing: parseFloat(response.baseStationDetail.location.angle - Constants.BAZ_ANGLE_RANGE),
+        endBearing: parseFloat(response.baseStationDetail.location.angle + Constants.BAZ_ANGLE_RANGE),
         fillColor: Constants.AREA_COLOR,
         fillOpacity: Constants.AREA_OPACITY,
         color: Constants.AREA_COLOR,
@@ -39,7 +56,7 @@ export const useBazSorguService = () => {
     }
 
     // BAZ MARKER
-    L.marker([response.bazX, response.bazY], {
+    L.marker([response.baseStationDetail.location.latitude, response.baseStationDetail.location.longitude], {
       icon: Constants.BazIcon,
     }).addTo(mapContext.layerSorgu);
 
@@ -48,6 +65,11 @@ export const useBazSorguService = () => {
     } catch (err) {
       console.log(err.message);
     }
+
+    // SET CONTENT TABLE
+    setContentHeader("Baz İstasyonu Bilgileri");
+    setContentData(response.getTable());
+    setContentOpen(true);
   };
 
   //=========================  BAZ SORGU  =========================

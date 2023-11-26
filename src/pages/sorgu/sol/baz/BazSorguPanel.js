@@ -56,7 +56,7 @@ const BazSorguPanel = () => {
             >
               {" "}
             </option>
-            <option value="Avea">Avea</option>
+            <option value="TurkTelekom">TurkTelekom</option>
             <option value="Turkcell">Turkcell</option>
             <option value="Vodafone">Vodafone</option>
           </select>

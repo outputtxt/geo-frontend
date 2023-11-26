@@ -1,3 +1,3 @@
-const OperatorTipi = ["Avea", "Turkcell", "Vodafone"];
+const OperatorTipi = ["TurkTelekom", "Turkcell", "Vodafone"];
 
 export default OperatorTipi;

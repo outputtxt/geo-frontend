@@ -17,9 +17,9 @@ const SorguSolPanel = () => {
       layerSorgu.clearLayers();
     }
 
-    if (active != SorguTipi[0].name) {
-      setContentOpen(false);
-    }
+    // if (active != SorguTipi[0].name) {
+    setContentOpen(false);
+    // }
   }, [active]);
 
   return (

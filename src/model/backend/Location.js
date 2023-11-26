@@ -1,4 +1,5 @@
 export default class Location {
+  
   constructor(item) {
     this.midPointLatitude = item.midPointLatitude;
     this.midPointLongitude = item.midPointLongitude;

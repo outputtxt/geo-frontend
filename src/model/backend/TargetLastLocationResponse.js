@@ -4,6 +4,7 @@ import "../table.css";
 
 
 export default class TargetLastLocationResponse {
+  
   constructor(mapFocus, data) {
     this.mapFocus = mapFocus;
     

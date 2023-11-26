@@ -4,6 +4,7 @@ import "../table.css";
 
 
 export default class TargetLastLocationHistoryResponse {
+  
   constructor(mapFocus, data) {
     this.mapFocus = mapFocus;
     this.requestId = data.requestId;

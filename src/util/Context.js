@@ -48,7 +48,7 @@ export const VisibilityContext = createContext({
 });
 
 export const VisibilityContextProvider = ({ children }) => {
-  const [sideBarVisible, setSideBarVisible] = useState(true);
+  const [sideBarVisible, setSideBarVisible] = useState(false);
   const [sideBarOpen, setSideBarOpen] = useState(true);
 
   const sideBarProvider = useMemo(

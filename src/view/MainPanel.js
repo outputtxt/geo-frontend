@@ -16,10 +16,10 @@ const MainPanel = () => {
 
       <div className="full-page">
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<SorguPanel />} />
           <Route path="/admin" element={<AdminPanel />} />
           {/*<Route path="/admin" element={<CollapsePanel />} /> */}
-          <Route path="/Sorgu" element={<SorguPanel />} />
+          <Route path="/Sorgu" element={<Home />} />
         </Routes>
       </div>
     </div>

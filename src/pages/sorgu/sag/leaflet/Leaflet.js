@@ -4,9 +4,9 @@ import {
   TileLayer,
   FeatureGroup,
   LayersControl,
+  useMapEvents,
 } from "react-leaflet";
 import L from "leaflet";
-import MapController from "./MapController";
 import { MapContext } from "../../../../util/Context";
 import Constants from "../../../../util/Constants";
 import "leaflet/dist/leaflet.css";
@@ -21,10 +21,33 @@ L.Icon.Default.mergeOptions({
   shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
 });
 
+//======================  MAP CONTROLLER  ======================
+const MapController = ({ setMousePoint }) => {
+  // =================== track mouse coordinates on map ===================
+  useMapEvents({
+    mousemove(event) {
+      setMousePoint(event.latlng);
+    },
+    mouseout() {
+      setMousePoint(null);
+    },
+  });
+};
+
 //=============================  LEAFLET  =============================
 const Leaflet = ({ width, height, setMousePoint }) => {
   const mapContext = useContext(MapContext);
   const [layer, setLayer] = useState(false);
+
+  //========== rerender the map for each size change ==========
+  useEffect(() => {
+    if (mapContext.map != null) {
+      mapContext.map.invalidateSize();
+    }
+  }, [height, width]);
+
+  // const whenMapReady = (map) => {
+  // };
 
   return (
     <div className="leaflet-container">
@@ -37,6 +60,7 @@ const Leaflet = ({ width, height, setMousePoint }) => {
         attributionControl={false}
         zoomControl={false}
         preferCanvas={true}
+        // whenReady={(map) => whenMapReady(map.target)}
       >
         {layer ? (
           <WMSTileLayer
@@ -78,11 +102,7 @@ const Leaflet = ({ width, height, setMousePoint }) => {
           </LayersControl.Overlay>
         </LayersControl>
 
-        <MapController
-          width={width}
-          height={height}
-          setMousePoint={setMousePoint}
-        />
+        <MapController setMousePoint={setMousePoint} />
       </MapContainer>
     </div>
   );

@@ -9,7 +9,14 @@ export const useMapToolbarService = () => {
 
   //=========================  RESET MAP  =========================
   const resetMap = () => {
-    // cleaer layers
+    // clear layers
+
+    // mapContext.map.eachLayer(function (layer) {
+    //   if (!!layer.toGeoJSON) {
+    //     mapContext.map.removeLayer(layer);
+    //   }
+    // });
+
     mapContext.layerSorgu.clearLayers();
     mapContext.layerKestirme.clearLayers();
     mapContext.layerAveaBazList.clearLayers();
@@ -17,12 +24,9 @@ export const useMapToolbarService = () => {
     mapContext.layerVodafoneBazList.clearLayers();
 
     // clear baz liste checkboxes
-    const aveaCheckbox = document.getElementById("AveaBazListCheckbox");
-    aveaCheckbox.checked = false;
-    const turkcellCheckbox = document.getElementById("TurkcellBazListCheckbox");
-    turkcellCheckbox.checked = false;
-    const vodafoneCheckbox = document.getElementById("VodafoneBazListCheckbox");
-    vodafoneCheckbox.checked = false;
+    document.getElementById("TurkTelekomBazListCheckbox").checked = false;
+    document.getElementById("TurkcellBazListCheckbox").checked = false;
+    document.getElementById("VodafoneBazListCheckbox").checked = false;
 
     // set map to its initial state
     mapContext.map.setView(

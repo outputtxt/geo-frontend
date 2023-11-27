@@ -9,6 +9,10 @@ import {
 import L from "leaflet";
 import { MapContext } from "../../../../util/Context";
 import Constants from "../../../../util/Constants";
+
+import "leaflet-measure-ext/dist/leaflet-measure";
+import "leaflet-measure-ext/dist/leaflet-measure.css";
+
 import "leaflet/dist/leaflet.css";
 import "./Leaflet.css";
 
@@ -46,8 +50,49 @@ const Leaflet = ({ width, height, setMousePoint }) => {
     }
   }, [height, width]);
 
-  // const whenMapReady = (map) => {
-  // };
+  const measureOptions = {
+    position: "topleft",
+    primaryLengthUnit: "meters",
+    secondaryLengthUnit: "kilometers",
+    primaryAreaUnit: "sqmeters",
+    secondaryAreaUnit: "hectares",
+    activeColor: "green",
+    completedColor: "darkgreen",
+    labels: {
+      measure: "Ölçüm",
+      measureDistancesAndAreas: "Alan ve Mesafe Ölç",
+      createNewMeasurement: "Yeni Ölçüm",
+      startCreating: "Yeni ölçüme başlamak için haritaya nokta ekle",
+      finishMeasurement: "Ölçümü Bitir",
+      lastPoint: "Son Nokta",
+      area: "Alan",
+      perimeter: "Bölge",
+      pointLocation: "Nokta Konumu",
+      areaMeasurement: "Alan Ölçüm",
+      linearMeasurement: "Doğrusal Ölçüm",
+      pathDistance: "Uzaklık",
+      centerOnArea: "Bu alana odaklan",
+      centerOnLine: "Bu çizgiye odaklan",
+      centerOnLocation: "Bu konuma odaklan",
+      cancel: "İptal",
+      delete: "Sil",
+      // "acres": "Acres",
+      // "feet": "Feet",
+      kilometers: "Kilometre",
+      hectares: "Hektar",
+      meters: "Metre",
+      // "miles": "Miles",
+      // "sqfeet": "Sq Feet",
+      sqmeters: "Metre Kare",
+      // "sqmiles": "Sq Miles",
+      // "decPoint": ".",
+      // "thousandsSep": ","
+    },
+  };
+
+  const whenMapReady = (map) => {
+    L.control.measure(measureOptions).addTo(map);
+  };
 
   return (
     <div className="leaflet-container">
@@ -60,7 +105,7 @@ const Leaflet = ({ width, height, setMousePoint }) => {
         attributionControl={false}
         zoomControl={false}
         preferCanvas={true}
-        // whenReady={(map) => whenMapReady(map.target)}
+        whenReady={(map) => whenMapReady(map.target)}
       >
         {layer ? (
           <WMSTileLayer

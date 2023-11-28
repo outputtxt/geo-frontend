@@ -9,19 +9,24 @@ export const useMapToolbarService = () => {
 
   //=========================  RESET MAP  =========================
   const resetMap = () => {
+    console.log(mapContext.map);
+
     // clear layers
-
-    // mapContext.map.eachLayer(function (layer) {
-    //   if (!!layer.toGeoJSON) {
-    //     mapContext.map.removeLayer(layer);
-    //   }
-    // });
-
     mapContext.layerSorgu.clearLayers();
     mapContext.layerKestirme.clearLayers();
     mapContext.layerAveaBazList.clearLayers();
     mapContext.layerTurkcellBazList.clearLayers();
     mapContext.layerVodafoneBazList.clearLayers();
+
+    // clear measure drawings
+    mapContext.map.eachLayer(function (layer) {
+      if (
+        layer.options &&
+        layer.options.className === "layer-measure-resultarea"
+      ) {
+        mapContext.map.removeLayer(layer);
+      }
+    });
 
     // clear baz liste checkboxes
     document.getElementById("TurkTelekomBazListCheckbox").checked = false;

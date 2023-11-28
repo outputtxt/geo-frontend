@@ -4,6 +4,7 @@ import {
   TileLayer,
   FeatureGroup,
   LayersControl,
+  ZoomControl,
   useMapEvents,
 } from "react-leaflet";
 import L from "leaflet";
@@ -12,6 +13,8 @@ import Constants from "../../../../util/Constants";
 
 import "leaflet-measure-ext/dist/leaflet-measure";
 import "leaflet-measure-ext/dist/leaflet-measure.css";
+
+import "leaflet.browser.print/dist/leaflet.browser.print";
 
 import "leaflet/dist/leaflet.css";
 import "./Leaflet.css";
@@ -50,48 +53,31 @@ const Leaflet = ({ width, height, setMousePoint }) => {
     }
   }, [height, width]);
 
-  const measureOptions = {
-    position: "topleft",
-    primaryLengthUnit: "meters",
-    secondaryLengthUnit: "kilometers",
-    primaryAreaUnit: "sqmeters",
-    secondaryAreaUnit: "hectares",
-    activeColor: "green",
-    completedColor: "darkgreen",
-    labels: {
-      measure: "Ölçüm",
-      measureDistancesAndAreas: "Alan ve Mesafe Ölç",
-      createNewMeasurement: "Yeni Ölçüm",
-      startCreating: "Yeni ölçüme başlamak için haritaya nokta ekle",
-      finishMeasurement: "Ölçümü Bitir",
-      lastPoint: "Son Nokta",
-      area: "Alan",
-      perimeter: "Bölge",
-      pointLocation: "Nokta Konumu",
-      areaMeasurement: "Alan Ölçüm",
-      linearMeasurement: "Doğrusal Ölçüm",
-      pathDistance: "Uzaklık",
-      centerOnArea: "Bu alana odaklan",
-      centerOnLine: "Bu çizgiye odaklan",
-      centerOnLocation: "Bu konuma odaklan",
-      cancel: "İptal",
-      delete: "Sil",
-      // "acres": "Acres",
-      // "feet": "Feet",
-      kilometers: "Kilometre",
-      hectares: "Hektar",
-      meters: "Metre",
-      // "miles": "Miles",
-      // "sqfeet": "Sq Feet",
-      sqmeters: "Metre Kare",
-      // "sqmiles": "Sq Miles",
-      // "decPoint": ".",
-      // "thousandsSep": ","
-    },
-  };
-
+  //==========  WHEN MAP READY  ==========
   const whenMapReady = (map) => {
-    L.control.measure(measureOptions).addTo(map);
+    L.control
+      .browserPrint({
+        position: "topleft",
+        title: "Yazdır",
+        printModes: [
+          // L.browserPrint.mode("Alert",{title:"User specified print action",pageSize: "A6", action: customActionToPrint, invalidateBounds: false}),
+          L.BrowserPrint.Mode.Landscape("B1", {
+            title: "Yatay",
+            orientation: "landscape",
+            margin: { left: 2, top: 20, right: 2, bottom: 2 },
+          }),
+          L.BrowserPrint.Mode.Custom("B1", {
+            title: "Bölge Seç",
+            orientation: "landscape",
+            margin: 2,
+          }),
+        ],
+        documentTitle: "Geo Finder",
+      })
+      .addTo(map);
+
+    // Add measure control to map
+    L.control.measure(Constants.measureOptions).addTo(map);
   };
 
   return (
@@ -147,6 +133,7 @@ const Leaflet = ({ width, height, setMousePoint }) => {
           </LayersControl.Overlay>
         </LayersControl>
 
+        <ZoomControl position="topleft" />
         <MapController setMousePoint={setMousePoint} />
       </MapContainer>
     </div>

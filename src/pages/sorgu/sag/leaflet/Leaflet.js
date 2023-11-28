@@ -60,15 +60,25 @@ const Leaflet = ({ width, height, setMousePoint }) => {
         position: "topleft",
         title: "Yazdır",
         printModes: [
-          // L.browserPrint.mode("Alert",{title:"User specified print action",pageSize: "A6", action: customActionToPrint, invalidateBounds: false}),
-          L.BrowserPrint.Mode.Landscape("B1", {
+          L.BrowserPrint.Mode.Landscape("A4", {
+            margin: 2,
             title: "Yatay",
-            orientation: "landscape",
-            margin: { left: 2, top: 20, right: 2, bottom: 2 },
+            // invalidateBounds: false,
+            header: {
+              enabled: true,
+              text: " ",
+              size: "0mm",
+            },
+            footer: {
+              enabled: true,
+              text: " ",
+              size: "0mm",
+            },
           }),
+
           L.BrowserPrint.Mode.Custom("B1", {
+            orientation: "Landscape",
             title: "Bölge Seç",
-            orientation: "landscape",
             margin: 2,
           }),
         ],

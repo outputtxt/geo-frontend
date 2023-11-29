@@ -73,7 +73,7 @@ export default class TargetLastXDaysBaseStationsResponse {
                 ))}
 
                 <tr style={{ height: "20px" }}>
-                    <td style={{ backgroundColor: "#8d959e" }} colSpan="11"></td>
+                    <td style={{ backgroundColor: "#8d959e" }} colSpan="100%"></td>
                 </tr>
             </tbody>
         </table>

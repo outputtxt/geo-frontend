@@ -184,23 +184,24 @@ const KestirmeSorguPanel = () => {
         </div>
 
         <div>
+          <label className="sorgu-inline-label" htmlFor="stopAngle">
+            Sorguyu Silme{" "}
+          </label>
+
           <input
             type="checkbox"
             className="sorgu-right-button"
             id="sorguyuSilme"
             onClick={(event) => setSorguyuSilme(event.target.checked)}
           />
-          <label className="sorgu-inline-label" htmlFor="stopAngle">
-            Sorguyu Silme{" "}
-          </label>
-          <br />
         </div>
 
         <div style={{ float: "right" }}>
           <input
             type="button"
             onClick={() => onSil()}
-            value="Eskiyi Temizle"
+            value="Eski Sil"
+            title="Haritadan Eski Çizimleri Temizle"
             className="sorgu-button"
             style={{ marginLeft: "auto", marginTop: "15px" }}
             id="clear"
@@ -209,7 +210,7 @@ const KestirmeSorguPanel = () => {
           <input
             type="button"
             onClick={() => reset()}
-            value="Form Temizle"
+            value="Form Sil"
             className="sorgu-button"
             style={{ marginLeft: "10px" }}
             id="clear"

@@ -1,6 +1,6 @@
 .sidenav {
-  width: 150px;
-  min-width: 150px;
+  width: 120px;
+  min-width: 120px;
   transition: width 0.3s ease-in-out;
   height: 100%!;
   min-height: 100vh;

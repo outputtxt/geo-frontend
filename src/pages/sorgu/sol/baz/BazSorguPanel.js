@@ -34,7 +34,9 @@ const BazSorguPanel = () => {
   return (
     <div>
       <Box component="fieldset" className="sorgu-fieldset">
+        {/* <legend className="sorgu-fieldset-legend">Cell Bul</legend> */}
         <legend className="sorgu-fieldset-legend">Cell Bul</legend>
+
         <form
           onSubmit={(event) => handleCellBulSubmit(event)}
           style={{ lineHeight: "30px" }}
@@ -45,7 +47,7 @@ const BazSorguPanel = () => {
           <select
             value={operator}
             onChange={onOperatorChange}
-            style={{ width: "150px" }}
+            style={{ width: "152px" }}
             id="operatorSelect"
             required
           >
@@ -66,7 +68,8 @@ const BazSorguPanel = () => {
             Cell ID
           </label>
           <input
-            style={{ width: "150px" }}
+            className="reset"
+            style={{ width: "145px" }}
             onChange={(event) => onCellIdChange(event)}
             id="CellId"
             required
@@ -76,7 +79,7 @@ const BazSorguPanel = () => {
           <input
             type="submit"
             value="Bul"
-            style={{ float: "right", marginTop: "10px" }}
+            style={{ float: "right", marginTop: "10px", marginBottom: "10px" }}
             className="sorgu-button"
             id="submit"
           />

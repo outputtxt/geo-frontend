@@ -15,8 +15,8 @@
 }
 
 .sorgu-column-left {
-  width: 330px;
-  height: 100%;
+  width: 320px !important;
+  height: 100% !important;
   /*border: 10px solid orange;*/
 }
 
@@ -39,14 +39,11 @@
 .sorgu-fieldset {
   box-shadow: 0px 0px 0px 2px var(--aqua-2-rgb-opacity-03);
   border: 1px solid var(--aqua-2);
-  /* border-color: var(--aqua-1); */
   display: flex;
-  justify-content: "flex-end";
   text-align: left;
-  align-items: left;
   border-radius: 10px;
   margin-top: 5px;
-  padding-top: 20px;
+  padding-top: 5px;
 }
 
 .sorgu-fieldset-no-border {
@@ -61,17 +58,17 @@
   color: var(--background-color-6);
   background-color: var(--background-color-2);
   padding-left: 5px;
+  margin-left: 20px;
   padding-right: 5px;
+  float: none;
+  width: inherit;
+  font-size: 18px;
 }
 
 .sorgu-label {
-  /* color: #B4886B; */
   color: var(--background-color-6);
-  /* color: rgb(252, 110, 81, 0.6); */
-  /* font-weight: bold; */
-  /* margin-top: 50px; */
   width: 120px;
-  margin-left: 10px;
+  margin-left: 15px;
   float: left;
 }
 .sorgu-label:after {
@@ -82,10 +79,9 @@
 .sorgu-inline-label {
   color: var(--background-color-6);
   font-size: 14px;
-  margin-left: 130px;
-  /* width: 120px; */
-  margin-top: 50px;
-  /* float: left; */
+  margin-left: 140px;
+  margin-top: 2px;
+  float: none;
 }
 
 .sorgu-form-hata-label {
@@ -104,9 +100,11 @@
 .sorgu-form-data-normal {
   border: none;
   width: 150px;
+  line-height: 16px;
 }
 
 .sorgu-form-data-error {
   box-shadow: 0px 0px 0px 2px red;
   width: 150px;
+  line-height: 16px;
 }

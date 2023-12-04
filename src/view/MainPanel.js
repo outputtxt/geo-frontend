@@ -5,6 +5,8 @@ import Sidebar from "./sidebar/Sidebar";
 import Home from "../pages/Home";
 import AdminPanel from "../pages/AdminPanel";
 import SorguPanel from "../pages/sorgu/SorguPanel";
+import Profile from "../pages/Profile";
+import Login from "../pages/Login";
 import { VisibilityContext } from "../util/Context.js";
 
 const MainPanel = () => {
@@ -18,8 +20,10 @@ const MainPanel = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/admin" element={<AdminPanel />} />
+          <Route path="/profile" element={<Profile />} />
           {/*<Route path="/admin" element={<CollapsePanel />} /> */}
           <Route path="/Sorgu" element={<SorguPanel />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </div>
     </div>

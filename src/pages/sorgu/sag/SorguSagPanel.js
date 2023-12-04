@@ -117,27 +117,27 @@ const SorguSagPanel = ({ sorguMenuOpen, setSorguMenuOpen }) => {
         >
           <RefreshIcon />
         </button>
-        <button
+        {/* <button
           onClick={toggleDraggable}
           title={draggable ? "" : "Sürükle"}
           className={draggable ? "select-button-on" : "select-button-off"}
         >
           <PanToolIcon style={{ paddingTop: "3px", paddingBottom: "1px" }} />
-        </button>
-        <button
+        </button> */}
+        {/* <button
           title="Mesafe Ölçümü Yap"
           className="toolbar-button"
           style={{ paddingTop: "5px" }}
         >
           <StraightenIcon />
-        </button>
-        <button
+        </button> */}
+        {/* <button
           onClick={exportPDF}
           title={"PDF Oluştur"}
           className="toolbar-button"
         >
           <PictureAsPdfIcon style={{ color: "red" }} />
-        </button>
+        </button> */}
 
         <label style={{ marginLeft: "auto" }}> {formattedCoordinates} </label>
       </div>

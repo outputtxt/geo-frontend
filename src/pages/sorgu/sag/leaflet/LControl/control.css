@@ -1,0 +1,24 @@
+.control-button {
+  display: inline;
+  width: auto;
+  height: auto;
+  padding-left: 20px;
+  line-height: 1em;
+  border: 0;
+  text-align: left;
+  color: #5e66cc;
+  background-image: url("../../../../../img/handpan.png");
+  background-repeat: no-repeat;
+  background-position: 0% 50%;
+  background-size: 22px 22px;
+}
+
+.control-button:hover {
+  color: #5e66cc;
+  text-decoration: none;
+  text-decoration: none;
+}
+
+.control-button.selected {
+  background-color: rgb(224, 224, 224);
+}

@@ -19,6 +19,8 @@ import "leaflet.browser.print/dist/leaflet.browser.print";
 import "leaflet/dist/leaflet.css";
 import "./Leaflet.css";
 
+import "./LControl/DraggableControl";
+
 //***************  bug fix for Leaflet Default Icon  ***************
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -88,6 +90,8 @@ const Leaflet = ({ width, height, setMousePoint }) => {
 
     // Add measure control to map
     L.control.measure(Constants.measureOptions).addTo(map);
+
+    L.control.draggable({ position: "topleft" }).addTo(map);
   };
 
   return (

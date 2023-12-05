@@ -23,8 +23,26 @@ main {
   min-width: 100vh;
   height: 100%;
   min-height: 100vh;
+  background-color: var(--background-color-5);
 }
 
 .reset {
   all: revert;
+}
+
+.page-centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.center-flex {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  margin-top: -100px;
 }

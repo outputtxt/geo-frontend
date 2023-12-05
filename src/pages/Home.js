@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import secureLocalStorage from "react-secure-storage";
 import { useContext } from "react";
 import { VisibilityContext } from "../util/Context.js";
+import AuthService from "../service/auth.service";
 
 const Home = () => {
   const { sideBarVisible, setSideBarVisible, sideBarOpen } =
@@ -24,6 +25,7 @@ const Home = () => {
 
   function ToggleSideBar() {
     alert(sideBarOpen);
+    AuthService.logout();
   }
 
   return (

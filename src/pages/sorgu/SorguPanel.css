@@ -46,6 +46,15 @@
   padding-top: 5px;
 }
 
+.sorgu-fieldset-min {
+  box-shadow: 0px 0px 0px 2px var(--aqua-2-rgb-opacity-03);
+  border: 1px solid var(--aqua-2);
+  width: min-content;
+  border-radius: 10px;
+  padding: 60px;
+  background-color: var(--background-color-6);
+}
+
 .sorgu-fieldset-no-border {
   display: flex;
   justify-content: "flex-end";
@@ -107,4 +116,15 @@
   box-shadow: 0px 0px 0px 2px red;
   width: 150px;
   line-height: 16px;
+}
+
+.sorgu-label-big {
+  float: left;
+  line-height: 30px;
+  vertical-align: center;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+.sorgu-label-big:after {
+  content: " :";
 }

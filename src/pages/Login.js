@@ -1,81 +1,144 @@
 import React, { useState, useRef } from "react";
+import Box from "@mui/material/Box";
 import { useNavigate } from "react-router-dom";
-import Form from "react-validation/build/form";
-import Input from "react-validation/build/input";
-import CheckButton from "react-validation/build/button";
+import { useForm } from "react-hook-form";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import AccountCircleTwoToneIcon from "@mui/icons-material/AccountCircleTwoTone";
 import AuthService from "../service/auth.service";
 
-const required = (value) => {
-  if (!value) {
-    return (
-      <div className="alert alert-danger" role="alert">
-        Zorunlu Alan!
-      </div>
-    );
-  }
-};
+const Login = (props) => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({ mode: "onChange" });
 
-const Login = () => {
   let navigate = useNavigate();
-
-  const form = useRef();
-  const checkBtn = useRef();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
-  const onChangeUsername = (e) => {
-    setUsername(e.target.value);
-  };
-
-  const onChangePassword = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const handleLogin = (e) => {
-    e.preventDefault();
+  const handleLogin = () => {
+    alert("handle login " + username + " - " + password);
 
     setMessage("");
     setLoading(true);
 
-    form.current.validateAll();
+    AuthService.login(username, password);
+    navigate("/");
+    window.location.reload();
 
-    if (checkBtn.current.context._errors.length === 0) {
-      AuthService.login(username, password);
-      navigate("/");
-      window.location.reload();
+    setLoading(false);
 
-      //   AuthService.login(username, password).then(
-      //     () => {
-      //       navigate("/");
-      //       window.location.reload();
-      //     },
-      //     (error) => {
-      //       const resMessage =
-      //         (error.response &&
-      //           error.response.data &&
-      //           error.response.data.message) ||
-      //         error.message ||
-      //         error.toString();
+    <div className="form-group">
+      <button className="btn btn-primary btn-block" disabled={loading}>
+        {loading && <span className="spinner-border spinner-border-sm"></span>}
+        <span>Login</span>
+      </button>
+    </div>;
 
-      //       setLoading(false);
-      //       setMessage(resMessage);
-      //     },
-      //   );
-    } else {
-      setLoading(false);
-    }
+    // if (checkBtn.current.context._errors.length === 0) {
+    //   AuthService.login(username, password).then(
+    //     () => {
+    //       props.history.push("/profile");
+    //       window.location.reload();
+    //     },
+    //     (error) => {
+    //       const resMessage =
+    //         (error.response &&
+    //           error.response.data &&
+    //           error.response.data.message) ||
+    //         error.message ||
+    //         error.toString();
+
+    //       setLoading(false);
+    //       setMessage(resMessage);
+    //     }
+    //   );
+    // } else {
+    //   setLoading(false);
+    // }
   };
 
   return (
-    <div className="col-md-12">
-      <div className="card card-container">
-        <AccountCircleIcon sx={{ fontSize: 180, color: "gray" }} />
-      </div>
+    <div className="center-flex">
+      <Box component="fieldset" className="sorgu-fieldset-min">
+        <AccountCircleIcon
+          sx={{ fontSize: 140, color: "var(--background-color-2)" }}
+        />
+        <form
+          onSubmit={handleSubmit(handleLogin)}
+          style={{ lineHeight: "30px" }}
+        >
+          <div>
+            <label
+              htmlFor="username"
+              className="sorgu-label-big"
+              style={{ marginTop: "30px" }}
+            >
+              Kullanıcı Adı
+            </label>
+            <input
+              style={{ minWidth: "250px", lineHeight: "30px" }}
+              className={
+                errors.username
+                  ? "sorgu-form-data-error"
+                  : "sorgu-form-data-normal"
+              }
+              value={username}
+              type="text"
+              id="username"
+              {...register("username", {
+                onChange: (event) => setUsername(event.target.value),
+                required: true,
+              })}
+            />
+            {/* {errors.username && (
+              <p className="sorgu-form-hata-label">Zorunlu Alan</p>
+            )} */}
+          </div>
+
+          <div>
+            <label htmlFor="password" className="sorgu-label-big">
+              Parola
+            </label>
+            <input
+              style={{ minWidth: "250px", lineHeight: "30px" }}
+              className={
+                errors.password
+                  ? "sorgu-form-data-error"
+                  : "sorgu-form-data-normal"
+              }
+              value={password}
+              type="password"
+              id="password"
+              {...register("password", {
+                onChange: (event) => setPassword(event.target.value),
+                required: true,
+              })}
+            />
+            {/* {errors.password && (
+              <p className="sorgu-form-hata-label">Zorunlu Alan</p>
+            )} */}
+          </div>
+          <input
+            type="submit"
+            value="Oturum Aç"
+            className="sorgu-button"
+            disabled={loading}
+            style={{
+              float: "right",
+              marginTop: "30px",
+              width: "100%",
+              borderRadius: "0px",
+              fontSize: "15px",
+            }}
+            id="goster"
+          />
+        </form>
+      </Box>
     </div>
   );
 };

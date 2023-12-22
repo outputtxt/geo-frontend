@@ -17,15 +17,5 @@ export default function App() {
     }
   }, []);
 
-  return (
-    <div className="App">
-      {currentUser ? (
-        <MainPanel />
-      ) : (
-        <div className="full-page page-centered">
-          <Login />
-        </div>
-      )}
-    </div>
-  );
+  return <div className="App">{currentUser ? <MainPanel /> : <Login />}</div>;
 }

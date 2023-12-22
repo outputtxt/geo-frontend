@@ -1,0 +1,31 @@
+[{
+    
+    "resultCode": "SUCCESS",
+    "resultDetails": null,
+    "exception": null,
+    "result": {
+        "userName": "admin",
+        "actingUserName": null,
+        "jwtResponse": {
+            "userId": "66233302-278f-d5c7-1152-9f714eca86a0",
+            "accessToken": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTcwMzI3MTM4NiwiZXhwIjoxNzAzMjcxNDQ2fQ.FhfX9RAjOK32b_SxEc8kI-5ZBSK_e9DtpCSN60wet8EfT5OJDw3wwpIpInmG_tNZMKTwb_wOMJtilFLHilbziw",
+            "tokenType": "Bearer"
+        },
+        "roles": [
+            "ROLE_ADMIN"
+        ],
+        "authorities": [],
+        "queryScope": null,
+        "active": true
+    },
+    "success": true
+}
+,
+
+
+{
+    "url": "localhost:8080/auth/login",
+    "username": "admin",
+    "password": "admin"
+}
+]

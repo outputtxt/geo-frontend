@@ -53,7 +53,13 @@ const AdminPanel = () => {
       ever undertakes laborious physical exercise, except to obtain some
       advantage from it? But who has any right to find fault with a man who
       chooses to enjoy a pleasure that has no annoying consequences
-      {openDialog && <UserFormDialog title="Baslik" />}
+      {openDialog && (
+        <UserFormDialog
+          title="Baslik"
+          openDialog={openDialog}
+          setOpenDialog={setOpenDialog}
+        />
+      )}
     </div>
   );
 };

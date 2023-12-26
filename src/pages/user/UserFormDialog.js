@@ -10,13 +10,13 @@ import DialogTitle from "@mui/material/DialogTitle";
 
 import CustomDialog from "../../components/CustomDialog";
 
-const UserFormDialog = () => {
+const UserFormDialog = ({ openDialog, setOpenDialog }) => {
   const handleClose = () => {
     console.log("handle close");
   };
 
   const [loading, setLoading] = useState(false);
-  const [openDialog, setOpenDialog] = useState(false);
+  // const [openDialog, setOpenDialog] = useState(false);
   const [dialogText, setDialogText] = useState("");
 
   const handleSubmit = async (e) => {

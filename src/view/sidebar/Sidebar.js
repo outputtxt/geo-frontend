@@ -1,5 +1,6 @@
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
+import LogoutIcon from "@mui/icons-material/Logout";
 import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { sidebarData } from "./sidebarData";
@@ -13,6 +14,10 @@ const Sidebar = () => {
     setSideBarOpen(!sideBarOpen);
   };
 
+  const logout = () => {
+    console.log("LOGOUT");
+  };
+
   return (
     <div className={sideBarOpen ? styles.sidenav : styles.sidenavClosed}>
       <button className={styles.menuBtn} onClick={toggleOpen}>
@@ -22,16 +27,26 @@ const Sidebar = () => {
           <KeyboardDoubleArrowRightIcon />
         )}
       </button>
+
       {sidebarData.map((item) => {
         return (
           <NavLink key={item.id} className={styles.sideitem} to={item.link}>
             {item.icon}
-            <span className={open ? styles.linkText : styles.linkTextClosed}>
+            <span
+              className={sideBarOpen ? styles.linkText : styles.linkTextClosed}
+            >
               {item.text}
             </span>
           </NavLink>
         );
       })}
+
+      <button className={styles.logoutBtn} onClick={logout} title="Çıkış">
+        <LogoutIcon />{" "}
+        <span className={sideBarOpen ? styles.linkText : styles.linkTextClosed}>
+          Çıkış
+        </span>
+      </button>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InputLabel from "@mui/material/InputLabel";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -15,14 +15,29 @@ import RadioGroup from "@mui/material/RadioGroup";
 import Typography from "@mui/material/Typography";
 import { StyledEngineProvider } from "@mui/material/styles";
 
-const UserFormDialog = ({ openDialog, setOpenDialog }) => {
-  const [dialogTitle, setDialogTitle] = useState("");
+const UserFormDialog = ({ openDialog, setOpenDialog, user }) => {
+  const [newUser, setNewUser] = useState(true);
 
-  const [username, setUsername] = useState("yasin");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState(null);
   const [password2, setPassword2] = useState(null);
   const [active, setActive] = useState(true);
-  const [role, setRole] = useState(null);
+  const [role, setRole] = useState("roleOnleyici");
+
+  useEffect(() => {
+    if (!openDialog) {
+      return;
+    }
+
+    if (user == null) {
+      setNewUser(true);
+    } else {
+      setNewUser(false);
+      setUsername(user.username);
+      setActive(user.active);
+      setRole(user.role);
+    }
+  }, [openDialog]);
 
   const handleClose = () => {
     setOpenDialog(false);
@@ -39,21 +54,14 @@ const UserFormDialog = ({ openDialog, setOpenDialog }) => {
     );
   };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   setPostParams(postParams);
-  //   const apiResponse = await handleSaveUser("newsletter__form", object);
-
-  //   setDialogText(apiResponse);
-  //   setOpenDialog(true);
-  // };
-
   return (
     <Dialog open={openDialog} onClose={handleClose}>
-      <DialogTitle align="center">Yeni Kullanıcı Ekle</DialogTitle>
+      <DialogTitle align="center">
+        {newUser ? "Yeni Kullanıcı Ekle" : "Kullanıcı Güncelle"}
+      </DialogTitle>
       <DialogContent>
         <TextField
+          disabled={!newUser}
           autoFocus
           margin="dense"
           variant="outlined"
@@ -90,8 +98,9 @@ const UserFormDialog = ({ openDialog, setOpenDialog }) => {
             value={active}
             control={
               <Checkbox
+                checked={active}
                 style={{ marginLeft: "120px" }}
-                onChange={(e) => setActive(e.target.value)}
+                onChange={(e) => setActive(e.target.value === "false")}
               />
             }
             label={
@@ -112,7 +121,7 @@ const UserFormDialog = ({ openDialog, setOpenDialog }) => {
           <RadioGroup
             aria-labelledby="rolRadioGroup"
             name="rolRadio"
-            defaultValue="roleOnleyici"
+            value={role}
             style={{ marginLeft: "120px" }}
             onChange={(e, value) => setRole(value)}
           >
@@ -165,8 +174,12 @@ const UserFormDialog = ({ openDialog, setOpenDialog }) => {
           <Button onClick={handleClose} className="sorgu-button">
             İptal
           </Button>
-          <Button onClick={handleSaveOrUpdate} className="sorgu-button">
-            Kaydet
+          <Button
+            onClick={handleSaveOrUpdate}
+            className="sorgu-button"
+            style={{ marginLeft: "20px", marginRight: "40px" }}
+          >
+            {newUser ? "Kaydet" : "Güncelle"}
           </Button>
         </StyledEngineProvider>
       </DialogActions>

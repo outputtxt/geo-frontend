@@ -4,16 +4,30 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import Button from "@mui/material/Button";
 import { StyledEngineProvider } from "@mui/material/styles";
 import UserFormDialog from "./user/UserFormDialog";
+import User from "../model/User";
 import "./AdminPanel.css";
 
 const AdminPanel = () => {
   const [openDialog, setOpenDialog] = useState(false);
+  const [user, setUser] = useState(null);
 
   const refresh = () => {
     console.log("refresh user list");
   };
 
   const newUserClick = () => {
+    setUser(null);
+    setOpenDialog(true);
+    console.log("new user click");
+  };
+
+  const updateUserClick = () => {
+    const user = new User({
+      username: "kullanici",
+      active: false,
+      role: "roleOnleyiciAdmin",
+    });
+    setUser(user);
     setOpenDialog(true);
     console.log("new user click");
   };
@@ -23,7 +37,8 @@ const AdminPanel = () => {
       <div>
         <StyledEngineProvider injectFirst>
           <Button
-            onClick={refresh}
+            onClick={updateUserClick}
+            // onClick={refresh}
             variant="contained"
             startIcon={<RefreshIcon />}
             className="sorgu-button"
@@ -58,6 +73,7 @@ const AdminPanel = () => {
           title="Baslik"
           openDialog={openDialog}
           setOpenDialog={setOpenDialog}
+          user={user}
         />
       )}
     </div>

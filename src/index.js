@@ -7,6 +7,8 @@ import {
   MapContextProvider,
 } from "./util/Context.js";
 
+import {ConfirmServiceProvider} from "./components/confirm/ConfirmService";
+
 import App from "./App";
 
 // let appReady = Promise.resolve();
@@ -32,6 +34,7 @@ const root = createRoot(rootElement);
 
 // appReady.then(() => {
 root.render(
+  <ConfirmServiceProvider>
   <MapContextProvider>
     <VisibilityContextProvider>
       <ContentContextProvider>
@@ -42,6 +45,7 @@ root.render(
         </StrictMode>
       </ContentContextProvider>
     </VisibilityContextProvider>
-  </MapContextProvider>,
+  </MapContextProvider>
+  </ConfirmServiceProvider>,
 );
 // });

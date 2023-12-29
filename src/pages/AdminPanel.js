@@ -9,22 +9,10 @@ import Button from "@mui/material/Button";
 import { DataGrid } from "@mui/x-data-grid";
 import { StyledEngineProvider } from "@mui/material/styles";
 import UserFormDialog from "./user/UserFormDialog";
-import useConfirm from "../components/confirm/ConfirmDialog";
+import { useConfirm } from "../components/confirm/ConfirmService";
 import User from "../model/User";
 import "./AdminPanel.css";
 
-// const editUser = async () => {
-//   const choice = await confirm({
-//     title: "Delete all",
-//     description: "Are you sure you want to delete everything?",
-//     confirmBtnLabel: "Yes",
-//   });
-//   console.log("Edit User clicked");
-// };
-
-const deactivateUser = () => {
-  console.log("Deactivate User clicked");
-};
 
 const rows = [
   { username: "Snow", active: true, role: "roleAdmin" },
@@ -57,7 +45,6 @@ const rows = [
   { username: "3Frances", active: true, role: "roleAdmin" },
   { username: "3Roxie", active: false, role: "roleAdmin" },
 ];
-// https://medium.com/@jaredloson/a-replacement-for-window-confirm-using-promises-and-react-hooks-cfc011e76a7a
 
 const AdminPanel = () => {
   const confirm = useConfirm();
@@ -65,12 +52,24 @@ const AdminPanel = () => {
   const [user, setUser] = useState(null);
 
   const editUser = async () => {
-    const choice = await confirm({
-      title: "Delete all",
-      description: "Are you sure you want to delete everything?",
-      confirmBtnLabel: "Yes",
+    console.log(confirm);
+
+    confirm({
+      title: "Confirmation",
+      text: "are you absolutely sure"
+    })
+    .then(() => {
+      console.log("confirmed");
+    })
+    .catch(() => {
+      console.log("cancelled");
     });
+   
     console.log("Edit User clicked");
+  };
+
+  const deactivateUser = () => {
+    console.log("Deactivate User clicked");
   };
 
   const refresh = () => {

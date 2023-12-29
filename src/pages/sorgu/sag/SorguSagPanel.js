@@ -1,12 +1,15 @@
 import { useState, useEffect, useContext } from "react";
 import KeyboardDoubleArrowUpIcon from "@mui/icons-material/KeyboardDoubleArrowUp";
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
+import LogoutIcon from "@mui/icons-material/Logout";
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import MenuIcon from "@mui/icons-material/Menu";
 import PanToolIcon from "@mui/icons-material/PanTool";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import StraightenIcon from "@mui/icons-material/Straighten";
 import useMapToolbarService from "../../../service/MapToolbarService";
+import AuthService from "../../../service/auth.service";
 import Leaflet from "./leaflet/Leaflet";
 import ReactResizeDetector from "react-resize-detector";
 import { formatLatitude, formatLongitude } from "../../../util/Helper";
@@ -98,6 +101,15 @@ const SorguSagPanel = ({ sorguMenuOpen, setSorguMenuOpen }) => {
     });
   };
 
+  const logout = () => {
+    console.log("Logout Clicked");
+    AuthService.logout();
+  };
+
+  const changePassword = () => {
+    console.log("Change Password Clicked");
+  };
+
   return (
     <div className="sorgu-sag-container">
       <div className="sorgu-sag-header">
@@ -140,6 +152,34 @@ const SorguSagPanel = ({ sorguMenuOpen, setSorguMenuOpen }) => {
         </button> */}
 
         <label style={{ marginLeft: "auto" }}> {formattedCoordinates} </label>
+
+        <button
+          className="logoutBtn"
+          onClick={changePassword}
+          title="Şifre Değiştir"
+          style={{
+            marginLeft: "20px",
+            background: "transparent",
+            border: "none",
+            color: "white",
+          }}
+        >
+          <ManageAccountsIcon />
+        </button>
+
+        <button
+          className="logoutBtn"
+          onClick={logout}
+          title="Çıkış"
+          style={{
+            // marginLeft: "5px",
+            background: "transparent",
+            border: "none",
+            color: "white",
+          }}
+        >
+          <LogoutIcon />
+        </button>
       </div>
       <ReactResizeDetector handleWidth handleHeight>
         {({ height, width, targetRef }) => (

@@ -4,8 +4,9 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { sidebarData } from "./sidebarData";
-import styles from "./sidebar.module.css";
 import { VisibilityContext } from "../../util/Context.js";
+import AuthService from "../../service/auth.service";
+import styles from "./sidebar.module.css";
 
 const Sidebar = () => {
   const { sideBarOpen, setSideBarOpen } = useContext(VisibilityContext);
@@ -16,6 +17,7 @@ const Sidebar = () => {
 
   const logout = () => {
     console.log("LOGOUT");
+    AuthService.logout();
   };
 
   return (

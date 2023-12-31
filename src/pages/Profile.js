@@ -1,34 +1,25 @@
 import React from "react";
-import AuthService from "../service/auth.service";
+import { authInfoStore } from "../util/CoreStore";
+import { useSnapshot } from "valtio";
 
 const Profile = () => {
-  AuthService.login("kullanici", "sifre");
-  const user = AuthService.getCurrentUser();
-
-  console.log(user);
-  console.log(user.roles);
+  const authInfo = useSnapshot(authInfoStore);
 
   return (
     <div className="container">
       <header className="jumbotron">
         <h3>
-          <strong>{user.username}</strong> Profile
+          <strong>{authInfo.username}</strong> Profile
         </h3>
       </header>
       <p>
-        <strong>Token:</strong> {user.token.substring(0, 20)} ...{" "}
-        {user.token.substr(user.token.length - 20)}
-      </p>
-      <p>
-        <strong>Id:</strong> {user.id}
-      </p>
-      <p>
-        <strong>Email:</strong> {user.email}
+        <strong>Token:</strong> {authInfo.jwtToken.substring(0, 20)} ...{" "}
+        {authInfo.jwtToken.substr(authInfo.jwtToken.length - 20)}
       </p>
       <strong>Authorities:</strong>
       <ul>
-        {user.roles &&
-          user.roles.map((role, index) => <li key={index}>{role}</li>)}
+        {authInfo.roles &&
+          authInfo.roles.map((role, index) => <li key={index}>{role}</li>)}
       </ul>
     </div>
   );

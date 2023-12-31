@@ -18,12 +18,11 @@ const MainPanel = () => {
 
       <div className="full-page">
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/admin" element={<AdminPanel />} />
-          <Route path="/profile" element={<Profile />} />
-          {/*<Route path="/admin" element={<CollapsePanel />} /> */}
-          <Route path="/Sorgu" element={<SorguPanel />} />
-          <Route path="/login" element={<Login />} />
+            <Route path="/" element={<Home />}/>
+            <Route path="/admin" element={<AdminPanel /> }/>
+            <Route path="/profile" element={<Profile /> }/>
+            <Route path="/Sorgu" element={<SorguPanel /> }/>
+            <Route path="/login" element={<Login />} />
         </Routes>
       </div>
     </div>

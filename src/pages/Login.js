@@ -1,65 +1,22 @@
 import React, { useState, useRef } from "react";
 import Box from "@mui/material/Box";
-import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AuthService from "../service/auth.service";
 
-const Login = (props) => {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm({ mode: "onChange" });
 
-  let navigate = useNavigate();
+const Login = () => {
+  const { register, formState: { errors } } = useForm({ mode: "onChange" });
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
 
   const handleLogin = () => {
-    alert("handle login " + username + " - " + password);
-
-    setMessage("");
+    console.log("handle login " + username + " - " + password);
     setLoading(true);
-
     AuthService.login(username, password);
-    navigate("/");
-    window.location.reload();
-
     setLoading(false);
-
-    <div className="form-group">
-      <button className="btn btn-primary btn-block" disabled={loading}>
-        {loading && <span className="spinner-border spinner-border-sm"></span>}
-        <span>Login</span>
-      </button>
-    </div>;
-
-    // if (checkBtn.current.context._errors.length === 0) {
-    //   AuthService.login(username, password).then(
-    //     () => {
-    //       props.history.push("/profile");
-    //       window.location.reload();
-    //     },
-    //     (error) => {
-    //       const resMessage =
-    //         (error.response &&
-    //           error.response.data &&
-    //           error.response.data.message) ||
-    //         error.message ||
-    //         error.toString();
-
-    //       setLoading(false);
-    //       setMessage(resMessage);
-    //     }
-    //   );
-    // } else {
-    //   setLoading(false);
-    // }
   };
 
   return (
@@ -70,7 +27,7 @@ const Login = (props) => {
             sx={{ fontSize: 140, color: "var(--background-color-2)" }}
           />
           <form
-            onSubmit={handleSubmit(handleLogin)}
+            // onSubmit={handleLogin}
             style={{ lineHeight: "30px" }}
           >
             <div>
@@ -125,7 +82,8 @@ const Login = (props) => {
             )} */}
             </div>
             <input
-              type="submit"
+              type="button"
+              onClick={handleLogin}
               value="Oturum Aç"
               className="sorgu-button"
               disabled={loading}

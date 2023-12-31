@@ -1,15 +1,15 @@
-import SimpleCrypto from "simple-crypto-js";
+import CryptoJS from 'crypto-js';
 
 export class SecureSessionStorage {
 
-    private static CRYPTO = new SimpleCrypto("=86?234abHJ45ALDE26<-q!xHGkGK.3yD|BxaA!tQddha");
+    static secretKey = "=86?234abHJ45ALDE26<-q!xHGkGK.3yD|BxaA!tQddha";
 
     static enc (data) {
-        return this.CRYPTO.encrypt(data).toString();
+        return CryptoJS.AES.encrypt(JSON.stringify(data), this.secretKey).toString();
     }
 
     static dec (data) {
-        return this.CRYPTO.decrypt(data).toString();
+        return JSON.parse(CryptoJS.AES.decrypt(data, this.secretKey).toString(CryptoJS.enc.Utf8));
     }
 
     static setItem (key, value) {

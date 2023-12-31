@@ -25,7 +25,7 @@ const Home = () => {
 
   function ToggleSideBar() {
     alert(sideBarOpen);
-    AuthService.logout();
+    // AuthService.logout();
   }
 
   return (

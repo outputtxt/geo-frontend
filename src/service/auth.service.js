@@ -29,12 +29,15 @@ const login = (username, password) => {
       if (response.ok) {
         return response.json();
       } else if (response.status === HttpStatus.UNAUTHORIZED) {
-        window.alert(response.body);
+        window.alert("Hatalı kullanıcı adı veya şifre !");
       }
-      throw new Error('Something went wrong');
+      return null;
     })
     .then((data) => {
-      console.log(data);
+      if(data == null) {
+        return;
+      }
+
       const user = new User({
         "username": data.result.userName,
         "active": data.result.active,
@@ -46,11 +49,13 @@ const login = (username, password) => {
       SecureSessionStorage.setItem("user", user);
     })
     .catch((error) => {
-      console.log(error)
+      console.log(error);
+      window.alert("Uygulamaya bağlanılamadı, lütfen teknik ekiple iletişime geçiniz.");
     });
    
   } catch (error) {
     console.error("There was an error!", error);
+    window.alert("Uygulamaya bağlanılamadı, lütfen teknik ekiple iletişime geçiniz.");
   }
 };
 

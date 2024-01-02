@@ -3,6 +3,7 @@ import secureLocalStorage from "react-secure-storage";
 import { useContext } from "react";
 import { VisibilityContext } from "../util/Context.js";
 import AuthService from "../service/auth.service";
+import { showAlert } from "../components/alert/AlertDialog.js";
 
 const Home = () => {
   const { sideBarVisible, setSideBarVisible, sideBarOpen } =
@@ -19,11 +20,12 @@ const Home = () => {
   }, []);
 
   function HandleClick() {
-    alert("this is:" + secureLocalStorage.getItem("number"));
+    showAlert("Deneme Alert", "bakalım çalışacak mı", "error");
     setSideBarVisible(!sideBarVisible);
   }
 
   function ToggleSideBar() {
+    showAlert("Deneme Alert", "bakalım çalışacak mı", "info");
     alert(sideBarOpen);
     // AuthService.logout();
   }

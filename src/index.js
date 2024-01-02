@@ -7,7 +7,8 @@ import {
   MapContextProvider,
 } from "./util/Context.js";
 
-import {ConfirmServiceProvider} from "./components/confirm/ConfirmService";
+import { ConfirmServiceProvider } from "./components/confirm/ConfirmService";
+import AlertDialog from "./components/alert/AlertDialog.js";
 
 import App from "./App";
 
@@ -35,17 +36,18 @@ const root = createRoot(rootElement);
 // appReady.then(() => {
 root.render(
   <ConfirmServiceProvider>
-  <MapContextProvider>
-    <VisibilityContextProvider>
-      <ContentContextProvider>
-        <StrictMode>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </StrictMode>
-      </ContentContextProvider>
-    </VisibilityContextProvider>
-  </MapContextProvider>
+    <MapContextProvider>
+      <VisibilityContextProvider>
+        <ContentContextProvider>
+          <StrictMode>
+            <BrowserRouter>
+              <App />
+              <AlertDialog />
+            </BrowserRouter>
+          </StrictMode>
+        </ContentContextProvider>
+      </VisibilityContextProvider>
+    </MapContextProvider>
   </ConfirmServiceProvider>,
 );
 // });

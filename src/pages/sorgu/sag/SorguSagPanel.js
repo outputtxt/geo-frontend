@@ -14,12 +14,11 @@ import Leaflet from "./leaflet/Leaflet";
 import ReactResizeDetector from "react-resize-detector";
 import { formatLatitude, formatLongitude } from "../../../util/Helper";
 import { ContentContext } from "../../../util/Context";
-import { useConfirm } from "../../../components/confirm/ConfirmService";
+import { showConfirm } from "../../../components/CustomDialog";
 import "./SorguSagPanel.css";
 import html2canvas from "html2canvas";
 
 const SorguSagPanel = ({ sorguMenuOpen, setSorguMenuOpen }) => {
-  const confirm = useConfirm();
   const mapToolbarService = useMapToolbarService();
 
   const { contentHeader, contentOpen, contentData } =
@@ -66,9 +65,11 @@ const SorguSagPanel = ({ sorguMenuOpen, setSorguMenuOpen }) => {
   };
 
   const onResetMapClick = () => {
-    if (confirm("Haritayı temizlemek istediğinizden emin misiniz!") == true) {
-      mapToolbarService.resetMap();
-    }
+    showConfirm("Haritayı temizlemek istediğinizden emin misiniz?")
+      .then(() => {
+        mapToolbarService.resetMap();
+      })
+      .catch(() => {});
   };
 
   const toggleDraggable = () => {
@@ -104,15 +105,11 @@ const SorguSagPanel = ({ sorguMenuOpen, setSorguMenuOpen }) => {
   };
 
   const logout = () => {
-    console.log("Logout Clicked");
-    confirm({
-      title: "",
-      text: "Uygulamadan Çıkmak İstediğinize Emin misiniz?"
-    })
-    .then(() => {
-      AuthService.logout();
-    })
-    .catch(() => {});
+    showConfirm("Uygulamadan Çıkmak İstediğinize Emin misiniz?")
+      .then(() => {
+        AuthService.logout();
+      })
+      .catch(() => {});
   };
 
   const changePassword = () => {

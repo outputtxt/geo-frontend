@@ -1,33 +1,30 @@
-import { useEffect } from "react";
-import secureLocalStorage from "react-secure-storage";
 import { useContext } from "react";
 import { VisibilityContext } from "../util/Context.js";
-import AuthService from "../service/auth.service";
-import { showAlert } from "../components/alert/AlertDialog.js";
+import {
+  showConfirm,
+  showInfo,
+  showWarning,
+  showError,
+} from "../components/CustomDialog.js";
 
 const Home = () => {
   const { sideBarVisible, setSideBarVisible, sideBarOpen } =
     useContext(VisibilityContext);
 
-  useEffect(() => {
-    secureLocalStorage.setItem("object", {
-      message: "This is testing of local storage",
-    });
-    secureLocalStorage.setItem("number", 12);
-    secureLocalStorage.setItem("string", "12");
-    secureLocalStorage.setItem("boolean", true);
-    let value = secureLocalStorage.getItem("boolean");
-  }, []);
-
   function HandleClick() {
-    showAlert("Deneme Alert", "bakalım çalışacak mı", "error");
+    showError("bilgi mesajı yayınlama");
+    // showConfirm("Test", "red pill or blue pill ?")
+    //   .then(() => {
+    //     console.log("accepted");
+    //   })
+    //   .catch(() => {
+    //     console.log("rejected");
+    //   });
     setSideBarVisible(!sideBarVisible);
   }
 
   function ToggleSideBar() {
-    showAlert("Deneme Alert", "bakalım çalışacak mı", "info");
-    alert(sideBarOpen);
-    // AuthService.logout();
+    showError("Deneme Başlık", "bakalım çalışacak mı");
   }
 
   return (

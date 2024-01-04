@@ -1,11 +1,11 @@
-import secureLocalStorage from "react-secure-storage";
+// import secureLocalStorage from "react-secure-storage";
 
-export default function authHeader() {
-  const user = secureLocalStorage.getItem("user");
+// export default function authHeader() {
+//   const user = secureLocalStorage.getItem("user");
 
-  if (user && user.accessToken) {
-    return { Authorization: "Bearer " + user.token };
-  } else {
-    return {};
-  }
-}
+//   if (user && user.accessToken) {
+//     return { Authorization: "Bearer " + user.token };
+//   } else {
+//     return {};
+//   }
+// }

@@ -1,5 +1,6 @@
 import { useState, createContext, useMemo } from "react";
 
+// ==========================  CONTENT CONTEXT  ==========================
 export const ContentContext = createContext({
   contentData: undefined,
   setContentData: undefined,
@@ -40,6 +41,7 @@ export const ContentContextProvider = ({ children }) => {
   );
 };
 
+// ==========================  VISIBILITY CONTEXT  ==========================
 export const VisibilityContext = createContext({
   sideBarVisible: undefined,
   setSideBarVisible: undefined,

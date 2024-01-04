@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { MapContext, ContentContext } from "../util/Context";
-import { format } from "date-fns";
 import Constants from "../util/Constants";
+import { showError } from "../components/CustomDialog";
 import KonumSorguRestService from "./rest/KonumSorguRestService";
 import SonBazResponse from "../model/response/konum/SonBazResponse";
 import GecmisKonumSorguResponse from "../model/response/konum/gecmis/GecmisKonumSorguResponse";
@@ -59,29 +59,38 @@ export const useKonumSorguService = () => {
 
   //======================  Son Konum Sorgu  ======================
   const sonKonumSorgula = async (target) => {
-    const response = await KonumSorguRestService.sonKonumSorgula(target, mapFocus);
+    const response = await KonumSorguRestService.sonKonumSorgula(
+      target,
+      mapFocus,
+    );
 
-    if (response == null|| response instanceof Promise) {
-      alert("Son Konum Sorgu uygulamaya bağlanamadı!");
+    if (response == null || response instanceof Promise) {
+      showError("Son Konum Sorgu uygulamaya bağlanamadı!");
       return;
     } else if (response.responseCode != "SUCCESS") {
-      alert(response.responseMessage);
+      showError(response.responseMessage);
       return;
     }
 
     layerSorgu.clearLayers();
 
     response.locations.map((targetLocation) => {
-      if(targetLocation.location.areaType === "Elliptical") {
+      if (targetLocation.location.areaType === "Elliptical") {
         L.ellipse(
-          [targetLocation.location.baseStationLatitude, targetLocation.location.baseStationLongitude],
+          [
+            targetLocation.location.baseStationLatitude,
+            targetLocation.location.baseStationLongitude,
+          ],
           [targetLocation.location.outRadius, targetLocation.location.inRadius],
           targetLocation.location.startAngle,
           Constants.defaultPathOptions,
         ).addTo(layerSorgu);
       } else if (targetLocation.location.areaType === "CircularArc") {
         L.sector({
-          center: [targetLocation.location.baseStationLatitude, targetLocation.location.baseStationLongitude],
+          center: [
+            targetLocation.location.baseStationLatitude,
+            targetLocation.location.baseStationLongitude,
+          ],
           innerRadius: parseFloat(targetLocation.location.inRadius),
           outerRadius: parseFloat(targetLocation.location.outRadius),
           startBearing: parseFloat(targetLocation.location.startAngle),
@@ -93,12 +102,21 @@ export const useKonumSorguService = () => {
         }).addTo(layerSorgu);
 
         // BAZ MARKER
-        L.marker([targetLocation.location.baseStationLatitude, targetLocation.location.baseStationLongitude], {
-          icon: Constants.BazIcon,
-        }).addTo(layerSorgu);
+        L.marker(
+          [
+            targetLocation.location.baseStationLatitude,
+            targetLocation.location.baseStationLongitude,
+          ],
+          {
+            icon: Constants.BazIcon,
+          },
+        ).addTo(layerSorgu);
       } else if (targetLocation.location.areaType === "Circular") {
         L.circle(
-          [targetLocation.location.baseStationLatitude, targetLocation.location.baseStationLongitude],
+          [
+            targetLocation.location.baseStationLatitude,
+            targetLocation.location.baseStationLongitude,
+          ],
           targetLocation.location.inRadius,
           Constants.defaultPathOptions,
         ).addTo(layerSorgu);
@@ -112,31 +130,46 @@ export const useKonumSorguService = () => {
     }
 
     // SET CONTENT TABLE
-    setContentHeader("Son Konum ("+ target.targetValue +") [Veriler "+ response.operator +" tarafından üretilen yaklaşık değerlerdir]");
+    setContentHeader(
+      "Son Konum (" +
+        target.targetValue +
+        ") [Veriler " +
+        response.operator +
+        " tarafından üretilen yaklaşık değerlerdir]",
+    );
     setContentData(response.getTable());
     setContentOpen(true);
   };
 
   //======================  Son Konum Gecmis Sorgu  ======================
   const sonKonumGecmisSorgula = async (target, dateRange) => {
-    const response = await KonumSorguRestService.sonKonumGecmisSorgula(target, dateRange, mapFocus);
+    const response = await KonumSorguRestService.sonKonumGecmisSorgula(
+      target,
+      dateRange,
+      mapFocus,
+    );
 
     if (response == null || response instanceof Promise) {
-      alert("Son Konum Sorgu Geçmişi uygulamaya bağlanamadı!");
+      showError("Son Konum Sorgu Geçmişi uygulamaya bağlanamadı!");
       return;
     } else if (response.responseCode != "SUCCESS") {
-      alert(response.responseMessage);
+      showError(response.responseMessage);
       return;
     }
 
     layerSorgu.clearLayers();
 
     response.locations.map((targetLocationHistory) => {
-        // Target Location Marker
-        L.marker([targetLocationHistory.location.baseStationLatitude, 
-          targetLocationHistory.location.baseStationLongitude], {
+      // Target Location Marker
+      L.marker(
+        [
+          targetLocationHistory.location.baseStationLatitude,
+          targetLocationHistory.location.baseStationLongitude,
+        ],
+        {
           icon: Constants.MarkerIconBlue,
-        }).addTo(layerSorgu);
+        },
+      ).addTo(layerSorgu);
     });
 
     try {
@@ -146,21 +179,20 @@ export const useKonumSorguService = () => {
     }
 
     // SET CONTENT TABLE
-    setContentHeader("Son Konum Sorgu Geçmişi ("+ target.targetValue +")");
+    setContentHeader("Son Konum Sorgu Geçmişi (" + target.targetValue + ")");
     setContentData(response.getTable());
     setContentOpen(true);
-  }
-  
+  };
 
   //======================  Son Baz Sorgu  ======================
   const sonBazSorgula = async (hedef) => {
     const response = await KonumSorguRestService.sonBazSorgula(hedef, mapFocus);
-    
+
     if (response == null || response instanceof Promise) {
-      alert("Son Baz Sorgu Geçmişi uygulamaya bağlanamadı!");
+      showError("Son Baz Sorgu Geçmişi uygulamaya bağlanamadı!");
       return;
     } else if (response.responseCode != "SUCCESS") {
-      alert(response.responseMessage);
+      showError(response.responseMessage);
       return;
     }
 
@@ -168,28 +200,44 @@ export const useKonumSorguService = () => {
 
     if (response.baseStationDetail.location.angle == 0) {
       L.circle(
-        [response.baseStationDetail.location.latitude, response.baseStationDetail.location.longitude],
+        [
+          response.baseStationDetail.location.latitude,
+          response.baseStationDetail.location.longitude,
+        ],
         Constants.BAZ_RADIUS,
         Constants.defaultPathOptions,
       ).addTo(layerSorgu);
     } else {
       L.sector({
-        center: [response.baseStationDetail.location.latitude, response.baseStationDetail.location.longitude],
+        center: [
+          response.baseStationDetail.location.latitude,
+          response.baseStationDetail.location.longitude,
+        ],
         innerRadius: parseFloat(0),
         outerRadius: parseFloat(Constants.BAZ_RADIUS),
-        startBearing: parseFloat(response.baseStationDetail.location.angle - Constants.BAZ_ANGLE_RANGE),
-        endBearing: parseFloat(response.baseStationDetail.location.angle + Constants.BAZ_ANGLE_RANGE),
+        startBearing: parseFloat(
+          response.baseStationDetail.location.angle - Constants.BAZ_ANGLE_RANGE,
+        ),
+        endBearing: parseFloat(
+          response.baseStationDetail.location.angle + Constants.BAZ_ANGLE_RANGE,
+        ),
         fillColor: Constants.AREA_COLOR,
         fillOpacity: Constants.AREA_OPACITY,
         color: Constants.AREA_COLOR,
         weight: Constants.BORDER_WEIGHT,
       }).addTo(layerSorgu);
     }
-    
+
     // BAZ MARKER
-    L.marker([response.baseStationDetail.location.latitude, response.baseStationDetail.location.longitude], {
-      icon: Constants.BazIcon,
-    }).addTo(layerSorgu);
+    L.marker(
+      [
+        response.baseStationDetail.location.latitude,
+        response.baseStationDetail.location.longitude,
+      ],
+      {
+        icon: Constants.BazIcon,
+      },
+    ).addTo(layerSorgu);
 
     try {
       map.fitBounds(layerSorgu.getBounds().pad(0.5));
@@ -198,21 +246,27 @@ export const useKonumSorguService = () => {
     }
 
     // SET CONTENT TABLE
-    setContentHeader("En Son Sinyal Alınan Baz İstasyonu (" + hedef.targetValue + ")",);
+    setContentHeader(
+      "En Son Sinyal Alınan Baz İstasyonu (" + hedef.targetValue + ")",
+    );
     setContentData(response.getTable());
     setContentOpen(true);
-    
   };
 
   //======================  Son Baz Gecmis Gun Sorgu  ======================
   const sonBazXGunSorgula = async (hedef, sonKacGun) => {
-    const response = await KonumSorguRestService.sonBazXGunSorgula(mapFocus, selectMarker, hedef, sonKacGun);
-    
+    const response = await KonumSorguRestService.sonBazXGunSorgula(
+      mapFocus,
+      selectMarker,
+      hedef,
+      sonKacGun,
+    );
+
     if (response == null || response instanceof Promise) {
-      alert("Son Baz X Gün Sorgu Geçmişi uygulamaya bağlanamadı!");
+      showError("Son Baz X Gün Sorgu Geçmişi uygulamaya bağlanamadı!");
       return;
     } else if (response.responseCode != "SUCCESS") {
-      alert(response.responseMessage);
+      showError(response.responseMessage);
       return;
     }
 
@@ -225,7 +279,7 @@ export const useKonumSorguService = () => {
         .on("click", function (e) {
           selectMarker(base.cellId);
         });
-  
+
       gecmisSorguMarkersMap.set(base.cellId, marker);
     });
 
@@ -236,13 +290,16 @@ export const useKonumSorguService = () => {
     }
 
     // SET CONTENT TABLE
-    setContentHeader("Son " + sonKacGun + 
-      " Günde Görüşme Yapılan Baz İstasyonları ("+ hedef.targetValue + ")");
+    setContentHeader(
+      "Son " +
+        sonKacGun +
+        " Günde Görüşme Yapılan Baz İstasyonları (" +
+        hedef.targetValue +
+        ")",
+    );
     setContentData(response.getTable());
     setContentOpen(true);
-  }
-  
-
+  };
 
   // //======================  Gecmis Sorgu  ======================
   // const gecmisTarihSorgula = (hedef, dateRange) => {
@@ -254,7 +311,7 @@ export const useKonumSorguService = () => {
   //   );
 
   //   if (!(response instanceof GecmisKonumSorguResponse)) {
-  //     alert("wrong response!");
+  //     showError("wrong response!");
   //     return;
   //   }
 

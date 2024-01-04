@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { MapContext, ContentContext } from "../util/Context";
 import Constants from "../util/Constants";
+import { showError } from "../components/CustomDialog";
 import BazSorguRestService from "./rest/BazSorguRestService";
 import OperatorTipi from "../model/enum/OperatorTipi";
 import * as L from "leaflet";
@@ -10,7 +11,8 @@ import "../util/l.ellipse"; // one time import is enough for all L usages
 
 export const useBazSorguService = () => {
   const mapContext = useContext(MapContext);
-  const { setContentHeader, setContentOpen, setContentData } = useContext(ContentContext);
+  const { setContentHeader, setContentOpen, setContentData } =
+    useContext(ContentContext);
 
   const mapFocus = (X, Y) => {
     try {
@@ -24,30 +26,44 @@ export const useBazSorguService = () => {
   const bazSorgu = async (operator, cellId) => {
     mapContext.layerSorgu.clearLayers();
 
-    const response = await BazSorguRestService.cellSorgula(mapFocus, operator, cellId);
+    const response = await BazSorguRestService.cellSorgula(
+      mapFocus,
+      operator,
+      cellId,
+    );
     console.log(response);
 
-    if(response == null || response instanceof Promise) {
-      alert("Baz Sorgu uygulamaya bağlanamadı!");
+    if (response == null || response instanceof Promise) {
+      showError("Baz Sorgu uygulamaya bağlanamadı!");
       return;
     } else if (response.responseCode != "SUCCESS") {
-      alert(response.responseMessage);
+      showError(response.responseMessage);
       return;
     }
 
     if (response.baseStationDetail.location.angle == 0) {
       L.circle(
-        [response.baseStationDetail.location.latitude, response.baseStationDetail.location.longitude],
+        [
+          response.baseStationDetail.location.latitude,
+          response.baseStationDetail.location.longitude,
+        ],
         Constants.BAZ_RADIUS,
         Constants.defaultPathOptions,
       ).addTo(mapContext.layerSorgu);
     } else {
       L.sector({
-        center: [response.baseStationDetail.location.latitude, response.baseStationDetail.location.longitude],
+        center: [
+          response.baseStationDetail.location.latitude,
+          response.baseStationDetail.location.longitude,
+        ],
         innerRadius: parseFloat(0),
         outerRadius: parseFloat(Constants.BAZ_RADIUS),
-        startBearing: parseFloat(response.baseStationDetail.location.angle - Constants.BAZ_ANGLE_RANGE),
-        endBearing: parseFloat(response.baseStationDetail.location.angle + Constants.BAZ_ANGLE_RANGE),
+        startBearing: parseFloat(
+          response.baseStationDetail.location.angle - Constants.BAZ_ANGLE_RANGE,
+        ),
+        endBearing: parseFloat(
+          response.baseStationDetail.location.angle + Constants.BAZ_ANGLE_RANGE,
+        ),
         fillColor: Constants.AREA_COLOR,
         fillOpacity: Constants.AREA_OPACITY,
         color: Constants.AREA_COLOR,
@@ -56,9 +72,15 @@ export const useBazSorguService = () => {
     }
 
     // BAZ MARKER
-    L.marker([response.baseStationDetail.location.latitude, response.baseStationDetail.location.longitude], {
-      icon: Constants.BazIcon,
-    }).addTo(mapContext.layerSorgu);
+    L.marker(
+      [
+        response.baseStationDetail.location.latitude,
+        response.baseStationDetail.location.longitude,
+      ],
+      {
+        icon: Constants.BazIcon,
+      },
+    ).addTo(mapContext.layerSorgu);
 
     try {
       mapContext.map.fitBounds(mapContext.layerSorgu.getBounds().pad(0.5));

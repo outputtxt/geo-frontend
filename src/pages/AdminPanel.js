@@ -9,10 +9,9 @@ import Button from "@mui/material/Button";
 import { DataGrid } from "@mui/x-data-grid";
 import { StyledEngineProvider } from "@mui/material/styles";
 import UserFormDialog from "./user/UserFormDialog";
-import { useConfirm } from "../components/confirm/ConfirmService";
+import { showConfirm } from "../components/CustomDialog";
 import User from "../model/User";
 import "./AdminPanel.css";
-
 
 const rows = [
   { username: "Snow", active: true, role: "roleAdmin" },
@@ -47,24 +46,11 @@ const rows = [
 ];
 
 const AdminPanel = () => {
-  const confirm = useConfirm();
   const [openDialog, setOpenDialog] = useState(false);
   const [user, setUser] = useState(null);
 
   const editUser = async () => {
     console.log(confirm);
-
-    confirm({
-      title: "Confirmation",
-      text: "are you absolutely sure"
-    })
-    .then(() => {
-      console.log("confirmed");
-    })
-    .catch(() => {
-      console.log("cancelled");
-    });
-   
     console.log("Edit User clicked");
   };
 

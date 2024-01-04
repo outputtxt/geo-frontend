@@ -6,14 +6,12 @@ import { NavLink } from "react-router-dom";
 import { sidebarData } from "./sidebarData";
 import { VisibilityContext } from "../../util/Context.js";
 import AuthService from "../../service/auth.service";
-import { useConfirm } from "../../components/confirm/ConfirmService.js";
+import { showConfirm } from "../../components/CustomDialog";
 import styles from "./sidebar.module.css";
 
 const Sidebar = () => {
-
-  const confirm = useConfirm();
   const { sideBarOpen, setSideBarOpen } = useContext(VisibilityContext);
-  
+
   const toggleOpen = () => {
     setSideBarOpen(!sideBarOpen);
   };
@@ -21,14 +19,11 @@ const Sidebar = () => {
   const logout = () => {
     console.log("LOGOUT sidebarjs");
 
-    confirm({
-      title: "",
-      text: "Uygulamadan Çıkmak İstediğinize Emin misiniz?"
-    })
-    .then(() => {
-      AuthService.logout();
-    })
-    .catch(() => {});
+    showConfirm("Uygulamadan Çıkmak İstediğinize Emin misiniz?")
+      .then(() => {
+        AuthService.logout();
+      })
+      .catch(() => {});
   };
 
   return (

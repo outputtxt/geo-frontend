@@ -3,7 +3,7 @@ import { proxy } from "valtio";
 export const authInfoStore = proxy({
   jwtToken: "",
   authenticated: false,
-  roles: [],
+  role: "",
   sessionId: "",
   username: "no_user",
   sessionStartTime: Date.now(),

@@ -9,7 +9,7 @@ const login = (username, password) => {
   const user = new User({
     username: "myuser",
     active: true,
-    roles: ["ROLE_ADMIN"],
+    role: "ROLE_" + username.toUpperCase(),
     accessToken: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3M",
   });
   setCurrentUser(user);
@@ -40,12 +40,12 @@ const login = (username, password) => {
   //       return;
   //     }
 
-  //     const user = new User({
-  //       "username": data.result.userName,
-  //       "active": data.result.active,
-  //       "roles": data.result.roles,
-  //       "accessToken": data.result.jwtResponse.accessToken
-  //     });
+  // const user = new User({
+  //   "username": data.result.userName,
+  //   "active": data.result.active,
+  //   "role": data.result.roles[0],
+  //   "accessToken": data.result.jwtResponse.accessToken
+  // });
 
   //     setCurrentUser(user);
   //     SecureSessionStorage.setItem("user", user);
@@ -66,7 +66,7 @@ const logout = () => {
 
   authInfoStore.authenticated = false;
   authInfoStore.jwtToken = "";
-  authInfoStore.roles = [];
+  authInfoStore.role = "";
   authInfoStore.username = "no-user";
   authInfoStore.sessionStartTime = Date.now();
 };
@@ -78,7 +78,7 @@ const logout = () => {
 const setCurrentUser = (user) => {
   authInfoStore.authenticated = true;
   authInfoStore.jwtToken = user.accessToken;
-  authInfoStore.roles = user.roles;
+  authInfoStore.role = user.role;
   authInfoStore.username = user.userName;
   authInfoStore.sessionStartTime = Date.now();
 };

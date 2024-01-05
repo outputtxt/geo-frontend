@@ -17,10 +17,7 @@ const Profile = () => {
         {authInfo.jwtToken.substr(authInfo.jwtToken.length - 20)}
       </p>
       <strong>Authorities:</strong>
-      <ul>
-        {authInfo.roles &&
-          authInfo.roles.map((role, index) => <li key={index}>{role}</li>)}
-      </ul>
+      <ul>{authInfo.role && <li key={index}>{role}</li>}</ul>
     </div>
   );
 };

@@ -1,15 +1,19 @@
 import { useState, useEffect, useRef } from "react";
 import HedefListesiTable from "../../../../components/HedefListesiTable";
 import { getHedefListesi } from "../../../../service/rest/HedefListesiRestService";
+import { authInfoStore } from "../../../../util/CoreStore";
+import { useSnapshot } from "valtio";
 import useKonumSorguService from "../../../../service/KonumSorguService";
 import KonumSorguTipi from "../../../../model/enum/KonumSorguTipi";
 import mockHedefListesiData from "../../../../service/rest/mocks/data/mockHedefListesiData.json";
 import DatePicker from "react-datepicker";
+import { canFreeQuery } from "../../../../model/enum/RoleTipi";
 import "../../../../components/HedefListesiTable.css";
 import "react-datepicker/dist/react-datepicker.css";
 
 const KonumSorguPanel = () => {
   const konumSorguService = useKonumSorguService();
+  const { role } = useSnapshot(authInfoStore);
 
   const [hedef, setHedef] = useState(null);
   const [hedefListesi, setHedefListesi] = useState(null);
@@ -142,32 +146,39 @@ const KonumSorguPanel = () => {
           </div>
         )}
 
-        <div
-          className="target-table"
-          style={{
-            display:
-              hedefListesi != null && hedefListesi.length > 0 ? "" : "none",
-          }}
-        >
-          <HedefListesiTable
-            data={hedefListesiMSISDN}
-            header="MSISDN"
-            setHedef={setHedef}
-            ref={refMSISDN}
-          />
-          <HedefListesiTable
-            data={hedefListesiIMEI}
-            header="IMEI"
-            setHedef={setHedef}
-            ref={refIMEI}
-          />
-          <HedefListesiTable
-            data={hedefListesiIMSI}
-            header="IMSI"
-            setHedef={setHedef}
-            ref={refIMSI}
-          />
-        </div>
+        {canFreeQuery(role) ? (
+          <div>
+            <h2>free query</h2>
+          </div>
+        ) : (
+          <div
+            className="target-table"
+            style={{
+              display:
+                hedefListesi != null && hedefListesi.length > 0 ? "" : "none",
+            }}
+          >
+            <HedefListesiTable
+              data={hedefListesiMSISDN}
+              header="MSISDN"
+              setHedef={setHedef}
+              ref={refMSISDN}
+            />
+            <HedefListesiTable
+              data={hedefListesiIMEI}
+              header="IMEI"
+              setHedef={setHedef}
+              ref={refIMEI}
+            />
+            <HedefListesiTable
+              data={hedefListesiIMSI}
+              header="IMSI"
+              setHedef={setHedef}
+              ref={refIMSI}
+            />
+          </div>
+        )}
+
         <button
           className="sorgu-button"
           disabled={!hedef}

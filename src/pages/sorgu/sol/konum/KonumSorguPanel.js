@@ -5,8 +5,10 @@ import { authInfoStore } from "../../../../util/CoreStore";
 import { useSnapshot } from "valtio";
 import useKonumSorguService from "../../../../service/KonumSorguService";
 import KonumSorguTipi from "../../../../model/enum/KonumSorguTipi";
+import TargetType from "../../../../model/enum/TargetType";
 import mockHedefListesiData from "../../../../service/rest/mocks/data/mockHedefListesiData.json";
 import DatePicker from "react-datepicker";
+import Box from "@mui/material/Box";
 import { canFreeQuery } from "../../../../model/enum/RoleTipi";
 import "../../../../components/HedefListesiTable.css";
 import "react-datepicker/dist/react-datepicker.css";
@@ -21,6 +23,9 @@ const KonumSorguPanel = () => {
   const [hedefListesiIMEI, setHedefListesiIMEI] = useState(null);
   const [hedefListesiIMSI, setHedefListesiIMSI] = useState(null);
 
+  const [hedefTipi, setHedefTipi] = useState("");
+  const [hedefDeger, setHedefDeger] = useState(null);
+
   const [active, setActive] = useState(KonumSorguTipi[0].id);
   const [sonKacGun, setSonKacGun] = useState(1);
   const [dateRange, setDateRange] = useState([new Date(), new Date()]);
@@ -30,8 +35,22 @@ const KonumSorguPanel = () => {
   const refIMEI = useRef();
   const refIMSI = useRef();
 
+  const onHedefTipiChange = (event) => {
+    event.preventDefault();
+    setHedefTipi(event.target.value);
+  };
+
+  const onHedefDegerChange = (event) => {
+    event.target.value = event.target.value.replace(/[^0-9]/g, "");
+    setHedefDeger(event.target.value);
+    event.preventDefault();
+  };
+
   //============================  KONUM SORGULA  ============================
   const onSorgulaClick = () => {
+    console.log(hedefTipi);
+    console.log(hedefDeger);
+
     switch (active) {
       case KonumSorguTipi[0].id:
         return konumSorguService.sonKonumSorgula(hedef);
@@ -147,9 +166,71 @@ const KonumSorguPanel = () => {
         )}
 
         {canFreeQuery(role) ? (
-          <div>
-            <h2>free query</h2>
-          </div>
+          <Box component="fieldset" className="sorgu-fieldset">
+            <legend className="sorgu-fieldset-legend">Hedef</legend>
+
+            <form onSubmit={onSorgulaClick} style={{ lineHeight: "30px" }}>
+              <label
+                className="sorgu-label"
+                htmlFor="hedefTipiSelect"
+                style={{ width: "100px" }}
+              >
+                Hedef Tipi
+              </label>
+              <select
+                value={hedefTipi}
+                onChange={onHedefTipiChange}
+                style={{ width: "172px" }}
+                id="hedefTipiSelect"
+                required
+              >
+                <option
+                  disabled
+                  defaultValue
+                  style={{ display: hedefTipi != null ? "none" : "" }}
+                >
+                  {" "}
+                </option>
+
+                {TargetType.map((item) => {
+                  return (
+                    <option value={item} key={item}>
+                      {item}
+                    </option>
+                  );
+                })}
+              </select>
+              <br />
+
+              <label
+                className="sorgu-label"
+                htmlFor="hedefDegerId"
+                style={{ width: "100px" }}
+              >
+                Hedef
+              </label>
+              <input
+                className="reset"
+                style={{ width: "165px" }}
+                onChange={onHedefDegerChange}
+                id="hedefDegerId"
+                required
+              />
+              <br />
+
+              <input
+                type="submit"
+                value="Sorgula"
+                style={{
+                  float: "right",
+                  marginTop: "10px",
+                  marginBottom: "10px",
+                }}
+                className="sorgu-button"
+                id="submit"
+              />
+            </form>
+          </Box>
         ) : (
           <div
             className="target-table"
@@ -176,17 +257,17 @@ const KonumSorguPanel = () => {
               setHedef={setHedef}
               ref={refIMSI}
             />
+
+            <button
+              className="sorgu-button"
+              disabled={!hedef}
+              onClick={onSorgulaClick}
+              style={{ float: "right", marginRight: "10px", marginTop: "10px" }}
+            >
+              Sorgula
+            </button>
           </div>
         )}
-
-        <button
-          className="sorgu-button"
-          disabled={!hedef}
-          onClick={() => onSorgulaClick()}
-          style={{ float: "right", marginRight: "10px", marginTop: "10px" }}
-        >
-          Sorgula
-        </button>
       </div>
     </div>
   );

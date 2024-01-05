@@ -38,6 +38,7 @@ export default class KonumSorguRestService {
       var response = new TargetLastLocationResponse(mapFocus, data);
     } catch (error) {
       console.error("There was an error!", error);
+      var response = null;
     }
 
     return response;
@@ -81,6 +82,7 @@ export default class KonumSorguRestService {
       // var response = new TargetLastLocationHistoryResponse(mapFocus, mockTargetLastLocationHistoryResponse_1);
     } catch (error) {
       console.error("There was an error!", error);
+      var response = null;
     }
 
     return response;
@@ -113,6 +115,7 @@ export default class KonumSorguRestService {
       var response = new TargetLastBaseStationResponse(mapFocus, data);
     } catch (error) {
       console.error("There was an error!", error);
+      var response = null;
     }
 
     return response;
@@ -160,6 +163,7 @@ export default class KonumSorguRestService {
       );
     } catch (error) {
       console.error("There was an error!", error);
+      var response = null;
     }
 
     return response;

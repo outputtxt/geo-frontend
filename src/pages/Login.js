@@ -4,9 +4,11 @@ import { useForm } from "react-hook-form";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import AuthService from "../service/auth.service";
 
-
 const Login = () => {
-  const { register, formState: { errors } } = useForm({ mode: "onChange" });
+  const {
+    register,
+    formState: { errors },
+  } = useForm({ mode: "onChange" });
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -19,6 +21,12 @@ const Login = () => {
     setLoading(false);
   };
 
+  const handleEnterPress = (e) => {
+    if (e != null && e.key === "Enter") {
+      handleLogin();
+    }
+  };
+
   return (
     <div className="full-page page-centered">
       <div className="center-flex">
@@ -29,6 +37,7 @@ const Login = () => {
           <form
             // onSubmit={handleLogin}
             style={{ lineHeight: "30px" }}
+            onKeyUp={handleEnterPress}
           >
             <div>
               <label

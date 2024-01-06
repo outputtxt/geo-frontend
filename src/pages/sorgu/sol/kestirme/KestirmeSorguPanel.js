@@ -17,10 +17,14 @@ const KestirmeSorguPanel = () => {
     formState: { errors },
   } = useForm({ mode: "onChange" });
 
-  const [bazX, setBazX] = useState(39.943);
-  const [bazY, setBazY] = useState(32.783);
-  const [inRadius, setInRadius] = useState(500);
-  const [outRadius, setOutRadius] = useState(1000);
+  // const [bazX, setBazX] = useState(39.943);
+  // const [bazY, setBazY] = useState(32.783);
+  // const [inRadius, setInRadius] = useState(500);
+  // const [outRadius, setOutRadius] = useState(1000);
+  const [bazX, setBazX] = useState(null);
+  const [bazY, setBazY] = useState(null);
+  const [inRadius, setInRadius] = useState(null);
+  const [outRadius, setOutRadius] = useState(null);
   const [startAngle, setStartAngle] = useState(null);
   const [stopAngle, setStopAngle] = useState(null);
   const [sorguyuSilme, setSorguyuSilme] = useState(false);
@@ -79,7 +83,8 @@ const KestirmeSorguPanel = () => {
             className={
               errors.bazX ? "sorgu-form-data-error" : "sorgu-form-data-normal"
             }
-            value={bazX}
+            // value={bazX}
+            value={undefined}
             type="text"
             id="bazX"
             {...register("bazX", {
@@ -98,7 +103,8 @@ const KestirmeSorguPanel = () => {
             className={
               errors.bazY ? "sorgu-form-data-error" : "sorgu-form-data-normal"
             }
-            value={bazY}
+            // value={bazY}
+            value={undefined}
             type="text"
             id="bazY"
             {...register("bazY", {
@@ -120,7 +126,8 @@ const KestirmeSorguPanel = () => {
                 ? "sorgu-form-data-error"
                 : "sorgu-form-data-normal"
             }
-            value={inRadius}
+            // value={inRadius}
+            value={undefined}
             type="text"
             id="inRadius"
             {...register("inRadius", {
@@ -138,7 +145,8 @@ const KestirmeSorguPanel = () => {
                 ? "sorgu-form-data-error"
                 : "sorgu-form-data-normal"
             }
-            value={outRadius}
+            // value={outRadius}
+            value={undefined}
             type="text"
             id="outRadius"
             {...register("outRadius", {
@@ -204,7 +212,7 @@ const KestirmeSorguPanel = () => {
             title="Haritadan Eski Çizimleri Temizle"
             className="sorgu-button"
             style={{ marginLeft: "auto", marginTop: "15px" }}
-            id="clear"
+            id="haritaOldDrawingsClear"
           />
 
           <input
@@ -213,7 +221,7 @@ const KestirmeSorguPanel = () => {
             value="Form Sil"
             className="sorgu-button"
             style={{ marginLeft: "10px" }}
-            id="clear"
+            id="kestirmeFormClear"
           />
 
           <input

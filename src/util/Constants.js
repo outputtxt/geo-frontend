@@ -9,6 +9,8 @@ export default class Constants {
 
   static BASE_URL = "http://localhost:8080";
 
+  static PASSWORD_LENGTH = 5;
+
   static LATITUDE_REGEX =
     /^(\+|-)?(?:90(?:(?:\.0{1,6})?)|(?:[0-9]|[1-8][0-9])(?:(?:\.[0-9]{1,6})?))$/;
   static LONGITUDE_REGEX =

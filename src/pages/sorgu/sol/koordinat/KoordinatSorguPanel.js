@@ -94,7 +94,7 @@ const KoordinatSorguPanel = () => {
           value="Temizle"
           className="sorgu-button"
           style={{ float: "right", marginTop: "10px" }}
-          id="clear"
+          id="koordinatSorguFormClear"
         />
       </form>
     </Box>

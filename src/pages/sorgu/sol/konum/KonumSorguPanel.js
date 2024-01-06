@@ -263,7 +263,7 @@ const KonumSorguPanel = () => {
                   marginBottom: "10px",
                 }}
                 className="sorgu-button"
-                id="submit"
+                id="serbestSorgula"
               />
 
               <input

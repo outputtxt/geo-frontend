@@ -8,7 +8,7 @@ import mockVodafoneBazListData from "../rest/mocks/data/mockVodafoneBazListData.
 import { v4 as uuidv4 } from "uuid";
 
 export default class BazSorguRestService {
-  static async cellSorgula(mapFocus, operator, cellId) {
+  static async cellSorgula(mapFocus, operator, cellId, token) {
     console.log(operator, cellId);
 
     try {
@@ -18,6 +18,7 @@ export default class BazSorguRestService {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
           },
           method: "POST",
           body: JSON.stringify({

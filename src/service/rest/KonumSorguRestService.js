@@ -12,8 +12,9 @@ import mockTargetLastLocationResponse_3 from "../../service/rest/mocks/data/back
 import { v4 as uuidv4 } from "uuid";
 
 export default class KonumSorguRestService {
+
   //==============================  SON KONUM SORGU  ==============================
-  static async sonKonumSorgula(target, mapFocus) {
+  static async sonKonumSorgula(target, mapFocus, token) {
     try {
       const fetchResponse = await fetch(
         Constants.BASE_URL + "/targetLocation/lastLocation",
@@ -21,6 +22,7 @@ export default class KonumSorguRestService {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
           },
           method: "POST",
           body: JSON.stringify({
@@ -53,7 +55,7 @@ export default class KonumSorguRestService {
   }
 
   //==============================  SON KONUM GECMIS SORGU  ==============================
-  static async sonKonumGecmisSorgula(target, dateRange, mapFocus) {
+  static async sonKonumGecmisSorgula(target, dateRange, mapFocus, token) {
     try {
       const fetchResponse = await fetch(
         Constants.BASE_URL + "/targetLocation/lastLocationHistory",
@@ -61,6 +63,7 @@ export default class KonumSorguRestService {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
           },
           method: "POST",
           body: JSON.stringify({
@@ -89,7 +92,7 @@ export default class KonumSorguRestService {
   }
 
   //==============================  SON BAZ SORGU  ==============================
-  static async sonBazSorgula(target, mapFocus) {
+  static async sonBazSorgula(target, mapFocus, token) {
     try {
       const fetchResponse = await fetch(
         Constants.BASE_URL + "/baseStation/lastBaseStationOfTarget",
@@ -97,6 +100,7 @@ export default class KonumSorguRestService {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
           },
           method: "POST",
           body: JSON.stringify({
@@ -132,7 +136,7 @@ export default class KonumSorguRestService {
   }
 
   //==============================  SON BAZ X GUN SORGU  ==============================
-  static async sonBazXGunSorgula(mapFocus, selectMarker, target, sonKacGun) {
+  static async sonBazXGunSorgula(mapFocus, selectMarker, target, sonKacGun, token) {
     try {
       const fetchResponse = await fetch(
         Constants.BASE_URL + "/baseStation/lastXDaysBaseStationsOfTarget",
@@ -140,6 +144,7 @@ export default class KonumSorguRestService {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
           },
           method: "POST",
           body: JSON.stringify({

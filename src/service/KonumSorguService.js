@@ -1,5 +1,7 @@
 import { useContext } from "react";
 import { MapContext, ContentContext } from "../util/Context";
+import { useSnapshot } from "valtio";
+import { authInfoStore } from "../util/CoreStore";
 import Constants from "../util/Constants";
 import { showError } from "../components/CustomDialog";
 import KonumSorguRestService from "./rest/KonumSorguRestService";
@@ -8,6 +10,7 @@ import GecmisKonumSorguResponse from "../model/response/konum/gecmis/GecmisKonum
 import * as L from "leaflet";
 
 export const useKonumSorguService = () => {
+  const { jwtToken } = useSnapshot(authInfoStore);
   const { map, layerSorgu } = useContext(MapContext);
   const { setContentHeader, setContentOpen, setContentData } =
     useContext(ContentContext);
@@ -62,6 +65,7 @@ export const useKonumSorguService = () => {
     const response = await KonumSorguRestService.sonKonumSorgula(
       target,
       mapFocus,
+      jwtToken
     );
 
     if (response == null || response instanceof Promise) {
@@ -147,6 +151,7 @@ export const useKonumSorguService = () => {
       target,
       dateRange,
       mapFocus,
+      jwtToken
     );
 
     if (response == null || response instanceof Promise) {
@@ -186,7 +191,7 @@ export const useKonumSorguService = () => {
 
   //======================  Son Baz Sorgu  ======================
   const sonBazSorgula = async (hedef) => {
-    const response = await KonumSorguRestService.sonBazSorgula(hedef, mapFocus);
+    const response = await KonumSorguRestService.sonBazSorgula(hedef, mapFocus, jwtToken);
 
     if (response == null || response instanceof Promise) {
       showError("Son Baz Sorgu Geçmişi uygulamaya bağlanamadı!");
@@ -260,6 +265,7 @@ export const useKonumSorguService = () => {
       selectMarker,
       hedef,
       sonKacGun,
+      jwtToken
     );
 
     if (response == null || response instanceof Promise) {

@@ -23,7 +23,7 @@ const SorguSolPanel = () => {
   }, [active]);
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", paddingLeft: "7px", paddingRight: "5px" }}>
+    <div style={{ display: "flex", flexDirection: "column", paddingLeft: "7px", paddingRight: "5px", marginTop: "2px" }}>
       <div className="sorgu-sol-tab-group">
         {SorguTipi.map((item) => (
           <button

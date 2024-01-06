@@ -12,6 +12,7 @@ import Box from "@mui/material/Box";
 import { canFreeQuery } from "../../../../model/enum/RoleTipi";
 import "../../../../components/HedefListesiTable.css";
 import "react-datepicker/dist/react-datepicker.css";
+import { showWarning } from "../../../../components/CustomDialog";
 
 const KonumSorguPanel = () => {
   const konumSorguService = useKonumSorguService();
@@ -24,7 +25,7 @@ const KonumSorguPanel = () => {
   const [hedefListesiIMSI, setHedefListesiIMSI] = useState(null);
 
   const [hedefTipi, setHedefTipi] = useState("");
-  const [hedefDeger, setHedefDeger] = useState(null);
+  const [hedefDeger, setHedefDeger] = useState("");
 
   const [active, setActive] = useState(KonumSorguTipi[0].id);
   const [sonKacGun, setSonKacGun] = useState(1);
@@ -62,6 +63,38 @@ const KonumSorguPanel = () => {
         return konumSorguService.sonBazXGunSorgula(hedef, sonKacGun);
     }
   };
+
+  const onSerbestSorgulaClick = () => {
+    if(hedefTipi == null || hedefTipi === "" ) {
+      showWarning("Lütfen Hedef Tipi Seçiniz.");
+      return;
+    }
+    if(hedefDeger == null || hedefDeger === "" ) {
+      showWarning("Lütfen Hedef Değeri Giriniz.");
+      return;
+    } 
+
+    const serbestHedef = {
+      "targetValue": hedefDeger,
+      "targetType": hedefTipi
+    };
+
+    switch (active) {
+      case KonumSorguTipi[0].id:
+        return konumSorguService.sonKonumSorgula(serbestHedef);
+      case KonumSorguTipi[1].id:
+        return konumSorguService.sonKonumGecmisSorgula(serbestHedef, dateRange);
+      case KonumSorguTipi[2].id:
+        return konumSorguService.sonBazSorgula(serbestHedef);
+      case KonumSorguTipi[3].id:
+        return konumSorguService.sonBazXGunSorgula(serbestHedef, sonKacGun);
+    }
+  }
+
+  const onTemizleClick = () => {
+    setHedefTipi("");
+    setHedefDeger("");
+  }
 
   //=======  clear previous selected hedef from different type lists  =======
   useEffect(() => {
@@ -165,11 +198,11 @@ const KonumSorguPanel = () => {
           </div>
         )}
 
-        {canFreeQuery(role) ? (
-          <Box component="fieldset" className="sorgu-fieldset">
-            <legend className="sorgu-fieldset-legend">Hedef</legend>
+        { canFreeQuery(role) ? (
+          <Box component="fieldset" className="sorgu-fieldset" 
+            style={{marginTop: "20px", paddingTop: "10px", paddingBottom: "10px"}}>
 
-            <form onSubmit={onSorgulaClick} style={{ lineHeight: "30px" }}>
+            <form style={{ lineHeight: "30px" }}>
               <label
                 className="sorgu-label"
                 htmlFor="hedefTipiSelect"
@@ -177,6 +210,7 @@ const KonumSorguPanel = () => {
               >
                 Hedef Tipi
               </label>
+
               <select
                 value={hedefTipi}
                 onChange={onHedefTipiChange}
@@ -210,6 +244,7 @@ const KonumSorguPanel = () => {
                 Hedef
               </label>
               <input
+                value={hedefDeger}
                 className="reset"
                 style={{ width: "165px" }}
                 onChange={onHedefDegerChange}
@@ -219,8 +254,9 @@ const KonumSorguPanel = () => {
               <br />
 
               <input
-                type="submit"
+                type="button"
                 value="Sorgula"
+                onClick={onSerbestSorgulaClick}
                 style={{
                   float: "right",
                   marginTop: "10px",
@@ -229,9 +265,24 @@ const KonumSorguPanel = () => {
                 className="sorgu-button"
                 id="submit"
               />
+
+              <input
+                type="button"
+                value="Temizle"
+                onClick={onTemizleClick}
+                style={{
+                  float: "right",
+                  marginTop: "10px",
+                  marginBottom: "10px",
+                  marginRight: "10px",
+                }}
+                className="sorgu-button"
+                id="temizle"
+              />
             </form>
           </Box>
         ) : (
+          <>
           <div
             className="target-table"
             style={{
@@ -257,8 +308,8 @@ const KonumSorguPanel = () => {
               setHedef={setHedef}
               ref={refIMSI}
             />
-
-            <button
+          </div>
+          <button
               className="sorgu-button"
               disabled={!hedef}
               onClick={onSorgulaClick}
@@ -266,7 +317,7 @@ const KonumSorguPanel = () => {
             >
               Sorgula
             </button>
-          </div>
+          </>
         )}
       </div>
     </div>

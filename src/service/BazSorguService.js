@@ -1,5 +1,7 @@
 import { useContext } from "react";
 import { MapContext, ContentContext } from "../util/Context";
+import { useSnapshot } from "valtio";
+import { authInfoStore } from "../util/CoreStore";
 import Constants from "../util/Constants";
 import { showError } from "../components/CustomDialog";
 import BazSorguRestService from "./rest/BazSorguRestService";
@@ -10,6 +12,7 @@ import "leaflet.sector"; // one time import is enough for all L usages
 import "../util/l.ellipse"; // one time import is enough for all L usages
 
 export const useBazSorguService = () => {
+  const { jwtToken } = useSnapshot(authInfoStore);
   const mapContext = useContext(MapContext);
   const { setContentHeader, setContentOpen, setContentData } =
     useContext(ContentContext);
@@ -30,6 +33,7 @@ export const useBazSorguService = () => {
       mapFocus,
       operator,
       cellId,
+      jwtToken,
     );
     console.log(response);
 

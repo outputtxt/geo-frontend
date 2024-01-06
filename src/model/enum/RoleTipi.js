@@ -27,7 +27,8 @@ export const canQuery = (role) => {
 };
 
 export const canFreeQuery = (role) => {
-  return FREE_QUERY_GRUP.includes(role);
+  return true;
+  //return FREE_QUERY_GRUP.includes(role);
 };
 
 export default RoleTipi;

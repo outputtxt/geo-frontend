@@ -6,59 +6,59 @@ import Constants from "../util/Constants";
 
 const login = (username, password) => {
   //*********************  TEST  **********************/
-  const user = new User({
-    username: "myuser",
-    active: true,
-    role: "ROLE_" + username.toUpperCase(),
-    accessToken: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3M",
-  });
-  setCurrentUser(user);
-  SecureSessionStorage.setItem("user", user);
+  // const user = new User({
+  //   username: "myuser",
+  //   active: true,
+  //   role: "ROLE_" + username.toUpperCase(),
+  //   accessToken: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3M",
+  // });
+  // setCurrentUser(user);
+  // SecureSessionStorage.setItem("user", user);
 
   //*********************  PROD  **********************/
-  // try {
-  //   fetch(Constants.BASE_URL + "/auth/login", {
-  //     headers: {
-  //       'Accept': 'application/json',
-  //       'Content-Type': 'application/json'
-  //     },
-  //     method: "POST",
-  //     body: JSON.stringify({
-  //       "username": username,
-  //       "password": password
-  //     })
-  //   }).then((response) => {
-  //     if (response.ok) {
-  //       return response.json();
-  //     } else if (response.status === HttpStatus.UNAUTHORIZED) {
-  //       window.alert("Hatalı kullanıcı adı veya şifre !");
-  //     }
-  //     return null;
-  //   })
-  //   .then((data) => {
-  //     if(data == null) {
-  //       return;
-  //     }
+  try {
+    fetch(Constants.BASE_URL + "/auth/login", {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: "POST",
+      body: JSON.stringify({
+        "username": username,
+        "password": password
+      })
+    }).then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else if (response.status === HttpStatus.UNAUTHORIZED) {
+        window.alert("Hatalı kullanıcı adı veya şifre !");
+      }
+      return null;
+    })
+    .then((data) => {
+      if(data == null) {
+        return;
+      }
 
-  // const user = new User({
-  //   "username": data.result.userName,
-  //   "active": data.result.active,
-  //   "role": data.result.roles[0],
-  //   "accessToken": data.result.jwtResponse.accessToken
-  // });
+  const user = new User({
+    "username": data.result.userName,
+    "active": data.result.active,
+    "role": data.result.roles[0],
+    "accessToken": data.result.jwtResponse.accessToken
+  });
 
-  //     setCurrentUser(user);
-  //     SecureSessionStorage.setItem("user", user);
-  //   })
-  //   .catch((error) => {
-  //     console.log(error);
-  //     window.alert("Uygulamaya bağlanılamadı, lütfen teknik ekiple iletişime geçiniz.");
-  //   });
+      setCurrentUser(user);
+      SecureSessionStorage.setItem("user", user);
+    })
+    .catch((error) => {
+      console.log(error);
+      window.alert("Uygulamaya bağlanılamadı, lütfen teknik ekiple iletişime geçiniz.");
+    });
 
-  // } catch (error) {
-  //   console.error("There was an error!", error);
-  //   window.alert("Uygulamaya bağlanılamadı, lütfen teknik ekiple iletişime geçiniz.");
-  // }
+  } catch (error) {
+    console.error("There was an error!", error);
+    window.alert("Uygulamaya bağlanılamadı, lütfen teknik ekiple iletişime geçiniz.");
+  }
 };
 
 const logout = () => {

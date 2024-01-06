@@ -26,6 +26,6 @@ export const sidebarData = [
     id: 3,
     icon: <HomeIcon />,
     text: "Home",
-    link: "/",
+    link: "/home",
   },
 ];

@@ -11,6 +11,7 @@ import { VisibilityContext } from "../util/Context.js";
 
 const MainPanel = () => {
   const { sideBarVisible } = useContext(VisibilityContext);
+  const sorguPanel = <SorguPanel /> ;
 
   return (
     <div className="App">
@@ -18,10 +19,11 @@ const MainPanel = () => {
 
       <div className="full-page">
         <Routes>
-            <Route path="/" element={<Home />}/>
+            <Route path="/" element={sorguPanel}/>
+            <Route path="/sorgu" element={sorguPanel}/>
+            <Route path="/home" element={<Home />}/>
             <Route path="/admin" element={<AdminPanel /> }/>
             <Route path="/profile" element={<Profile /> }/>
-            <Route path="/Sorgu" element={<SorguPanel /> }/>
             <Route path="/login" element={<Login />} />
         </Routes>
       </div>

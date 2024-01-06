@@ -54,12 +54,12 @@ const login = (username, password) => {
     })
     .catch((error) => {
       console.log(error);
-      window.alert("Uygulamaya bağlanılamadı, lütfen teknik ekiple iletişime geçiniz.");
+      showError("Uygulamaya bağlanılamadı, lütfen teknik ekiple iletişime geçiniz.");
     });
 
   } catch (error) {
     console.error("There was an error!", error);
-    window.alert("Uygulamaya bağlanılamadı, lütfen teknik ekiple iletişime geçiniz.");
+    showError("Uygulamaya bağlanılamadı, lütfen teknik ekiple iletişime geçiniz.");
   }
 };
 
@@ -120,13 +120,13 @@ const changePassword = (username, password, token, setOpenDialog) => {
     })
     .catch((error) => {
       console.log(error);
-      window.alert("Uygulamaya bağlanılamadı, lütfen teknik ekiple iletişime geçiniz.");
+      showError("Uygulamaya bağlanılamadı, lütfen teknik ekiple iletişime geçiniz.");
       return false;
     });
 
   } catch (error) {
     console.error("There was an error!", error);
-    window.alert("Uygulamaya bağlanılamadı, lütfen teknik ekiple iletişime geçiniz.");
+    showError("Uygulamaya bağlanılamadı, lütfen teknik ekiple iletişime geçiniz.");
     return false;
   }
 };

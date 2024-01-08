@@ -1,23 +1,37 @@
-import React from "react";
-import { authInfoStore } from "../util/CoreStore";
+import { authInfoStore, visibilityStore } from "../util/CoreStore";
 import { useSnapshot } from "valtio";
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 
 const Profile = () => {
-  const authInfo = useSnapshot(authInfoStore);
+  const { username, role } = useSnapshot(authInfoStore);
+
+  const changePassword = () => {
+    visibilityStore.openChangePasswordDialog = true;
+  };
 
   return (
     <div className="container">
-      <header className="jumbotron">
-        <h3>
-          <strong>{authInfo.username}</strong> Profile
-        </h3>
+      <header className="jumbotron" style={{ marginTop: "100px" }}>
+        <h1>
+          <strong>{username}</strong>
+        </h1>
+        <h6>{role}</h6>
       </header>
       <p>
-        <strong>Token:</strong> {authInfo.jwtToken.substring(0, 20)} ...{" "}
-        {authInfo.jwtToken.substr(authInfo.jwtToken.length - 20)}
+        <button
+          className="logoutBtn"
+          onClick={changePassword}
+          title="Şifre Değiştir"
+          style={{
+            background: "transparent",
+            border: "none",
+            color: "white",
+            fontSize: "100px",
+          }}
+        >
+          <ManageAccountsIcon fontSize="inherit" />
+        </button>
       </p>
-      <strong>Authorities:</strong>
-      <ul>{authInfo.role && <li key={authInfo.role}>{authInfo.role}</li>}</ul>
     </div>
   );
 };

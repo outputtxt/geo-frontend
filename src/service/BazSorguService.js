@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import { MapContext, ContentContext } from "../util/Context";
+import { MapContext } from "../util/Context";
 import { useSnapshot } from "valtio";
-import { authInfoStore } from "../util/CoreStore";
+import { authInfoStore, contentStore } from "../util/CoreStore";
 import Constants from "../util/Constants";
 import { showError } from "../components/CustomDialog";
 import BazSorguRestService from "./rest/BazSorguRestService";
@@ -14,8 +14,6 @@ import "../util/l.ellipse"; // one time import is enough for all L usages
 export const useBazSorguService = () => {
   const { jwtToken } = useSnapshot(authInfoStore);
   const mapContext = useContext(MapContext);
-  const { setContentHeader, setContentOpen, setContentData } =
-    useContext(ContentContext);
 
   const mapFocus = (X, Y) => {
     try {
@@ -93,9 +91,9 @@ export const useBazSorguService = () => {
     }
 
     // SET CONTENT TABLE
-    setContentHeader("Baz İstasyonu Bilgileri");
-    setContentData(response.getTable());
-    setContentOpen(true);
+    contentStore.contentHeader = "Baz İstasyonu Bilgileri";
+    contentStore.contentData = response.getTable();
+    contentStore.contentOpen = true;
   };
 
   //=========================  BAZ SORGU  =========================

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSnapshot } from "valtio";
-import { authInfoStore } from "../../util/CoreStore";
+import { authInfoStore, visibilityStore } from "../../util/CoreStore";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -12,35 +12,35 @@ import { StyledEngineProvider } from "@mui/material/styles";
 import { showError } from "../../components/CustomDialog";
 import AuthService from "../../service/auth.service";
 
-const UserChangePasswordDialog = ({ openDialog, setOpenDialog }) => {
+const UserChangePasswordDialog = () => {
+  const { openChangePasswordDialog } = useSnapshot(visibilityStore);
   const { username, jwtToken } = useSnapshot(authInfoStore);
   const [newPassword, setNewPassword] = useState(null);
   const [newPassword2, setNewPassword2] = useState(null);
 
   const handleClose = () => {
-    setOpenDialog(false);
+    visibilityStore.openChangePasswordDialog = false;
   };
 
   const handleChangePasswordClick = () => {
-    console.log(
-      "username: %s, password: %s, password2: %s",
-      username,
-      newPassword,
-      newPassword2,
-    );
-
-    if(newPassword == null || newPassword.length < Constants.PASSWORD_LENGTH) {
-        showError("Şifre " + Constants.PASSWORD_LENGTH + " karakterden küçük olamaz!");
+    if (newPassword == null || newPassword.length < Constants.PASSWORD_LENGTH) {
+      showError(
+        "Şifre " + Constants.PASSWORD_LENGTH + " karakterden küçük olamaz!",
+      );
     } else if (newPassword !== newPassword2) {
-        showError("Şifre tekrar girişi hatalı!");
+      showError("Şifre tekrar girişi hatalı!");
     } else {
-      AuthService.changePassword(username, newPassword, jwtToken, setOpenDialog);
+      AuthService.changePassword(
+        username,
+        newPassword,
+        jwtToken,
+        setOpenDialog,
+      );
     }
-       
   };
 
   return (
-    <Dialog open={openDialog} onClose={handleClose}>
+    <Dialog open={openChangePasswordDialog} onClose={handleClose}>
       <DialogTitle align="center">Şifre Güncelle</DialogTitle>
       <DialogContent>
         <TextField

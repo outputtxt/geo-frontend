@@ -1,19 +1,19 @@
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { sidebarData } from "./sidebarData";
-import { VisibilityContext } from "../../util/Context.js";
 import AuthService from "../../service/auth.service";
 import { showConfirm } from "../../components/CustomDialog";
+import { useSnapshot } from "valtio";
+import { visibilityStore } from "../../util/CoreStore";
 import styles from "./sidebar.module.css";
 
 const Sidebar = () => {
-  const { sideBarOpen, setSideBarOpen } = useContext(VisibilityContext);
+  const { sideBarOpen } = useSnapshot(visibilityStore);
 
   const toggleOpen = () => {
-    setSideBarOpen(!sideBarOpen);
+    visibilityStore.sideBarOpen = !visibilityStore.sideBarOpen;
   };
 
   const logout = () => {

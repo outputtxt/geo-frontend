@@ -1,4 +1,10 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
+import { useSnapshot } from "valtio";
+import {
+  authInfoStore,
+  visibilityStore,
+  contentStore,
+} from "../../../util/CoreStore";
 import KeyboardDoubleArrowUpIcon from "@mui/icons-material/KeyboardDoubleArrowUp";
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -13,19 +19,15 @@ import AuthService from "../../../service/auth.service";
 import Leaflet from "./leaflet/Leaflet";
 import ReactResizeDetector from "react-resize-detector";
 import { formatLatitude, formatLongitude } from "../../../util/Helper";
-import { ContentContext } from "../../../util/Context";
 import { showConfirm } from "../../../components/CustomDialog";
 import "./SorguSagPanel.css";
 import html2canvas from "html2canvas";
-import UserChangePasswordDialog from "../../user/UserChangePasswordDialog";
+import { canChangeOwnPassword } from "../../../model/enum/RoleTipi";
 
 const SorguSagPanel = ({ sorguMenuOpen, setSorguMenuOpen }) => {
   const mapToolbarService = useMapToolbarService();
-
-  const { contentHeader, contentOpen, contentData } =
-    useContext(ContentContext);
-
-  const [openChangePasswordDialog, setOpenChangePasswordDialog] = useState(false);
+  const { role } = useSnapshot(authInfoStore);
+  const { contentHeader, contentOpen } = useSnapshot(contentStore);
 
   const [open, setOpen] = useState(true);
   const [draggable, setDraggable] = useState(true);
@@ -116,7 +118,7 @@ const SorguSagPanel = ({ sorguMenuOpen, setSorguMenuOpen }) => {
   };
 
   const changePassword = () => {
-    setOpenChangePasswordDialog(true);
+    visibilityStore.openChangePasswordDialog = true;
   };
 
   return (
@@ -124,7 +126,7 @@ const SorguSagPanel = ({ sorguMenuOpen, setSorguMenuOpen }) => {
       <div className="sorgu-sag-header">
         <button
           className="toolbar-button"
-          // style={{ marginLeft: "1px" }}
+          style={{ marginLeft: "-10px" }}
           onClick={toggleSorguMenuOpen}
           title={"Sorgu Menü " + (sorguMenuOpen ? "Gizle" : "Göster")}
         >
@@ -160,28 +162,30 @@ const SorguSagPanel = ({ sorguMenuOpen, setSorguMenuOpen }) => {
           <PictureAsPdfIcon style={{ color: "red" }} />
         </button> */}
 
-        <label style={{ marginLeft: "auto" }}> {formattedCoordinates} </label>
+        <label style={{ marginLeft: "auto", marginRight: "15px" }}>
+          {formattedCoordinates}
+        </label>
 
-        <button
-          className="logoutBtn"
-          onClick={changePassword}
-          title="Şifre Değiştir"
-          style={{
-            marginLeft: "20px",
-            background: "transparent",
-            border: "none",
-            color: "white",
-          }}
-        >
-          <ManageAccountsIcon />
-        </button>
+        {canChangeOwnPassword(role) && (
+          <button
+            className="logoutBtn"
+            onClick={changePassword}
+            title="Şifre Değiştir"
+            style={{
+              background: "transparent",
+              border: "none",
+              color: "white",
+            }}
+          >
+            <ManageAccountsIcon />
+          </button>
+        )}
 
         <button
           className="logoutBtn"
           onClick={logout}
           title="Çıkış"
           style={{
-            // marginLeft: "5px",
             background: "transparent",
             border: "none",
             color: "white",
@@ -221,17 +225,9 @@ const SorguSagPanel = ({ sorguMenuOpen, setSorguMenuOpen }) => {
             overflow: "auto",
           }}
         >
-          {contentData}
+          {contentStore.contentData}
         </div>
       </div>
-
-      {openChangePasswordDialog && (
-        <UserChangePasswordDialog
-          openDialog={openChangePasswordDialog}
-          setOpenDialog={setOpenChangePasswordDialog}
-        />
-      )}
-
     </div>
   );
 };

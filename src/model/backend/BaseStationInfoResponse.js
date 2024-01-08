@@ -1,13 +1,10 @@
-
 import BaseStationInfo from "./BaseStationInfo";
 import "../table.css";
 
-
 export default class BaseStationInfoResponse {
-  
   constructor(mapFocus, data) {
     this.mapFocus = mapFocus;
-    
+
     this.requestId = data.requestId;
     this.responseCode = data.responseCode;
     this.responseMessage = data.responseMessage;
@@ -29,10 +26,14 @@ export default class BaseStationInfoResponse {
           </tr>
         </thead>
         <tbody>
-          <tr onDoubleClick={() =>
-            this.mapFocus(this.baseStationDetail.location.latitude,
-              this.baseStationDetail.location.longitude)
-          }>
+          <tr
+            onDoubleClick={() =>
+              this.mapFocus(
+                this.baseStationDetail.location.latitude,
+                this.baseStationDetail.location.longitude,
+              )
+            }
+          >
             <td>{this.baseStationDetail.cellId}</td>
             <td>{this.baseStationDetail.location.latitude}</td>
             <td>{this.baseStationDetail.location.longitude}</td>

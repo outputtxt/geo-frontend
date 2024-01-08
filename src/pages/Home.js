@@ -1,16 +1,12 @@
-import { useContext } from "react";
-import { VisibilityContext } from "../util/Context.js";
 import {
   showConfirm,
   showInfo,
   showWarning,
   showError,
 } from "../components/CustomDialog.js";
+import { visibilityStore } from "../util/CoreStore.js";
 
 const Home = () => {
-  const { sideBarVisible, setSideBarVisible, sideBarOpen } =
-    useContext(VisibilityContext);
-
   function HandleClick() {
     showError("bilgi mesajı yayınlama");
     // showConfirm("Test", "red pill or blue pill ?")
@@ -20,7 +16,7 @@ const Home = () => {
     //   .catch(() => {
     //     console.log("rejected");
     //   });
-    setSideBarVisible(!sideBarVisible);
+    visibilityStore.sideBarVisible = !visibilityStore.sideBarVisible;
   }
 
   function ToggleSideBar() {

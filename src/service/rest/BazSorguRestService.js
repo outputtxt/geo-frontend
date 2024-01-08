@@ -11,42 +11,54 @@ export default class BazSorguRestService {
   static async cellSorgula(mapFocus, operator, cellId, token) {
     console.log(operator, cellId);
 
-    try {
-      const fetchResponse = await fetch(
-        Constants.BASE_URL + "/baseStation/baseStationInfo",
-        {
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + token,
-          },
-          method: "POST",
-          body: JSON.stringify({
-            id: uuidv4(),
-            operator: operator.toUpperCase(),
-            cellId: cellId,
-          }),
+    //===============================  PROD  ===============================
+    // try {
+    //   const fetchResponse = await fetch(
+    //     Constants.BASE_URL + "/baseStation/baseStationInfo",
+    //     {
+    //       headers: {
+    //         Accept: "application/json",
+    //         "Content-Type": "application/json",
+    //         Authorization: "Bearer " + token,
+    //       },
+    //       method: "POST",
+    //       body: JSON.stringify({
+    //         id: uuidv4(),
+    //         operator: operator.toUpperCase(),
+    //         cellId: cellId,
+    //       }),
+    //     },
+    //   );
+
+    //   const data = await fetchResponse.json();
+    //   console.log(data);
+
+    //   var response = new BaseStationInfoResponse(mapFocus, data);
+    // } catch (error) {
+    //   console.error("There was an error!", error);
+    //   return null;
+    // }
+
+    // return response;
+
+    //===============================  TEST  ===============================
+    var data = {
+      requestId: "6926213c-e11f-417e-bd7b-16ee57395fd8",
+      responseCode: "SUCCESS",
+      responseMessage: "SUCCESS",
+      baseStationDetail: {
+        cellId: cellId,
+        dateTime: Date.now(),
+        location: {
+          latitude: 39.90845,
+          longitude: 32.75165,
+          angle: cellId % 2 == 0 ? 340 : 0,
         },
-      );
+        address: "Gazi Istanbul Yolu",
+      },
+    };
 
-      const data = await fetchResponse.json();
-      console.log(data);
-
-      var response = new BaseStationInfoResponse(mapFocus, data);
-    } catch (error) {
-      console.error("There was an error!", error);
-      return null;
-    }
-
-    return response;
-
-    // return new CellSorguResponse(
-    //   2120514563,
-    //   39.90845,
-    //   32.75165,
-    //   (cellId % 2 == 0 ? 340 : 0),
-    //   "GAZI Istanbul Yolu",
-    // );
+    return new BaseStationInfoResponse(mapFocus, data);
   }
 
   static bazListeSorgula(operator) {

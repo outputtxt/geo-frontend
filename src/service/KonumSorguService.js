@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import { MapContext, ContentContext } from "../util/Context";
+import { MapContext } from "../util/Context";
 import { useSnapshot } from "valtio";
-import { authInfoStore } from "../util/CoreStore";
+import { authInfoStore, contentStore } from "../util/CoreStore";
 import Constants from "../util/Constants";
 import { showError } from "../components/CustomDialog";
 import KonumSorguRestService from "./rest/KonumSorguRestService";
@@ -12,8 +12,6 @@ import * as L from "leaflet";
 export const useKonumSorguService = () => {
   const { jwtToken } = useSnapshot(authInfoStore);
   const { map, layerSorgu } = useContext(MapContext);
-  const { setContentHeader, setContentOpen, setContentData } =
-    useContext(ContentContext);
   var gecmisSorguMarkersMap = new Map();
   var selectedCellId = null;
 
@@ -57,7 +55,7 @@ export const useKonumSorguService = () => {
     if (layerSorgu != null) {
       layerSorgu.clearLayers();
     }
-    setContentOpen(false);
+    contentStore.contentOpen = false;
   };
 
   //======================  Son Konum Sorgu  ======================
@@ -65,7 +63,7 @@ export const useKonumSorguService = () => {
     const response = await KonumSorguRestService.sonKonumSorgula(
       target,
       mapFocus,
-      jwtToken
+      jwtToken,
     );
 
     if (response == null || response instanceof Promise) {
@@ -134,15 +132,16 @@ export const useKonumSorguService = () => {
     }
 
     // SET CONTENT TABLE
-    setContentHeader(
+    var header =
       "Son Konum (" +
-        target.targetValue +
-        ") [Veriler " +
-        response.operator +
-        " tarafından üretilen yaklaşık değerlerdir]",
-    );
-    setContentData(response.getTable());
-    setContentOpen(true);
+      target.targetValue +
+      ") [Veriler " +
+      response.operator +
+      " tarafından üretilen yaklaşık değerlerdir]";
+
+    contentStore.contentHeader = header;
+    contentStore.contentData = response.getTable();
+    contentStore.contentOpen = true;
   };
 
   //======================  Son Konum Gecmis Sorgu  ======================
@@ -151,7 +150,7 @@ export const useKonumSorguService = () => {
       target,
       dateRange,
       mapFocus,
-      jwtToken
+      jwtToken,
     );
 
     if (response == null || response instanceof Promise) {
@@ -184,14 +183,19 @@ export const useKonumSorguService = () => {
     }
 
     // SET CONTENT TABLE
-    setContentHeader("Son Konum Sorgu Geçmişi (" + target.targetValue + ")");
-    setContentData(response.getTable());
-    setContentOpen(true);
+    contentStore.contentHeader =
+      "Son Konum Sorgu Geçmişi (" + target.targetValue + ")";
+    contentStore.contentData = response.getTable();
+    contentStore.contentOpen = true;
   };
 
   //======================  Son Baz Sorgu  ======================
   const sonBazSorgula = async (hedef) => {
-    const response = await KonumSorguRestService.sonBazSorgula(hedef, mapFocus, jwtToken);
+    const response = await KonumSorguRestService.sonBazSorgula(
+      hedef,
+      mapFocus,
+      jwtToken,
+    );
 
     if (response == null || response instanceof Promise) {
       showError("Son Baz Sorgu Geçmişi uygulamaya bağlanamadı!");
@@ -251,11 +255,10 @@ export const useKonumSorguService = () => {
     }
 
     // SET CONTENT TABLE
-    setContentHeader(
-      "En Son Sinyal Alınan Baz İstasyonu (" + hedef.targetValue + ")",
-    );
-    setContentData(response.getTable());
-    setContentOpen(true);
+    contentStore.contentHeader =
+      "En Son Sinyal Alınan Baz İstasyonu (" + hedef.targetValue + ")";
+    contentStore.contentData = response.getTable();
+    contentStore.contentOpen = true;
   };
 
   //======================  Son Baz Gecmis Gun Sorgu  ======================
@@ -265,7 +268,7 @@ export const useKonumSorguService = () => {
       selectMarker,
       hedef,
       sonKacGun,
-      jwtToken
+      jwtToken,
     );
 
     if (response == null || response instanceof Promise) {
@@ -296,15 +299,14 @@ export const useKonumSorguService = () => {
     }
 
     // SET CONTENT TABLE
-    setContentHeader(
+    contentStore.contentHeader =
       "Son " +
-        sonKacGun +
-        " Günde Görüşme Yapılan Baz İstasyonları (" +
-        hedef.targetValue +
-        ")",
-    );
-    setContentData(response.getTable());
-    setContentOpen(true);
+      sonKacGun +
+      " Günde Görüşme Yapılan Baz İstasyonları (" +
+      hedef.targetValue +
+      ")";
+    contentStore.contentData = response.getTable();
+    contentStore.contentOpen = true;
   };
 
   // //======================  Gecmis Sorgu  ======================
@@ -339,15 +341,14 @@ export const useKonumSorguService = () => {
   //     console.log(err.message);
   //   }
 
-  //   setContentHeader(
+  //   contentStore.contentHeader =
   //     "Geçmiş Kayıtlar [" +
   //       format(new Date(dateRange[1]), "yyyy/MM/dd") +
   //       "- " +
   //       format(new Date(dateRange[0]), "yyyy/MM/dd") +
-  //       "] Hedef [" + hedef.targetValue + "]",
-  //   );
-  //   setContentData(response.getTable());
-  //   setContentOpen(true);
+  //       "] Hedef [" + hedef.targetValue + "]";
+  //   contentStore.contentData = response.getTable();
+  //   contentStore.contentOpen = true;
   // };
 
   // //======================  Son Gun Sorgu  ======================
